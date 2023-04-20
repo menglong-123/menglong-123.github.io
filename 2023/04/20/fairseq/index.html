@@ -1,0 +1,885 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
+  <link rel="icon" href="/img/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Menglong">
+  <meta name="keywords" content="随笔">
+  
+    <meta name="description" content="文件预处理1234fairseq-preprocess --source-lang de --target-lang en \    --trainpref iwslt14.tokenized.de-en&#x2F;train \    --validpref iwslt14.tokenized.de-en&#x2F;valid \    --testpref iwslt14.tokenized.de-en&#x2F;test">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fairseq">
+<meta property="og:url" content="http://example.com/2023/04/20/fairseq/index.html">
+<meta property="og:site_name" content="追梦少年的博客">
+<meta property="og:description" content="文件预处理1234fairseq-preprocess --source-lang de --target-lang en \    --trainpref iwslt14.tokenized.de-en&#x2F;train \    --validpref iwslt14.tokenized.de-en&#x2F;valid \    --testpref iwslt14.tokenized.de-en&#x2F;test">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-04-20T11:36:58.000Z">
+<meta property="article:modified_time" content="2023-04-20T11:38:03.770Z">
+<meta property="article:author" content="Menglong">
+<meta property="article:tag" content="pytorch">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>fairseq - 追梦少年的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>追梦少年的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="fairseq"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-04-20 19:36" pubdate>
+          2023年4月20日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          10k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          88 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">fairseq</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="文件预处理"><a href="#文件预处理" class="headerlink" title="文件预处理"></a>文件预处理</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">fairseq-preprocess --source-lang de --target-lang en \<br>    --trainpref iwslt14.tokenized.de-en/train \<br>    --validpref iwslt14.tokenized.de-en/valid \<br>    --testpref iwslt14.tokenized.de-en/test<br></code></pre></td></tr></table></figure>
+
+<p>–source-lang  表示源语言的文件后缀</p>
+<p>–target-lang 表示目标语言的文件后缀</p>
+<p>–trainpref 表示训练集文件的路径，及文件前缀</p>
+<p>–validpref  表示验证集文件的路径，及文件前缀</p>
+<p>–testpref   表示测试集文件的路径，及文件前缀</p>
+<p>预处理命令首先从训练文本中构建词表</p>
+<p>–thresholdsrc&#x2F;–thresholdtgt   表示源端&#x2F;目标端最低词频，低于此值的单词表示为unknow</p>
+<p>–srcdict&#x2F;–tgtdict  表示使用已有的词表</p>
+<p>–nwordssrc&#x2F;–nwordstgt，源端和目标端词表的大小，在对单词根据词频排序后，取前n个词来构建词表，剩余的单词使用一个统一的unknown标签代替。</p>
+<p>–joined-dictionary，源端和目标端使用同一个词表，对于相似语言（如英语和西班牙语）来说，有很多的单词是相同的，使用同一个词表可以降低词表和参数的总规模。</p>
+<p>预处理命令在构建词表之后，会将文本数据转换为数值形式</p>
+<p>数值化的文本数据会被进一步编码，默认情况下使用Memory-Mapped IndexedDataset，这种数据编码方式不仅可以压缩文件大小，还可以根据索引进行随机读取，因此在训练的时候不需要加载全部数据，从而节约内存使用。</p>
+<p>二进制化的数据文件会默认保存在data-bin目录下，包括生成的词表、训练数据、验证数据和测试数据。也可以通过–destdir参数，将生成的数据保存在其他目录。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">fairseq-preprocess --source-lang en --target-lang de \<br>    --trainpref wmt17_en_de/train \<br>    --validpref wmt17_en_de/valid \<br>    --testpref wmt17_en_de/test \<br>    --destdir data-bin/iwslt14.tokenized.en-de \<br>    --workers 20  --joined-dictionary<br></code></pre></td></tr></table></figure>
+
+<p>模型预处理的所有命令行参数</p>
+<table>
+<thead>
+<tr>
+<th>命令行参数</th>
+<th>详细</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>–no-progress-bar</td>
+<td>禁止进度条</td>
+</tr>
+<tr>
+<td>–log-interval</td>
+<td>当进度条被禁用时，每隔N个batch记录进度</td>
+</tr>
+<tr>
+<td>–log-format</td>
+<td>可以的选择：json、none、simple、tqdm</td>
+</tr>
+<tr>
+<td>–log-file</td>
+<td></td>
+</tr>
+<tr>
+<td>–aim-repo</td>
+<td>aim存储库的路径</td>
+</tr>
+<tr>
+<td>–aim-run-hash</td>
+<td>目标运行哈希值。如果跳过，则根据save_dir创建或继续运行。</td>
+</tr>
+<tr>
+<td>–tensorboard-logdir</td>
+<td>为tensorboard保存log的路径</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">fairseq-train data-bin --arch transformer_iwslt_de_en \<br>        --max-tokens 4096 --max-update 30000 \<br>        --optimizer adam --lr-scheduler inverse_sqrt --lr 0.0007 \<br>        --criterion label_smoothed_cross_entropy --label-smoothing 0.1 \<br>        --no-progress-bar --save-interval-updates 1000 <br></code></pre></td></tr></table></figure>
+
+<h3 id="数据部分"><a href="#数据部分" class="headerlink" title="数据部分"></a>数据部分</h3><p>指定batch size有两种方式：</p>
+<ul>
+<li>–max-tokens ，按照词的数量来划分batch  。例如–max-tokens 4096</li>
+<li>–max-sentences，按照句子数量来划分。例如 –max-sentences 128</li>
+</ul>
+<h3 id="模型部分"><a href="#模型部分" class="headerlink" title="模型部分"></a>模型部分</h3><p>–arch，指定所使用的网络模型结构。 其命名一般为  model_setting，例如transformer_iwslt</p>
+<p>_de_en</p>
+<p>在使用预设模型的同时，还可以通过额外的命令行参数来覆盖已有的参数，如“transformer_wmt_en_de”中预设的编码器层数是6，可以通过“–encoder-layers 12”将编码器改为12层。</p>
+<h3 id="优化部分"><a href="#优化部分" class="headerlink" title="优化部分"></a>优化部分</h3><p>–criterion可以指定使用的损失函数，如cross_entropy等。和arch参数一样，也可以通过命令行参数来覆盖特定损失的默认参数，比如通过–label-smoothing 0.1，可以将label_smoothed_cross_entropy损失中默认为0的label-smoothing值改为0.1。</p>
+<p>–optimizer可以指定所使用的优化器，如adam、sgd等</p>
+<p>–lr-scheduler可以指定学习率缩减的方式。</p>
+<h3 id="训练部分"><a href="#训练部分" class="headerlink" title="训练部分"></a>训练部分</h3><p>在默认情况下，会根据当前机器的GPU数量来确定训练方式。</p>
+<p>如果所使用的GPU支持半精度，那么可以通过参数–fp16来进行混合精度训练，可以极大提高模型训练的速度。通过torch.cuda.get_device_capability(0)[0]可以确定GPU是否支持半精度，如果该值小于7则不支持，大于等于7则支持。</p>
+<h3 id="日志和模型保存"><a href="#日志和模型保存" class="headerlink" title="日志和模型保存"></a>日志和模型保存</h3><p>fairseq使用tqdm和进度条来展示训练过程，但是这种方法不适合长时间在后台进行模型训练。通过–no-progress-bar参数可以改为逐行打印日志，方便保存。</p>
+<p>默认情况下，每训练100步之后会打印一次，通过–log-interval参数可以进行修改。</p>
+<p>Fairseq在训练过程中会保存中间模型，保存的位置可以通过–save-dir指定，其默认为checkpoints。中间模型保存的频率有两种指定方式，–save-interval指定了每N个epoch（遍历训练数据N次）保存一次；–save-interval-updates指定了每N步保存一次，这种通过step来保存模型的方法目前更为常用。</p>
+<p>在使用多GPU训练时，指定的batch size（max tokens或max sentences）是单个GPU上的数量，以token计算为例，最终batch size的大小为max-tokens、GPU数量、update-freq的乘积。</p>
+<table>
+<thead>
+<tr>
+<th>命令行参数</th>
+<th>详细</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="生成"><a href="#生成" class="headerlink" title="生成"></a>生成</h2><p>Fairseq提供了两种解码的方式：批生成解码（fairseq-generate）和交互式解码（fairseq-interactive）。</p>
+<h3 id="fairseq-generate"><a href="#fairseq-generate" class="headerlink" title="fairseq-generate"></a>fairseq-generate</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">fairseq-generate data-bin --path checkpoints/checkpoint_best.pt --remove-bpe<br></code></pre></td></tr></table></figure>
+
+<p>默认情况下，这个命令会从预处理的数据中，解码测试数据（test set）。通过–gen-subset可以指定解码其他部分，如“–gen-subset train”就会翻译整个训练数据。</p>
+<p>如果不想得到翻译结果，只想看到翻译结果的BLEU分值，可以通过–quiet参数，只显示翻译进度和最后打分。</p>
+<p>通过–beam、–lenpen和–unkpen，可以分别设置beam search中的beam size，长度惩罚和unk惩罚。</p>
+<p>参数–remove-bpe可以指定对翻译结果的后处理，由于在准备数据的时候，使用了BPE切分，该参数会把BPE切分的词合并为完整的单词。如果不加该参数，则输出的翻译结果和BLEU打分都是按照未合并BPE进行的。</p>
+<p>如果准备数据时BPE切分使用的是sentencepiece，那么参数的值还可以设为“–remove-bpe sentencepiece”,以合并sentencepiece的切分。</p>
+<h3 id="fairseq-interactive"><a href="#fairseq-interactive" class="headerlink" title="fairseq-interactive"></a>fairseq-interactive</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">cat test.de | fairseq-interactive data-bin --path checkpoints/checkpoint_best.pt --remove-bpe<br></code></pre></td></tr></table></figure>
+
+<p> <strong>保存翻译结果</strong></p>
+<p>在默认情况下，两种解码方式会将翻译结果直接显示出来，如果想保存翻译结果，可以通过–results-path参数来指定保存结果的位置，或者可以通过重定向的方法将输出保存到文件：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">fairseq-generate xxx &gt; result.txt<br></code></pre></td></tr></table></figure>
+
+<p>这两种方法得到的翻译结果文件，包含了解码日志（log）、原文、译文、打分等信息，并且顺序与原文不一致，通过以下命令可以得到排序后的译文：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">grep ^H result.txt | sort -n -k 2 -t &#x27;-&#x27; | cut -f 3<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs stylus">fairseq-preprocess <span class="hljs-attr">--source-lang</span> de <span class="hljs-attr">--target-lang</span> en \<br>    <span class="hljs-attr">--trainpref</span> iwslt14<span class="hljs-selector-class">.tokenized</span>.de-en/train \<br>    <span class="hljs-attr">--validpref</span> iwslt14<span class="hljs-selector-class">.tokenized</span>.de-en/valid \<br>    <span class="hljs-attr">--testpref</span> iwslt14<span class="hljs-selector-class">.tokenized</span>.de-en/test \<br>    <span class="hljs-attr">--destdir</span> data-bin/iwslt14<span class="hljs-selector-class">.tokenized</span><span class="hljs-selector-class">.de-en</span> \<br>    <span class="hljs-attr">--workers</span> <span class="hljs-number">20</span> <span class="hljs-attr">--joined-dictionary</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="fairseq参数介绍"><a href="#fairseq参数介绍" class="headerlink" title="fairseq参数介绍"></a>fairseq参数介绍</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs bash">fairseq-preprocess [-h] [--no-progress-bar]<br>                          [--log-interval LOG_INTERVAL]<br>                          [--log-format &#123;json,none,simple,tqdm&#125;]<br>                          [--log-file LOG_FILE] [--aim-repo AIM_REPO]<br>                          [--aim-run-hash AIM_RUN_HASH]<br>                          [--tensorboard-logdir TENSORBOARD_LOGDIR]<br>                          [--wandb-project WANDB_PROJECT] <br>                          [--azureml-logging]<br>                          [--seed SEED] [--cpu] [--tpu] [--bf16]<br>                          [--memory-efficient-bf16] [--fp16]<br>                          [--memory-efficient-fp16] <br>                          [--fp16-no-flatten-grads]<br>                          [--fp16-init-scale FP16_INIT_SCALE]<br>                          [--fp16-scale-window FP16_SCALE_WINDOW]<br>                          [--fp16-scale-tolerance FP16_SCALE_TOLERANCE]<br>                          [--on-cpu-convert-precision]<br>                          [--min-loss-scale MIN_LOSS_SCALE]<br>                          [--threshold-loss-scale THRESHOLD_LOSS_SCALE]<br>                          [--amp] <br>                          [--amp-batch-retries AMP_BATCH_RETRIES]<br>                          [--amp-init-scale AMP_INIT_SCALE]<br>                          [--amp-scale-window AMP_SCALE_WINDOW]<br>                          [--user-dir USER_DIR]<br>                          [--empty-cache-freq EMPTY_CACHE_FREQ]<br>                          [--all-gather-list-size ALL_GATHER_LIST_SIZE]<br>                          [--model-parallel-size MODEL_PARALLEL_SIZE]<br>                          [--quantization-config-path QUANTIZATION_CONFIG_PATH]<br>                          [--profile] [--reset-logging] <br>                          [--suppress-crashes]<br>                          [--use-plasma-view] <br>                          [--plasma-path PLASMA_PATH]<br>                          [--criterion &#123;adaptive_loss,composite_loss,cross_entropy,ctc,fastspeech2,hubert,label_smoothed_cross_entropy,latency_augmented_label_smoothed_cross_entropy,label_smoothed_cross_entropy_with_alignment,label_smoothed_cross_entropy_with_ctc,legacy_masked_lm_loss,masked_lm,model,nat_loss,sentence_prediction,sentence_prediction_adapters,sentence_ranking,tacotron2,speech_to_unit,speech_to_spectrogram,speech_unit_lm_criterion,wav2vec,vocab_parallel_cross_entropy&#125;]<br>                          [--tokenizer &#123;moses,nltk,space&#125;]<br>                          [--bpe &#123;byte_bpe,bytes,characters,fastbpe,gpt2,bert,hf_byte_bpe,sentencepiece,subword_nmt&#125;]<br>                          [--optimizer &#123;adadelta,adafactor,adagrad,adam,adamax,composite,cpu_adam,lamb,nag,sgd&#125;]<br>                          [--lr-scheduler &#123;cosine,fixed,inverse_sqrt,manual,pass_through,polynomial_decay,reduce_lr_on_plateau,step,tri_stage,triangular&#125;]<br>                          [--scoring &#123;bert_score,sacrebleu,bleu,chrf,meteor,wer&#125;]<br>                          [--task TASK] [-s SRC] [-t TARGET] <br>                          [--trainpref FP]<br>                          [--validpref FP] [--testpref FP] <br>                          [--align-suffix FP]<br>                          [--destdir DIR] [--thresholdtgt N]<br>                          [--thresholdsrc N] [--tgtdict FP] <br>                          [--srcdict FP]<br>                          [--nwordstgt N] [--nwordssrc N] <br>                          [--alignfile ALIGN]<br>                          [--dataset-impl FORMAT] [--joined-dictionary]<br>                          [--only-source] [--padding-factor N] <br>                          [--workers N]<br>                          [--dict-only]<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>–no-progress-bar</td>
+<td>禁用进度条（默认False）</td>
+</tr>
+<tr>
+<td>–log-interval</td>
+<td>每 N 批记录一次进度（禁用进度条时）</td>
+</tr>
+<tr>
+<td>–log-format</td>
+<td>使用的日志格式：<br />可能的选择：json、none、simple、tqdm</td>
+</tr>
+<tr>
+<td>–log-file</td>
+<td>将指标复制到的日志文件。</td>
+</tr>
+<tr>
+<td>–aim-repo</td>
+<td>目标存储库的路径</td>
+</tr>
+<tr>
+<td>–aim-run-hash</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="Preprocessing"><a href="#Preprocessing" class="headerlink" title="Preprocessing"></a>Preprocessing</h3><h2 id="使用新注册的模型、损失函数等"><a href="#使用新注册的模型、损失函数等" class="headerlink" title="使用新注册的模型、损失函数等"></a>使用新注册的模型、损失函数等</h2><p>在前目录为fairseq</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">/fairseq/my_dir/<br>└── __init__.py<br>└── models<br>	└── simple_lstm.py<br>└── criterions<br>	└── cross_entropy.py<br></code></pre></td></tr></table></figure>
+
+<p>在simple_lstm.py中已经注册好模型和架构(tutorial_simple_lstm)</p>
+<p>在cross_entropy.py中已经注册好的损失函数（cross_entrop)</p>
+<p>在 <strong>init</strong>.py中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> .models <span class="hljs-keyword">import</span> simple_lstm<br><span class="hljs-keyword">from</span> .criterions <span class="hljs-keyword">import</span> cross_entropy<br></code></pre></td></tr></table></figure>
+
+<p>训练</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">CUDA_VISIBLE_DEVICES=3 fairseq-train data-bin/iwslt14.tokenized.de-en/ --<span class="hljs-built_in">arch</span> tutorial_simple_lstm --encoder-dropout 0.2 --decoder-dropout 0.2 --optimizer adam --lr 0.005 --lr-shrink 0.5 --max-tokens 12000 --criterion cross_entrop --user-dir fairseq/my_dir/<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="从头训练一个翻译模型"><a href="#从头训练一个翻译模型" class="headerlink" title="从头训练一个翻译模型"></a>从头训练一个翻译模型</h2><ol>
+<li><p>相关工具</p>
+<ol>
+<li>Moses（mosesdecoder）一个SMT工具，可以使用脚本预处理数据</li>
+<li>subword-nmt。使用BPE算法生成子词的预训练脚本</li>
+<li>jieba（中文分词组件）</li>
+<li>fairseq</li>
+</ol>
+</li>
+<li><p>数据的准备</p>
+<ol>
+<li>下载数据</li>
+<li>数据切分（将zh-en文件中中英文分开raw.en和raw.zh）</li>
+<li>标点符号标准化（可选）（normalization-punctuation）。同时处理双语数据</li>
+<li>中文分词</li>
+<li>tokenize<ol>
+<li>将英文单词和标点符号用空格分开</li>
+<li>将多个连续空格简化为一个空格</li>
+<li>将很多符号替换为转义字符</li>
+</ol>
+</li>
+<li>truecase。对英文文件进行大小写转换处理（对于每个英文单词，尤其是句首单词，在数据中学习最适合它们的大小写形式）</li>
+<li>bpe。对双语文件进行子词处理（将单词划分为更细粒度的分词）。（在训练集中学习bpe模型，然后在将bpe模型应用到训练集、验证集和测试集中）</li>
+<li>clean。对双语文件进行过滤。过滤最小长度和最大长度之间的句对，这样能有效地过滤空白行，还可以过滤<strong>长度比</strong>不合理的句对。</li>
+<li>split。划分训练集、测试集和验证集。（应该在bpe之前就划分）</li>
+</ol>
+</li>
+<li><p>使用fairseq进行训练</p>
+<ol>
+<li><p>预处理，生成词表及二进制文件，使用fairseq-preprocess命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">fairseq-preprocess --source-lang <span class="hljs-variable">$&#123;src&#125;</span> --target-lang <span class="hljs-variable">$&#123;tgt&#125;</span> --trainpref <span class="hljs-variable">$&#123;data_dir&#125;</span>/train --validpref <span class="hljs-variable">$&#123;data_dir&#125;</span>/valid --testpref <span class="hljs-variable">$&#123;data_dir&#125;</span>/test --destdir <span class="hljs-variable">$&#123;data_dir&#125;</span>/data-bin<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用fairseq-train命令训练，可以自由设置超参数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">CUDA_VISIBLE_DEVICES=0,1,2,3 fairseq-train <span class="hljs-variable">$&#123;data_dir&#125;</span>/data-bin --<span class="hljs-built_in">arch</span> transformer --source-lang <span class="hljs-variable">$&#123;src&#125;</span> --target-lang <span class="hljs-variable">$&#123;tgt&#125;</span>  --optimizer adam  --lr 0.001 --adam-betas <span class="hljs-string">&#x27;(0.9, 0.98)&#x27;</span> --lr-scheduler inverse_sqrt --max-tokens 4096  --dropout 0.3 --criterion label_smoothed_cross_entropy  --label-smoothing 0.1 --max-update 200000  --warmup-updates 4000 --warmup-init-lr <span class="hljs-string">&#x27;1e-07&#x27;</span> --keep-last-epochs 10 --num-workers 8 --save-dir <span class="hljs-variable">$&#123;model_dir&#125;</span>/checkpoints<br></code></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>解码。fairseq支持两种解码命令generate和interactive。</p>
+<ol>
+<li><p>生成式解码，fairseq-generate命令进行生成式解码(<strong>用于预处理后的二进制文件</strong>)，可以自行选择是否添加<code>--remove-bpe</code>参数，使得在生成时就去掉bpe符号(@@)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">fairseq-generate <span class="hljs-variable">$&#123;data_dir&#125;</span>/data-bin --path <span class="hljs-variable">$&#123;model_dir&#125;</span>/checkpoints/checkpoint_best.pt --batch-size 128 --beam 8 &gt; <span class="hljs-variable">$&#123;data_dir&#125;</span>/result/bestbeam8.txt<br><br></code></pre></td></tr></table></figure>
+
+<p> (S: 源句子，T: 目标句子，H&#x2F;D: 预测的句子及其生成概率的log，句子质量越好，其生成概率越接近1，其log越接近0。P: 每一个词的生成概率的log。其中，H&#x3D;sum(p) &#x2F; n</p>
+</li>
+<li><p>交互式解码，使用<code>fairseq-interactive</code>命令进行交互式解码(<strong>用于文本文件</strong>)。注意其<code>input</code>参数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">fairseq-interactive <span class="hljs-variable">$&#123;data_dir&#125;</span>/data-bin --input <span class="hljs-variable">$&#123;data_dir&#125;</span>/test.zh --path <span class="hljs-variable">$&#123;model_dir&#125;</span>/checkpoints/checkpoint_best.pt --batch-size 1 --beam 8 --remove-bpe &gt; <span class="hljs-variable">$&#123;data_dir&#125;</span>/result/bestbeam8.txt<br></code></pre></td></tr></table></figure></li>
+</ol>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs verilog">其区别很简单，<span class="hljs-keyword">generate</span>使用二进制文件，这个二进制文件是在fairseq-preprocess过程生成的，当时提供了一个testpref参数。也就是说测试集的src和tgt都是已获得的，这种场景符合自己在公开的数据集上做实验（如WMT14en-de），需要在论文中报告测试集结果。<br><br>而interactive用于文本文件，也就是说不需要二进制文件，在fairseq-preprocess中也就不需要提供testpref参数。这种场景符合在比赛中，比赛方只提供测试集中的src部分，需要自己来解码得到tgt，并最终提交。<br></code></pre></td></tr></table></figure>
+
+<p>​	</p>
+</li>
+<li><p>后处理及评估</p>
+<ol>
+<li><p>抽取译文，由于解码生成的文件包含大量无关信息，所以需要把<strong>译文</strong>和<strong>正确答案</strong>单独抽取出来，其中predict是译文，answer是正确答案：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep ^H <span class="hljs-variable">$&#123;data_dir&#125;</span>/result/bestbeam8.txt | <span class="hljs-built_in">cut</span> -f3- &gt; <span class="hljs-variable">$&#123;data_dir&#125;</span>/result/predict.tok.true.bpe.en<br>grep ^T <span class="hljs-variable">$&#123;data_dir&#125;</span>/result/bestbeam8.txt | <span class="hljs-built_in">cut</span> -f2- &gt; <span class="hljs-variable">$&#123;data_dir&#125;</span>/result/answer.tok.true.bpe.en<br><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>去除bpe符号。有两种方法可以去除bpe符号，第一种是在解码时添加<code>--remove-bpe</code>参数，第二种是使用<code>sed</code>指令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sed -r <span class="hljs-string">&#x27;s/(@@ )| (@@ ?$)//g&#x27;</span> &lt; <span class="hljs-variable">$&#123;data_dir&#125;</span>/result/predict.tok.true.bpe.en  &gt; <span class="hljs-variable">$&#123;data_dir&#125;</span>/result/predict.tok.true.en<br>sed -r <span class="hljs-string">&#x27;s/(@@ )| (@@ ?$)//g&#x27;</span> &lt; <span class="hljs-variable">$&#123;data_dir&#125;</span>/result/answer.tok.true.bpe.en  &gt; <span class="hljs-variable">$&#123;data_dir&#125;</span>/result/answer.tok.true.en<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>detruecase，使用detruecase.perl将文件中的大小写恢复正常：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-variable">$&#123;DETC&#125;</span> &lt; <span class="hljs-variable">$&#123;data_dir&#125;</span>/result/predict.tok.true.en &gt; <span class="hljs-variable">$&#123;data_dir&#125;</span>/result/predict.tok.en<br><span class="hljs-variable">$&#123;DETC&#125;</span> &lt; <span class="hljs-variable">$&#123;data_dir&#125;</span>/result/answer.tok.true.en &gt; <span class="hljs-variable">$&#123;data_dir&#125;</span>/result/answer.tok.en<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>评估</p>
+<ol>
+<li><p><strong>multi-bleu</strong>：在detokenize前进行评价</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-variable">$&#123;MULTI_BLEU&#125;</span> -lc <span class="hljs-variable">$&#123;data_dir&#125;</span>/result/answer.tok.en &lt; <span class="hljs-variable">$&#123;data_dir&#125;</span>/result/predict.tok.en<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>sacrebleu</strong>：在detokenize后进行评价。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs BASH"><span class="hljs-comment"># Option 1: Pass the reference file as a positional argument to sacreBLEU</span><br>sacrebleu ref.detok.txt -i output.detok.txt -m bleu -b -w 4<br>20.7965<br><br><span class="hljs-comment"># Option 2: Redirect the system into STDIN (Compatible with multi-bleu.perl way of doing things)</span><br><span class="hljs-built_in">cat</span> output.detok.txt | sacrebleu ref.detok.txt -m bleu -b -w 4<br>20.7965<br></code></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><h3 id="detokenize，使用detokenize-perl得到纯预测文本"><a href="#detokenize，使用detokenize-perl得到纯预测文本" class="headerlink" title="detokenize，使用detokenize.perl得到纯预测文本"></a>detokenize，使用detokenize.perl得到纯预测文本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-variable">$&#123;DETOKENIZER&#125;</span> -l en &lt; <span class="hljs-variable">$&#123;data_dir&#125;</span>/result/predict.tok.en &gt; <span class="hljs-variable">$&#123;data_dir&#125;</span>/result/predict.en<br></code></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/pytorch/">#pytorch</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>fairseq</div>
+      <div>http://example.com/2023/04/20/fairseq/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Menglong</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年4月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/04/20/%E4%BD%BF%E7%94%A8fairseq%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A8%A1%E5%9E%8B/" title="使用fairseq添加自己的模型">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">使用fairseq添加自己的模型</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/04/19/hello-world/" title="Hello World">
+                        <span class="hidden-mobile">Hello World</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>哪里可以找到我：</span> <a href="https://github.com/menglong-123" target="_blank" rel="nofollow noopener"><span>Github</span></a> <i class="iconfont icon-love"></i> <a href="https://blog.csdn.net/M_L_Fighting" target="_blank" rel="nofollow noopener"><span>CSDN</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

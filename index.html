@@ -227,15 +227,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2023/04/19/%E8%87%B4%E6%A9%A1%E6%A0%91/" target="_self">
-          致橡树
+        <a href="/2023/04/20/%E5%9C%A8fairseq%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%96%B0%E6%B3%A8%E5%86%8C%E7%9A%84%E6%A8%A1%E5%9E%8B%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%AD%89/" target="_self">
+          在fairseq中使用新注册的模型、损失函数等
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/04/19/%E8%87%B4%E6%A9%A1%E6%A0%91/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/04/20/%E5%9C%A8fairseq%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%96%B0%E6%B3%A8%E5%86%8C%E7%9A%84%E6%A8%A1%E5%9E%8B%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%AD%89/" target="_self">
         <div>
-          我如果爱你—— 绝不像攀援的凌霄花， 借你的高枝炫耀自己； 我如果爱你—— 绝不学痴情的鸟儿， 为绿荫重复单调的歌曲； 也不止像泉源， 常年送来清凉的慰藉； 也不止像险峰， 增加你的高度，衬托你的威仪。 甚至日光。 甚至春雨。 不，这些都还不够！ 我必须是你近旁的一株木棉， 作为树的形象和你站在一起。 根，紧握在地下， 叶，相触在云里。 每一阵风过， 我们都互相致意， 但没有人， 听懂我们的言语。
+          在fairseq的目录中创建一个文件夹my_dir123456/fairseq/my_dir/└── __init__.py└── models	└── simple_lstm.py└── criterions	└── cross_entropy.py  在simple_lstm.py中已经注册好模型和架构(tutorial_simple_lstm)在fairseq中注册模型、架构以及criter
         </div>
       </a>
 
@@ -243,12 +243,132 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-04-19 22:04" pubdate>
-              2023-04-19
+            <time datetime="2023-04-20 19:40" pubdate>
+              2023-04-20
             </time>
           </div>
         
         
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/pytorch/">#pytorch</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/04/20/%E4%BD%BF%E7%94%A8fairseq%E6%B7%BB%E5%8A%A0%E4%BB%BB%E5%8A%A1/" target="_self">
+          使用fairseq添加任务
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/04/20/%E4%BD%BF%E7%94%A8fairseq%E6%B7%BB%E5%8A%A0%E4%BB%BB%E5%8A%A1/" target="_self">
+        <div>
+          1 定义模型123456789101112131415161718192021222324252627import torchfrom torch import nnfrom fairseq.models import BaseFairseqModel, register_model, register_model_architectureimport osfrom fairseq.data im
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-04-20 19:39" pubdate>
+              2023-04-20
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/04/20/%E4%BD%BF%E7%94%A8fairseq%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A8%A1%E5%9E%8B/" target="_self">
+          使用fairseq添加自己的模型
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/04/20/%E4%BD%BF%E7%94%A8fairseq%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A8%A1%E5%9E%8B/" target="_self">
+        <div>
+          1 创建自己的Encoder和Decoder所有的编码器都应该实现FairseqEncoder接口，解码器应该实现FairseqDecoder接口。这些接口本身就扩展了torch.nn.Module，所以可以使用与普通的pytorch相同的方法来编写。 1234567891011121314151617181920212223242526272829303132333435363738394041
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-04-20 19:38" pubdate>
+              2023-04-20
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/pytorch/">#pytorch</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/04/20/fairseq/" target="_self">
+          fairseq
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/04/20/fairseq/" target="_self">
+        <div>
+          文件预处理1234fairseq-preprocess --source-lang de --target-lang en \    --trainpref iwslt14.tokenized.de-en/train \    --validpref iwslt14.tokenized.de-en/valid \    --testpref iwslt14.tokenized.de-en/test
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-04-20 19:36" pubdate>
+              2023-04-20
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/pytorch/">#pytorch</a>
+            
+          </div>
         
       </div>
     </article>
