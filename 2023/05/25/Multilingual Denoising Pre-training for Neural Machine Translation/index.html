@@ -1,0 +1,740 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
+  <link rel="icon" href="/img/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Menglong">
+  <meta name="keywords" content="随笔">
+  
+    <meta name="description" content="Abstract本文证明，多语言去噪预训练在各种机器翻译 (MT) 任务中产生了显着的性能提升。我们介绍了 mBART——一种序列到序列去噪自动编码器，使用 BART 目标在多种语言的大规模单语语料库上进行了预训练。 mBART 是第一种通过对多种语言的全文进行去噪来预训练完整的序列到序列模型的方法，而以前的方法只关注编码器、解码器或重建部分文本。预训练一个完整的模型可以直接针对监督（句子级和文档">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Multilingual Denoising Pre-training for Neural Machine Translation">
+<meta property="og:url" content="http://example.com/2023/05/25/Multilingual%20Denoising%20Pre-training%20for%20Neural%20Machine%20Translation/index.html">
+<meta property="og:site_name" content="追梦少年的博客">
+<meta property="og:description" content="Abstract本文证明，多语言去噪预训练在各种机器翻译 (MT) 任务中产生了显着的性能提升。我们介绍了 mBART——一种序列到序列去噪自动编码器，使用 BART 目标在多种语言的大规模单语语料库上进行了预训练。 mBART 是第一种通过对多种语言的全文进行去噪来预训练完整的序列到序列模型的方法，而以前的方法只关注编码器、解码器或重建部分文本。预训练一个完整的模型可以直接针对监督（句子级和文档">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525195653130.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525195852901.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525200014886.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525201442044.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525201701418.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525203243820.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525203637718.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525204351557.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525204853692.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525205230775.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525205958533.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525210350402.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525211402639.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525230652536.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525215049716.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525221159870.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525221458814.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525225725180.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525225736052.png">
+<meta property="article:published_time" content="2023-05-25T15:04:35.000Z">
+<meta property="article:modified_time" content="2023-05-25T15:08:11.746Z">
+<meta property="article:author" content="Menglong">
+<meta property="article:tag" content="每日读论文">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525195653130.png">
+  
+  
+  
+  <title>Multilingual Denoising Pre-training for Neural Machine Translation - 追梦少年的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>追梦少年的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Multilingual Denoising Pre-training for Neural Machine Translation"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-05-25 23:04" pubdate>
+          2023年5月25日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          11k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          95 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Multilingual Denoising Pre-training for Neural Machine Translation</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>本文证明，多语言去噪预训练在各种机器翻译 (MT) 任务中产生了显着的性能提升。我们介绍了 mBART——一种序列到序列去噪自动编码器，使用 BART 目标在多种语言的大规模单语语料库上进行了预训练。 mBART 是第一种通过对多种语言的全文进行去噪来预训练完整的序列到序列模型的方法，而以前的方法只关注编码器、解码器或重建部分文本。预训练一个完整的模型可以直接针对监督（句子级和文档级）和无监督机器翻译进行微调，而无需针对特定任务进行修改。我们证明，添加 mBART 初始化会在除最高资源设置之外的所有设置中产生性能提升，包括低资源 MT 的多达 12 个 BLEU 点和许多文档级和无监督模型的超过 5 个 BLEU 点。我们还表明，它还可以实现新类型的迁移到没有双文本或不在预训练语料库中的语言对，并对哪些因素对有效的预训练贡献最大进行了广泛分析。</p>
+<h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p>尽管它被其他 NLP 任务广泛采用，但自监督预训练还不是机器翻译 (MT) 中的常见做法。现有的 MT 方法仅对模型的部分进行预训练，包括编码器和解码器，或者使用仅重建部分文本的预训练目标，或者只关注英语语料库。在本文中，我们展示了通过<strong>预训练一个完整的自回归模型可以显着提高性能，该模型的目标是噪声和重建多种语言的全文。</strong></p>
+<p>在这项工作中，我们介绍了 mBART——一种多语言序列到序列 (Seq2Seq) 去噪自动编码器。 mBART 通过将 BART应用于跨多种语言的大规模单语语料库进行训练。通过屏蔽短语和排列句子对输入文本进行噪声处理，并学习单个 Transformer模型来恢复文本。与 MT 的其他预训练方法不同，mBART 预训练了一个完整的自回归 Seq2Seq 模型。 mBART 针对所有语言进行一次训练，提供一组参数，可以在监督和非监督设置中针对任何语言对进行微调，而无需任何特定于任务或特定于语言的修改或初始化方案。</p>
+<p>大量实验表明，这种简单的方法非常有效。我们首先关注现有的 MT 基准。<strong>对于受监督的句子级 MT，mBART 初始化可在低&#x2F;中资源对（&lt;10M 双文本对）中显着提高（高达 12 BLEU 点），而不会牺牲高资源设置中的性能。</strong>这些结果通过反向翻译 (BT) 进一步改进，在 WMT16 英语-罗马尼亚语和 FloRes 测试集上设置了新的最新技术水平。对于文档级 MT，我们的文档级预训练将结果提高了 5.5。对于无监督的情况，我们看到了一致的收益，并为相关性较低的语言对产生了第一个非退化结果（例如，尼泊尔语-英语的 BLEU 增益为 9.5）。以前的预训练方案只考虑了这些任务的子集，但我们在可能的情况下比较了性能，并证明 mBART 始终表现最佳。</p>
+<p>我们还表明，<strong>mBART 支持跨语言对的新型迁移</strong>。例如，微调一个语言对（例如韩语-英语）中的双文本创建一个模型，可以从单语预训练集中的所有其他语言（例如意大利语-英语）进行翻译，无需进一步训练.我们还表明，<strong>不在预训练语料库中的语言可以从 mBART 中受益</strong>，强烈表明<strong>初始化至少是部分语言通用的</strong>。最后，我们详细分析了哪些因素对有效的预训练贡献最大，包括语言的数量和它们的整体相似性。</p>
+<h2 id="2-Multilingual-Denoising-Pre-training"><a href="#2-Multilingual-Denoising-Pre-training" class="headerlink" title="2. Multilingual Denoising Pre-training"></a>2. Multilingual Denoising Pre-training</h2><p>我们使用大规模通用爬行 (CC) 语料库 (§2.1) 来预训练 BART 模型 (§2.2)。我们在后面几节中的实验涉及微调一系列在 CC 语言的不同子集上预训练的模型 §2.3)。</p>
+<h3 id="2-1-Data-CC25-corpus"><a href="#2-1-Data-CC25-corpus" class="headerlink" title="2.1 Data: CC25 corpus"></a>2.1 Data: CC25 corpus</h3><p>**Datasets  ** 我们对从 Common Crawl (CC) 中提取的 25 种语言的子集——CC25 进行了预训练。 CC25 包括来自不同语族的语言和不同数量的文本（表 1）。继 Lample 和 Conneau (2019) 之后，我们通过以比率 λ<del>i</del> 对每种语言 i 的文本进行上&#x2F;下采样来重新平衡语料库：</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525195653130.png" srcset="/img/loading.gif" lazyload alt="image-20230525195653130"></p>
+<p>其中 pi 是 CC25 中每种语言的百分比。我们使用平滑参数 α &#x3D; 0.7。</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525195852901.png" srcset="/img/loading.gif" lazyload alt="image-20230525195852901"></p>
+<p>**Pre-processing  ** 我们使用在包含 250000 个子词标记的完整 CC 数据上学习的句子模型（SPM）进行标记化。虽然并非所有这些语言都用于预训练，但这种标记化支持对其他语言进行微调。我们不应用额外的预处理，例如 truecasing 或规范化标点符号&#x2F;字符。</p>
+<h3 id="2-2-Model：mBART"><a href="#2-2-Model：mBART" class="headerlink" title="2.2 Model：mBART"></a>2.2 Model：mBART</h3><p>我们的模型遵循 BART序列到序列预训练方案，如本节所述。虽然 BART 只针对英语进行了预训练，但我们系统地研究了预训练对不同语言集的影响。</p>
+<p>**Architecture  ** 我们使用标准的序列到序列 Transformer 架构，具有 12 层编码器和 12 层解码器，模型维度为 1024，有 16 个头（∼ 680M 参数）。我们在编码器和解码器之上添加了一个额外的层归一化层，我们发现它在 FP16 精度下稳定训练。</p>
+<p>**Learning  ** 我们的训练数据涵盖 K 种语言：D &#x3D; {D<del>1</del>, …, D<del>K</del>} 其中每个 D<del>i</del> 是第 i 种语言的单语文档的集合。我们 (1) 假设访问下面定义的噪声函数 g，它会破坏文本，并且 (2) 训练模型以在给定 g(X) 的情况下预测原始文本 X。更正式地说，我们的目标是最大化 Lθ：</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525200014886.png" srcset="/img/loading.gif" lazyload alt="image-20230525200014886"></p>
+<p>其中 X 是语言 i 中的一个实例，分布 P 由 Seq2Seq 模型定义。</p>
+<p><strong>Noise function  ** 继Lewis等人之后，我们在 g 中使用两种类型的噪声。我们首先</strong>删除文本范围并用掩码标记替换它们<strong>。我们通过根据泊松分布 (λ &#x3D; 3.5) 随机抽样跨度长度来</strong>屏蔽每个实例中 35% 的单词<strong>。我们还</strong>改变了每个实例中句子的顺序**。解码器输入是原始文本，有一个位置偏移。语言 id 符号 <LID> 用作预测句子的初始标记。也可以使用其他噪声类型，例如 Lample 等人中的噪声类型，但我们将探索最佳噪声策略留给未来的工作。</p>
+<p>**Instance format  ** 对于批次的每个实例，我们采样一个语言 ID 符号 <LID>，并且我们打包从 <LID> 的相应语料库中采样的尽可能多的连续句子，直到它到达文档边界或达到 512 最大标记长度.实例中的句子由句尾 (</S>) 标记分隔。然后，我们附加选定的 <LID> 标记来表示此实例的结尾。 “多句子”级别的预训练使我们能够同时处理句子和文档翻译。</p>
+<p>**Optimization  ** 我们的完整模型（包括 25 种语言）在 256 个 Nvidia V100 GPU (32GB) 上进行了 500K 步训练。总批量大小约为每个 GPU 128K 个token，与 BART配置相匹配。我们使用 Adam 优化器 (ε &#x3D; 1e−6, β2 &#x3D; 0.98) 和线性学习率衰减调度。总培训时间约为 2.5 周。我们以 0.1 的 dropout 开始训练，并在 250K 步时将其减少到 0.05，在 400K 步时将其减少到 0。所有实验均使用 Fairseq 完成。</p>
+<h3 id="2-3-Pre-trained-Models"><a href="#2-3-Pre-trained-Models" class="headerlink" title="2.3 Pre-trained Models"></a>2.3 Pre-trained Models</h3><p>为了在预训练期间更好地衡量不同水平的多语言的效果，我们构建了一系列模型如下：</p>
+<ul>
+<li>mBART25：我们使用 §2.2 中描述的设置在所有 25 种语言上预训练模型。</li>
+<li>mBART06：为了探索预训练对相关语言的影响，我们在六种欧洲语言的子集上预训练模型：Ro、It、Cs、Fr、Es 和 En。为了公平比较，我们使用 mBART25 批量大小的 ∼ 1&#x2F;4，这允许我们的模型在预训练期间对每种语言进行相同数量的更新。</li>
+<li>mBART02：我们预训练双语模型，使用英语和另一种语言作为四种语言对：En-De、En-Ro、En-It。我们使用的批量大小约为 mBART25 中批量大小的 1&#x2F;12。</li>
+<li>BART-En&#x2F;Ro：为了帮助建立基线性能水平，我们还仅在相同的 En 和 Ro 语料库上训练单语 BART 模型。</li>
+<li>Random：作为额外的基线，我们还将包括与随机初始化模型的比较，而无需为每个翻译任务进行预训练。由于不同下游数据集的大小不同，我们总是对超参数（架构、dropout 等）进行网格搜索以找到最佳的非预训练配置。</li>
+</ul>
+<p>所有模型都使用相同的词汇表 (§2.1)。并非所有标记都会频繁出现在所有预训练语料库中，但后来的实验表明，<strong>即使对于未见过的语言，这种大词汇量也可以提高多语言设置中的泛化能力。</strong></p>
+<h2 id="3-Sentence-level-Machine-Translation"><a href="#3-Sentence-level-Machine-Translation" class="headerlink" title="3. Sentence-level Machine Translation"></a>3. Sentence-level Machine Translation</h2><p>本节表明，mBART 预训练在中低资源句子级别 MT 设置中提供一致的性能增益，包括仅双文本和反向翻译，并且优于其他现有的预训练方案（§3.2）。我们还提供了详细的分析，以更好地了解哪些因素对这些收益贡献最大（§3.3），并表明预训练甚至可以提高预训练数据中根本不存在的语言的性能（§3.4）。</p>
+<h3 id="3-1-Experimental-Settings"><a href="#3-1-Experimental-Settings" class="headerlink" title="3.1 Experimental Settings"></a>3.1 Experimental Settings</h3><p>**Datasets  ** 我们收集了 24 对公开可用的平行语料库，涵盖了 CC25 中的所有语言（表 1）。大多数对来自以前的 WMT（Gu、Kk、Tr、Ro、Et、Lt、Fi、Lv、Cs、Es、Zh、De、Ru、Fr ↔ En）和 IWSLT（Vi、Ja、Ko、Nl、Ar、It ↔ En) 比赛。我们还使用 FLoRes 对（En-Ne 和 En-Si）、IITB 的 En-Hi和 WAT19 的 En-My.我们将数据集分为三类——低资源（&lt;1M 句对）、中等资源（&gt;1M 和 &lt;10M）和高资源（&gt;10M）。</p>
+<p>**Fine-tuning &amp; Decoding   ** 我们在一对双文本数据上微调我们的多语言预训练模型，将源语言输入编码器并解码目标语言。如图 1 所示，我们加载预训练的权重并使用teacher forcing在双文本上训练 MT 模型。对于所有方向，我们使用 0.3 dropout、0.2 标签平滑、2500 步热身、3e−5 最大学习率进行训练。我们对所有中低资源对使用最多 40K 的训练更新，对高资源对使用 100K。最终模型是根据验证的likelihood选择的。对于解码，我们对所有方向使用波束大小为 5 的波束搜索。最终结果在 BLEU中报告，具有特定于语言的设置，请参见附录 A。</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525201442044.png" srcset="/img/loading.gif" lazyload alt="image-20230525201442044"></p>
+<h3 id="3-2-Main-Results"><a href="#3-2-Main-Results" class="headerlink" title="3.2 Main Results"></a>3.2 Main Results</h3><p>如表 2 所示，与随机初始化的基线相比，使用预训练的 mBART25 权重进行初始化显示所有中低资源对都有收益。我们观察到 En-Vi、En-Tr 等低资源对和 En-Hi 等噪声对齐对的 12+ BLEU 增益。在资源极少的环境中微调失败，例如 En-Gu，它只有大约 10k 个示例可供调优。在这些设置中，无监督翻译更合适，请参见§5.2。</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525201701418.png" srcset="/img/loading.gif" lazyload alt="image-20230525201701418"></p>
+<p>对于高资源情况（表 3），我们没有观察到一致的收益，并且<strong>当超过 25M 的平行句子可用时，预训练会略微损害性能</strong>。<strong>当给出大量双文本数据时，我们怀疑监督训练会完全清除预训练的权重。</strong></p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525203243820.png" srcset="/img/loading.gif" lazyload alt="image-20230525203243820"></p>
+<p>**+ Back Translation  ** 反向翻译 (BT) 是一种使用目标侧单语数据增强双文本的标准方法。我们将预训练与 BT 相结合，并使用 FLoRes 数据集在低资源语言对——En-Si 和 En-Ne 上对其进行测试。为了公平比较，我们使用与 (Guzmán et al., 2019) 相同的单语数据来生成 BT 数据。图 2 显示，使用我们的 mBART25 预训练参数初始化模型可以提高每次反向翻译迭代的 BLEU 分数，从而在所有四个翻译方向上产生新的最先进结果。</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525203637718.png" srcset="/img/loading.gif" lazyload alt="image-20230525203637718"></p>
+<p>**v.s. Other Pre-training Approaches   **  我们还将我们的预训练模型与最近的自我监督预训练方法进行了比较，如表 4 所示。我们考虑 En-Ro 翻译，这是唯一具有确定结果的对。我们的 mBART 模型优于所有其他预训练模型，无论是否有 BT 增强。我们还展示了与仅在相同 En 和 Ro 数据上训练的传统 BART 模型的比较。两者都比基线有改进，但比 mBART 结果差，表明在多语言环境中进行预训练是必不可少的。此外，结合 BT 会带来额外的收益，从而为 Ro-En 翻译带来新的最先进技术。</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525204351557.png" srcset="/img/loading.gif" lazyload alt="image-20230525204351557"></p>
+<h3 id="3-3-Analysis"><a href="#3-3-Analysis" class="headerlink" title="3.3 Analysis"></a>3.3 Analysis</h3><p>我们还提供了额外的分析，以更好地量化我们的预训练何时有所帮助。</p>
+<p><strong>应该预训练多少种语言？ ** 我们调查了预训练何时有助于包括微调期间将使用的目标语言对以外的语言。表 5 显示了四个 X-En 对的性能。</strong>当目标语言单语数据有限时<strong>（例如 En-My，My 的大小约为 En 的 0.5%），</strong>对更多语言进行预训练最有帮助。**</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525204853692.png" srcset="/img/loading.gif" lazyload alt="image-20230525204853692"></p>
+<p>相反，当单语数据充足时（De，Ro），多语言预训练会略微影响最终结果（&lt;1 BLEU）。在这些情况下，额外的语言可能会减少每种测试语言的可用容量。此外，mBART06 在 Ro-En 上的表现与 mBART02 相似这一事实表明，<strong>使用相似语言进行预训练特别有用。</strong></p>
+<p><strong>需要多少预训练步骤？  ** 我们绘制了 Ro-En BLEU 分数 vs 预训练步骤的图 3 ，我们采用保存的checkpoint（每 25K 步）并应用 §3.1 中描述的相同微调过程。</strong>在没有任何预训练的情况下，我们的模型过度拟合并且表现比基线差得多<strong>。</strong>然而，仅经过 25K 步（训练的 5%）后，两个模型的性能都优于最佳基线。**模型在剩余步骤中持续改进超过 3 BLEU，并且在 500K 步后仍未完全收敛。 mBART25 始终比 mBART02 稍差。</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525205230775.png" srcset="/img/loading.gif" lazyload alt="image-20230525205230775"></p>
+<p><strong>双文本的大小如何推断预训练的增益？  ** 表 2 和表 3 表明，对于中低资源语言对，预训练持续改进。为了验证这一趋势，我们绘制了 En-De 数据集不同大小子集的性能。更准确地说，我们采用完整的 En-De 语料库（28M 对）并随机抽取 10K、50K、100K、500K、1M、5M、10M 数据集。我们将没有预训练的性能与 mBART02 结果进行比较，如图 4 所示。预训练模型仅使用 10K 训练示例就能够实现超过 20 BLEU，而基线系统得分为 0。毫不奇怪，增加双文本的大小语料库改进了这两个模型。我们的预训练模型始终优于基线模型，但差距会随着双文本数量的增加而缩小，尤其是在 1000 万个句子对之后。这一结果证实了我们在 §3.2 中的观察结果，即</strong>我们的预训练无助于高资源对的翻译。**</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525205958533.png" srcset="/img/loading.gif" lazyload alt="image-20230525205958533"></p>
+<p>**预训练是BT的补充吗？ ** 图 2 显示我们的预训练模型可以与附加数据上的迭代反向翻译 (BT) 相结合，但是，这仍然不是一个公平的比较。表 6 显示了使用相同的单语数据时的结果，我们使用 Chen 等人之后的 79M En 和 29M My sentences。 （2019）。</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525210350402.png" srcset="/img/loading.gif" lazyload alt="image-20230525210350402"></p>
+<p>在单语语料量相同的情况下，mBART 预训练在 En→My 上的性能与 BT 相同，而在 My→En 上仍差 3 BLEU。我们怀疑 BT 受益于更大的单语数据 (En)。此外，将 mBART02 模型与 BT 相结合，即使使用相同的单语数据，我们也能看到更多的收益。此外，我们还提供了估计的培训成本，其中 BT 的管道较长，涉及培训基线系统（5 小时）、翻译单语数据（300 小时）和正式培训（350 小时）。相反，mBART 的大部分训练成本在于预训练部分，可以轻松调整以提高效率。</p>
+<h3 id="3-4-Generalization-to-Languages-NOT-in-Pre-training（泛化到不在预训练中的语言）"><a href="#3-4-Generalization-to-Languages-NOT-in-Pre-training（泛化到不在预训练中的语言）" class="headerlink" title="3.4 Generalization to Languages NOT in Pre-training（泛化到不在预训练中的语言）"></a>3.4 Generalization to Languages NOT in Pre-training（泛化到不在预训练中的语言）</h3><p>在本节中，我们展示了即使对未出现在预训练语料库中的语言进行微调，mBART 也可以提高性能，这表明预训练具有语言通用方面，尤其是在 Transformer 层学习的参数中。</p>
+<p>**实验设置  ** 我们使用预训练的 mBART25、mBART06 和 mBART02 (EnRo) 模型分析三对结果：Nl-En、Ar-En 和 De-Nl。在预训练期间，mBART06 和 EnRo Bilingual 不包含阿拉伯语 (Ar)、德语 (De) 或荷兰语 (Nl) 数据，但所有语言都在 mBART25 中。 De和Nl都是欧洲语言，与mBART06预训练数据中的En、Ro等语言相关。</p>
+<p>**结果  ** mBART25 在预训练期间使用所有语言，但其他设置至少包含一种未见过的语言。我们发现从英语-罗马尼亚语的预训练中获得了很大的收益，即使在翻译一种相差很大的看不见的语言（阿拉伯语）和两种看不见的语言（德语和荷兰语）时也是如此。当预训练包括两种测试语言时，可以获得最好的结果，但是其他语言的预训练具有惊人的竞争力。</p>
+<p><strong>Unseen Vocabularies  ** 阿拉伯语与 mBART02 和 mBART06 中的语言关系很远，它使用不相交的字符集意味着它的词嵌入在很大程度上是未经训练的。然而，我们在 Ar-En 对上获得了与 Nl-En 上类似的改进。这一结果表明，</strong>预训练的 Transformer 层学习了语言的通用属性，即使在词汇重叠最少的情况下也能很好地泛化。**</p>
+<p><strong>Unseen Source or Target Languages  ** 表 7 显示了unseen语言位于源端、目标端或两侧时的不同性能。如果双方都看不见，则性能（就与 mBART25 的差异而言）比在预训练期间至少看到一种语言的情况差。此外，尽管 En-X 对的表现相似，但 mBART06 在 X-En 对上的表现优于 mBART02。</strong>在源端微调看不见的语言更加困难**，值得在未来进行更广泛的研究。</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525211402639.png" srcset="/img/loading.gif" lazyload alt="image-20230525211402639"></p>
+<h2 id="4-Document-level-Machine-Translation"><a href="#4-Document-level-Machine-Translation" class="headerlink" title="4. Document-level Machine Translation"></a>4. Document-level Machine Translation</h2><p>我们在文档级机器翻译任务上评估 mBART，其目标是翻译包含多个句子（直至整个文档）的文本片段。在预训练期间，我们使用多达 512 个标记的文档片段，使模型能够学习句子之间的依赖关系。我们表明，这种<strong>预训练显着提高了文档级翻译。</strong></p>
+<h3 id="4-1-Experimental-Settings"><a href="#4-1-Experimental-Settings" class="headerlink" title="4.1 Experimental Settings"></a>4.1 Experimental Settings</h3><p>**Datasets  ** 我们评估了两个常见文档级 MT 数据集的性能：WMT19 En-De 和 TED15 Zh-En（表 8 中的统计数据）。对于 En-De，我们使用 WMT19 的文档数据来训练我们的模型，没有任何额外的句子级数据； Zh-En 数据集来自 IWSLT 2014 和 2015 评估活动。在 Miculicich 等人之后，我们使用 2010-2013 TED 作为测试集。</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525230652536.png" srcset="/img/loading.gif" lazyload alt="image-20230525230652536"></p>
+<p>**Pre-processing   ** 我们使用与预训练相同的预处理。对于每个块，句子由句尾符号 (</S>) 分隔，整个实例以特定语言 ID (<LID>) 结尾。分段实例的数量也显示在表 8 中，平均每个文档被分成 2-4 个实例。</p>
+<p>**Fine-tuning &amp; Decoding   **  我们使用与句子级翻译相同的微调方案（§3.1），而不使用之前工作开发的任何特定于任务的技术，例如受限上下文或受限注意力。对于解码，我们简单地将源句子打包成块，并自动翻译每个实例块。该模型不知道要提前生成多少个句子，并且在预测到 <LID> 时解码停止。我们默认使用光束尺寸 5。</p>
+<p>**Baselines &amp; Evaluation  ** 我们训练了 4 个模型：一个文档级 (Doc-) MT 模型 (§4.1) 和一个相应的句子级 (Sent-) MT 模型 (§3.1) 作为基线，有和没有预训练。我们使用 mBART25 作为 En-De 和 Zh-En 的通用预训练模型。对于 En-De，即使我们的 mBART25 Doc-MT 模型将多个句子一起解码，翻译后的句子也可以与源句子对齐，这使我们能够评估句子级别 (s-BLEU) 和文档级别的 BLEU 分数(dBLEU) 2. 然而，对于 Zh-En，由于测试数据中的对齐错误，我们无法生成与参考相同数量的翻译句子。我们只提供这个方向的 d-BLEU 分数。</p>
+<p>我们还将我们的模型与 Zh-En 上的分层注意网络（HAN）进行了比较，Zh-En 是该对文档级翻译的最先进的非预训练方法。它们结合了两层注意力——首先是在句子内，然后是跨句子。</p>
+<h3 id="4-2-Main-Results"><a href="#4-2-Main-Results" class="headerlink" title="4.2 Main Results"></a>4.2 Main Results</h3><p>我们在表 9 中展示了 En-De 和 Zh-En 的主要结果。</p>
+<p>**Random v.s. Pre-trained  ** 对于句子级别和文档级别的训练，使用预训练权重初始化的 MT 模型大大优于随机初始化模型。我们的 mBART25 模型（Sent-MT 和 DocMT）也优于 HAN（Miculicich 等人，2018），尽管事实上它们没有以任何方式为文档级 MT 定制。</p>
+<p><strong>Sent-MT v.s. Doc-MT  ** 对于案例（En-De、En-Zh），mBART25 Doc-MT 模型在句子级别上的微调性能略胜一筹，这与没有预训练的模型完全相反。</strong>对于这两个数据集，随机初始化的 Doc-MT 都无法正常工作，导致结果比句子级模型差得多<strong>。</strong>如此大的性能差距表明预训练对于文档级性能至关重要**。通常很难大量收集高质量的文档级数据，这表明预训练可能是未来工作的一个强有力的策略。我们还在附录 B 中包含了一个示例。</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525215049716.png" srcset="/img/loading.gif" lazyload alt="image-20230525215049716"></p>
+<h2 id="5-Unsupervised-Machine-Translation"><a href="#5-Unsupervised-Machine-Translation" class="headerlink" title="5. Unsupervised Machine Translation"></a>5. Unsupervised Machine Translation</h2><p>除了有监督的机器翻译之外，我们还在没有双文本可用于目标语言对的任务上评估我们的模型。我们定义了三种类型的无监督翻译：</p>
+<ol>
+<li>没有给出任何类型的双文本。一个常见的解决方案是从反向翻译 (BT) 中学习。我们展示了 mBART 为这些方法提供了一个简单有效的初始化方案。</li>
+<li>没有目标对的双文本可用，但目标语言都出现在其他语言对的双文本语料库中。之前的工作表明，通过大规模多语言 MT或通过旋转蒸馏，零样本迁移是可能的。我们将重点限制在为单语言对构建 MT 模型上，并将多语言 MT 的多语言预训练留给未来的工作。</li>
+<li>没有目标对的双文本可用，但有用于从其他语言翻译成目标语言的双文本。这是一种新的评估机制，我们将在其中展示 mBART 支持有效迁移，即使源语言没有任何形式的双文本。</li>
+</ol>
+<p>在本节中，我们通过 (1) 回译 (§5.1) 和 (3) 语言迁移 (§5.2) 证明了<strong>多语言预训练在无监督机器翻译中的有效性。</strong>图 5 展示了这两种方法的示例。</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525221159870.png" srcset="/img/loading.gif" lazyload alt="image-20230525221159870"></p>
+<h3 id="5-1-通过反向翻译进行无监督机器翻译"><a href="#5-1-通过反向翻译进行无监督机器翻译" class="headerlink" title="5.1 通过反向翻译进行无监督机器翻译"></a>5.1 通过反向翻译进行无监督机器翻译</h3><p>**Datasets  ** 我们在相似（En-De、En-Ro）和不同对（En-Ne、En-Si）上评估我们的预训练模型，它们是通过测量源语言和目标语言之间共享的子词单元来确定的。我们使用与监督基准 §3.1 相同的测试集，并直接使用预训练数据（CC25）进行回译以避免引入新信息。</p>
+<p>**Learning  ** 按照 Lample 等人中描述的相同程序，我们首先用预训练的权重初始化翻译模型，然后学习预测以动态反向翻译 (BT) 生成的源句子为条件的单语句子。 Lample 和 Conneau仅预训练编码器，因此执行额外的去噪训练以学习 seq2seq 模型——这对于 mBART 的预训练 seq2seq 模型来说是不必要的。但是，我们确实将 mBART 限制为仅在动态 BT 的前 1000 步生成目标语言的标记，以避免它简单地复制源文本。</p>
+<p>**Results  ** 表 10 显示了与非预训练模型以及具有现有预训练方法的模型相比的无监督翻译结果。我们的模型在所有方向上都比非预训练模型获得了很大的收益，并且在现有方法完全失败的不同对（En-Ne，En-Si）方面显着优于 XLM。对于类似的对，我们的模型也对 XLM 和 MASS 表现良好，其中 En-X 对的数字最好。</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525221458814.png" srcset="/img/loading.gif" lazyload alt="image-20230525221458814"></p>
+<h3 id="5-2-Unsupervised-Machine-Translation-via-Language-Transfer"><a href="#5-2-Unsupervised-Machine-Translation-via-Language-Transfer" class="headerlink" title="5.2 Unsupervised Machine Translation via Language Transfer"></a>5.2 Unsupervised Machine Translation via Language Transfer</h3><p>无监督机器翻译的第二种情况假设目标语言与其他一些源语言出现在双文本语料库中。</p>
+<p>**Datasets  ** 我们只考虑X→En翻译，从§3.1中选取了12个语言对的双文本，涵盖了印度语（Ne, Hi, Si, Gu），欧洲语（Ro, It, Cs, Nl），东亚语（Zh , Ja, Ko) 和阿拉伯语 (Ar)。</p>
+<p>**Results  ** 如图 5 (b) 所示，我们采用预训练的 mBART25 模型并对每个语言对进行微调，然后将它们直接应用于其余对，如表 11 所示。我们还展示了直接微调性能(§3) 在对角线上，供参考。我们总能在不同微调模型上的所有对上获得合理的传输分数，除了 Gu-En，其中监督模型完全失败（0.3 BLEU）。在某些情况下，与监督结果相比，我们可以获得类似（Cs-En）甚至更好（Ne-En，Gu-En）的结果。</p>
+<p>作为比较，我们还在没有预训练的情况下对随机初始化的模型应用了相同的程序，它总是以 ≈ 0 BLEU 结束。这表明多语言预训练是必不可少的，并且会产生跨语言的通用表示，因此一旦模型学会将一种语言翻译成 En，它就会学会翻译具有相似表示的所有语言。我们还在附录 B 中展示了 Zh、Ja 和 Ko 之间语言转换的三个例子。</p>
+<p>**When is language transfer useful?   ** 表 11 还显示了每对的混合结果。首先，对于大多数对，当微调也在同一语系中进行时，语言迁移效果更好，尤其是在印度语（Hi、Ne、Gu）之间。然而，有效迁移不需要大量的词汇共享。例如，Zh-En 和 It-En 分别在 Ko-En 和 Ar-En 上取得了最好的迁移学习结果。然而，Zh和Ko、It和Ar之间的词汇重叠（甚至字符重叠）很少。</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525225725180.png" srcset="/img/loading.gif" lazyload alt="image-20230525225725180"></p>
+<p>**w&#x2F; Back-Translation  ** 我们还展示了 4 对无监督 MT 与反向翻译 (BT) 与 s 的比较。表 12 中的语言迁移。结果也好坏参半。如果存在高质量（相似语言）双文本数据，或在不同对之间进行翻译，语言迁移能够击败传统的 BT 方法。此外，我们还展示了结合这两种技术的有希望的结果。在这种情况下，我们从最好的转移模型开始，并在预训练中使用的同一个单语语料库上应用（迭代）BT。表 12 显示了 1 次 BT 迭代的结果。对于所有对，我们通过结合这两种技术看到了改进。</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525225736052.png" srcset="/img/loading.gif" lazyload alt="image-20230525225736052"></p>
+<h2 id="6-Related-Work"><a href="#6-Related-Work" class="headerlink" title="6 Related Work"></a>6 Related Work</h2><p>**Pre-training for Text Generation  ** 这项工作继承了 NLP 应用的自我监督预训练最近取得的成功，特别是对于文本生成任务，其中不同的自我监督目标专为在巨大的未标记文本语料库上训练大型神经模型而设计预训练模型通常用作微调变量下游任务的初始化，例如可控语言建模、机器翻译、摘要和对话生成。与大多数先前的工作相比，我们专注于对各种翻译应用程序应用去噪预训练的深入探索。</p>
+<p>**Multilinguality in NLP tasks  ** 这项工作还与多语言语言学习的持续趋势有关，包括将多语言词嵌入对齐到通用空间，以及学习跨语言模型以利用跨语言的共享表示。</p>
+<p>对于机器翻译，最相关的领域是多语言翻译，其最终目标是共同训练一种翻译同时翻译多个语言方向的模型，并共享表示以提高低资源语言的翻译性能。在本文中，我们主要关注预训练阶段的多语言性，并在标准双语场景中微调学习模型。与多语言翻译相比，我们不需要跨多种语言的并行数据，而是有针对性的方向，这可能会提高对低资源语言和特定领域的可扩展性。此外，多语言预训练不太可能遇到不同语言之间的干扰问题，这对于常规多语言翻译模型来说是典型的。</p>
+<p>**Document Translation   ** 作为关键应用之一，这项工作还与之前将文档级上下文整合到神经机器翻译中的努力相关联。李等是最相关的工作，它还利用预训练编码器 (BERT) 来处理更长的上下文。然而，这些工作都没有在文档级的纯 Seq2Seq 模型上显示出积极的结果，这涉及特定于任务的技术，并且通常只在上下文范围受限的句子级翻译上起作用。就我们所知，我们的多语言预训练模型是首个通过标准 Seq2Seq 学习在文档级翻译上显示改进结果的同类作品。</p>
+<p>**Unsupervised Translation  ** 这项工作还总结了以前在没有直接平行语料库的情况下学习语言间翻译的努力，并将它们重新定义为具有三类的无监督机器翻译，在这项工作中，我们只关注第一类和第三类的应用（§ 5).当没有任何类型的平行语料库可用时，Artetxe 等提出从两个方向联合学习去噪自动编码器和反向翻译，然而，这需要良好的初始化并且只在相似的语言对上表现良好；吴等用从目标单语数据中检索到的相似句子代替回译；吴等通过从维基百科中挖掘句子并将它们用作弱监督翻译对来解决问题。类似于 Lample 和 Conneau 等，我们遵循第一种方法并将我们的预训练模型视为初始化步骤。此外，我们研究了使用语言迁移的无监督翻译，这类似于 Pourdamghani 等人作者生成源语言的翻译，并训练一个使用高资源语言的系统来纠正这些中间话语。它也与 Conneau 等人密切相关; Artetxe 等人用于跨语言表征学习。</p>
+<h2 id="7-Conclusion"><a href="#7-Conclusion" class="headerlink" title="7 Conclusion"></a>7 Conclusion</h2><p><strong>我们证明多语言去噪预训练能够显着改善句子级别和文档级别的监督和无监督机器翻译</strong>。我们分析了预训练何时以及如何最有效，并且可以与其他方法（例如反向翻译）相结合。我们的结果还显示了从多语言预训练中学习到的表征的迁移学习能力。</p>
+<p>在未来的工作中，我们会将当前的预训练扩展到更多语言，例如 mBART100 模型。我们模型的大小使得在生产中部署成本很高——未来的工作将探索预训练更高效的模型。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%AF%8F%E6%97%A5%E8%AF%BB%E8%AE%BA%E6%96%87/">#每日读论文</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Multilingual Denoising Pre-training for Neural Machine Translation</div>
+      <div>http://example.com/2023/05/25/Multilingual Denoising Pre-training for Neural Machine Translation/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Menglong</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年5月25日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/05/25/Multilingual%20Translation%20with%20Extensible%20Multilingual%20Pretraining%20and%20Finetuning/" title="Multilingual Translation with Extensible Multilingual Pretraining and Finetuning">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Multilingual Translation with Extensible Multilingual Pretraining and Finetuning</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/05/23/Bloom/" title="Bloom">
+                        <span class="hidden-mobile">Bloom</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>哪里可以找到我：</span> <a href="https://github.com/menglong-123" target="_blank" rel="nofollow noopener"><span>Github</span></a> <i class="iconfont icon-love"></i> <a href="https://blog.csdn.net/M_L_Fighting" target="_blank" rel="nofollow noopener"><span>CSDN</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

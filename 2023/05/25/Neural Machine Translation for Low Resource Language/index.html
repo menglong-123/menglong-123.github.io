@@ -1,0 +1,675 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
+  <link rel="icon" href="/img/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Menglong">
+  <meta name="keywords" content="随笔">
+  
+    <meta name="description" content="Abstract由于自然语言固有的复杂性和流动性，神经机器翻译是一项具有挑战性的任务。尽管如此，近年来，它在几种语言对中取得了最先进的性能。尽管近年来在多语言神经机器翻译 (MNMT) 领域可以看到很多牵引力，但还没有进行全面的调查来确定哪些方法行之有效。本文的目标是调查低资源语言领域并构建神经机器翻译模型以获得最先进的结果。该论文着眼于建立在 mBART语言模型的基础上，并探索使用各种 NLP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Neural Machine Translation for Low Resource Language">
+<meta property="og:url" content="http://example.com/2023/05/25/Neural%20Machine%20Translation%20for%20Low%20Resource%20Language/index.html">
+<meta property="og:site_name" content="追梦少年的博客">
+<meta property="og:description" content="Abstract由于自然语言固有的复杂性和流动性，神经机器翻译是一项具有挑战性的任务。尽管如此，近年来，它在几种语言对中取得了最先进的性能。尽管近年来在多语言神经机器翻译 (MNMT) 领域可以看到很多牵引力，但还没有进行全面的调查来确定哪些方法行之有效。本文的目标是调查低资源语言领域并构建神经机器翻译模型以获得最先进的结果。该论文着眼于建立在 mBART语言模型的基础上，并探索使用各种 NLP">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525133147642.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525133635656.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525135709071.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525140217968.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525140800540.png">
+<meta property="article:published_time" content="2023-05-25T15:09:04.000Z">
+<meta property="article:modified_time" content="2023-05-25T15:09:42.637Z">
+<meta property="article:author" content="Menglong">
+<meta property="article:tag" content="每日读论文">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525133147642.png">
+  
+  
+  
+  <title>Neural Machine Translation for Low Resource Language - 追梦少年的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>追梦少年的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Neural Machine Translation for Low Resource Language"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-05-25 23:09" pubdate>
+          2023年5月25日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          66 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Neural Machine Translation for Low Resource Language</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>由于自然语言固有的复杂性和流动性，神经机器翻译是一项具有挑战性的任务。尽管如此，近年来，它在几种语言对中取得了最先进的性能。尽管近年来在多语言神经机器翻译 (MNMT) 领域可以看到很多牵引力，但还没有进行全面的调查来确定哪些方法行之有效。本文的目标是调查低资源语言领域并构建神经机器翻译模型以获得最先进的结果。该论文着眼于建立在 mBART语言模型的基础上，并探索使用各种 NLP 和深度学习技术（如反向翻译和迁移学习）来增强它的策略。此实现尝试解压缩 NMT 应用程序的架构并确定不同的组件，这些组件为我们提供了在低资源语言问题空间范围内修改所述应用程序的机会。</p>
+<h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p>用于训练的大型平行语料库的可用性有助于 MT 领域的重大发展和进步。对于那些存在足够并行训练资源的语言对（例如英语 → 法语、英语 → 德语，反之亦然），现代神经机器翻译技术可以实现接近人类水平的翻译性能。<strong>由于并行数据量低，神经模型通常在低资源语言对上表现不佳。</strong>此外，由于缺乏公开可用的基准，也很难评估在此类语言对上训练的模型。简而言之，要改进低资源语言的翻译，有几个挑战需要解决；缺乏干净的平行数据，单语资源等替代来源，嘈杂的可比数据，相关语言的平行数据等。</p>
+<p>为了解决这些问题，在这项工作中，我们采用了 mBART预训练语言模型并为四种语言创建了基线模型，即Sinhala → English, Nepali → English, Khmer → English 和 Pashto → English，来自 FLoRes数据集。</p>
+<p>在这个生成的基线上，我们应用了迁移学习、反向翻译和使用focal loss 引入损失标准等技术，并验证了它们对 BLEU分数的影响。对这些方法的大量实验表明，我们的简单方法效果非常好，并且从反向翻译 (BT) 和用focal loss替换交叉熵 的进一步改进在 Si- En 和 Ne-En，结果分别比 mbART NMT 微调模型提高了 0.57 和 1.29。我们还在 FLoRes 中最近添加的语言对 Km-En 和 Ps-En 上进行了实验，但没有公开可用的基准；并分别获得了 6.68 和 1.14 的新基准。最后，我们展示了我们新的 NMT 模型，它可以跨语言翻译和一些交互式翻译现象。</p>
+<h2 id="2-Related-Work"><a href="#2-Related-Work" class="headerlink" title="2 Related Work"></a>2 Related Work</h2><h3 id="2-1-mBART-pretrained"><a href="#2-1-mBART-pretrained" class="headerlink" title="2.1 mBART pretrained"></a>2.1 mBART pretrained</h3><p>对于这篇论文，我们的想法是利用已经围绕多语言 NMT 完成的不同工作，考虑到这一点，我们使用了 mBART模型，该模型在几个低和高的语言上进行了训练和微调资源语言。 mBART 是 Facebook BART 模型的继承者，它使用双向和自回归模型。 mBART 模型经过微调，可以为机器翻译目的提供对多种语言的支持。它是在 25 种语言的单语通用爬行语料库上训练的。使用句子片段模型 (SPM) 进一步对文本语料库进行标记化，该模型提供子词标记化和 unigram 语言建模，另外还包括对完整句子的直接训练。 <strong>mBART 进一步使用上&#x2F;下采样来平衡每种语言的百分比</strong>。然后，这个预训练模型在 24 种语言的并行数据语料库上进一步微调，其中许多语言取得了最先进的结果。</p>
+<p><strong>为低资源语言收集语料库</strong>的过程是下一个障碍。 FloRes数据集是显而易见的选择，并且已发布的相关工作是一个很好的起点。此外，我们使用 OPUS 数据集为 FLoRes 中没有足够数据集的用例收集并行数据集。对于反向翻译，我们使用了来自 <a target="_blank" rel="noopener" href="http://statmt.org/">http://statmt.org/</a> 中 SMT 数据集的单语数据集。</p>
+<h3 id="2-2-Focal-Loss"><a href="#2-2-Focal-Loss" class="headerlink" title="2.2 Focal Loss"></a>2.2 Focal Loss</h3><p>自回归序列到序列 (seq2seq) 模型（例如 Transformers）经过训练以最大化目标序列的对数似然，以输入序列为条件。然而，seq2seq 模型（或一般的结构化预测模型）在学习期间的标记级别分类和搜索期间的序列级别推理之间存在差异。这种差异也以句子长度灾难的形式表现出来，即<strong>模型在推理过程中倾向于生成较短的句子</strong>，这在文献中受到了相当大的关注。</p>
+<p>对于基于 transformer 的 NMT，<strong>低频词条在预测期间获得较低的概率，因为低频词条的嵌入与语义相似的高频词条位于不同的空间子区域</strong>。此外，由于这些标记嵌入必须与上下文向量匹配以获得下一个标记概率，因此低频标记的点积相似性得分较低，即使它们在语义上与高频标记相似。</p>
+<p>在这项工作中，与广泛使用的交叉熵 (CE) 损失相比，我们建议使用Focal Loss函数更好地结合归纳偏差。这是因为交叉熵损失限制了 NMT 模型在推理过程中的表现力，并且无法在输出中有效地生成低频标记。在 (Lin et al., 2017 [12]) 中提出，与交叉熵相比，<strong>Focal Loss (FL) 增加了低置信度预测相对于高置信度预测的相对损失。</strong></p>
+<p>Focal Loss计算在等式 1 中描述，其中 γ 是非负（&gt; 0）可调聚焦参数，p 是预测的概率&#x2F;置信度，α 是平衡正&#x2F;负样本处理重要性的参数随着阶级的不平衡。</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525133147642.png" srcset="/img/loading.gif" lazyload alt="image-20230525133147642"></p>
+<h3 id="2-3-Back-Translation"><a href="#2-3-Back-Translation" class="headerlink" title="2.3 Back Translation"></a>2.3 Back Translation</h3><p>回到大型并行数据集无法用于低资源语言训练的问题，我们遇到了由 Sennrich、Haddow 和 Birch 提出的称为反向翻译的合成数据生成方法。正如 Sennrich、Haddow 和 Birch所述，编码器-解码器 NMT 架构已经可以学习与语言模型相同的信息，我们探索了在不改变神经网络架构的情况下使用单语数据进行训练的策略。在这种方法中，将<strong>训练相反方向的翻译器，即从目标到源。使用训练有素的翻译器，将大量目标单语数据翻译成源语言，从而产生源语言和目标语言的合成平行语料库。</strong>生成的合成数据将添加到已经存在的source to target平行语料库中，用于训练source to target方向的translator model。将现有的平行语料库与合成数据相结合，得到一个可用于训练的大型数据集。</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525133635656.png" srcset="/img/loading.gif" lazyload alt="image-20230525133635656"></p>
+<p>Hoang 等人提出了一种不同的反向翻译变体称为迭代回译。在这种方法中，反向翻译过程重复多次，通过在每次迭代中附加合成数据，产生一个大型并行合成数据集。</p>
+<h3 id="2-4-Transfer-Learning"><a href="#2-4-Transfer-Learning" class="headerlink" title="2.4 Transfer Learning"></a>2.4 Transfer Learning</h3><p>许多近期作品提出的另一种方法是围绕迁移学习。如 Zoph 等人所述，迁移学习方法可以显着提高一系列低资源语言的 BLEU 分数。关键思想是<strong>先训练高资源语言对生成父模型，然后将一些学习到的参数传递给低资源对的子模型，进行初始化和约束训练。</strong> NMT 系统在英语 → 法语等语言对的大数据训练条件下取得了具有竞争力的准确率。然而，神经方法需要大量数据并且从低计数事件中学习效果很差。这种行为使得 vanilla NMT 成为并行数据稀缺的低资源语言的糟糕选择。因此，迁移学习使用学习任务中的知识来提高相关任务的性能，通常会减少文章 [15] 和 [16] 中提到的所需训练数据量。</p>
+<p>事实上，我们在工作中也采用并使用了这种方法。我们首先在大型平行数据语料库（例如，法语 → 英语）上训练 NMT 模型。我们称之为父模型。接下来，我们用已经训练好的父模型初始化一个 NMT 模型。</p>
+<p>然后这个新模型在一个非常小的平行语料库（例如，乌兹别克语 → 英语）上进行训练。我们称之为子模型。子模型不是从随机位置开始，而是使用父模型的权重进行初始化。这种方法的一个理由是，<strong>在我们训练数据有限的情况下，我们需要对模型进行强大的先验分布。</strong>在大量双语数据上训练的父模型可以被认为是一个锚点，即我们先验分布在模型空间中的峰值。</p>
+<p>当我们训练用父模型初始化的子模型时，我们固定可能在任务中有用的参数，以便它们在子模型训练期间不会被更改。在 French → English 到 Uzbek → English 示例中，作为初始化的结果，复制了父模型中的英语单词嵌入，但乌兹别克语单词最初映射到 Zoph 等人引用的随机法语嵌入。</p>
+<p>还有一些工作是在 NMT 中使用来自多个语言对的数据来提高性能。实际上，在 [17] 中，作者表明使用此框架<strong>可以通过混合使用低资源语言和高资源语言来提高低资源语言的性能。</strong></p>
+<h2 id="3-Approach"><a href="#3-Approach" class="headerlink" title="3 Approach"></a>3 Approach</h2><h3 id="3-1-Baseline-Model"><a href="#3-1-Baseline-Model" class="headerlink" title="3.1 Baseline Model"></a>3.1 Baseline Model</h3><p>考虑到时间和资源的限制以及巨大的好处，我们决定使用预训练模型。我们为这项任务选择的语言的性质进一步推动了这一决定。所有有问题的语言都遵循相似的形态、句法和语言学拓扑结构，属于印度-雅利安语系或其近亲。他们也遵循类似的主宾动词 (SOV) 结构，但高棉语除外，后者遵循主宾动词 (SVO) 语言拓扑。除了这种细微差别，我们的任务的性质仍然与使用 mBART-CC25 预训练模型可以完成的任务非常相似。此外，选择用于训练 mBART 的 25 种语言包括僧伽罗语 (si) 和尼泊尔语 (ne)，这使 mBART 成为了他们的一个很好的起点。此外，mBART 还接受了越南语 (vi，与高棉语 (km) 具有相似性得分为 11%，而且两者都是没有屈折形态的孤立语言。</p>
+<p>为了生成该实验的基线，我们使用了 mBART.CC25 并使用 FLoRes 和 OPUS 平行语料库分别针对所有 4 种语言的翻译任务对其进行了微调，并生成了 4 个不同的基线。我们使用标签平滑阈值为 0.2 的 label_smoothed_cross_entropy 损失准则。我们还依赖了 mBART.CC25 本身提供的句子模型和字典。</p>
+<p>获得的模型被设置为该特定语言的基线模型。在基线模型上进行了不同技术的实验。我们检查了与基线模型相比，实验技术是否能够提高模型性能。如果性能得到改善，那么我们得出结论，它可以用作低资源语言的性能增强技术。</p>
+<h3 id="3-2-Focal-Loss"><a href="#3-2-Focal-Loss" class="headerlink" title="3.2 Focal Loss"></a>3.2 Focal Loss</h3><p>我们提出了 Focal loss，通过在训练过程中加入归纳偏差，它可以更好地使模型训练适应条件文本生成的结构依赖性。</p>
+<p>对于实验，我们使用了 fairseq库，它不支持 focal loss，因此我们根据 Raunak 等人提出的实现编写了自己的 focal loss 自定义实现，设置 hyper-参数 α 分别为 0.5 和 γ 为 1。我们使用了基线模型，并在低资源语言——僧伽罗语 (si)、尼泊尔语 (ne)、普什图语 (ps) 和高棉语 (km) 上使用Focal Loss进一步对其进行了微调；构建最终模型。</p>
+<h3 id="3-3-Back-Translation"><a href="#3-3-Back-Translation" class="headerlink" title="3.3 Back Translation"></a>3.3 Back Translation</h3><p>由 statmt.org [8] 提供的新闻爬取创建的英语数据集被用作目标单语数据集，用于回译。</p>
+<p>作为反向翻译的一部分，我们以相反的顺序在平行语料库上对 mBART.CC25 进行了微调，即从目标语言到源语言。使用反向翻译器，将大量目标单语数据翻译成相应的源语句作为输出，以创建合成平行语料库数据。这种合成数据的质量取决于反向翻译器的质量。每种语言平均生成 800 万条平行记录。</p>
+<p>合成的平行语料库与现有的低资源平行语料库相结合，创建了一个广泛的源目标数据集。最好的模型是在合成并行数据集上使用 focal_loss 而不是 label_smoothed_cross_entropy 作为损失标准进行训练后获得的。这在某种程度上解决了并行数据较少的问题，因为单语数据集可广泛用于任何语言；从而为我们提供了一个很好的大型语料库来训练模型。</p>
+<h3 id="3-4-Transfer-Learning"><a href="#3-4-Transfer-Learning" class="headerlink" title="3.4 Transfer Learning"></a>3.4 Transfer Learning</h3><p>为了试验知识迁移&#x2F;迁移学习方法，我们使用了 mBART.CC25 模型并用相对较高的资源语言——泰米尔语 (ta)、印地语 (hi)、越南语 (vi) 和波斯语 (fa) 对它们进行了训练，并构建了父模型。然后，我们使用父模型对所讨论的僧伽罗语 (si)、尼泊尔语 (ne)、普什图语 (ps) 和高棉语 (km) 的低资源语言进一步微调；构建最终模型。我们还使用 focal_loss 作为损失标准，而不是 label_smoothed_cross_entropy。这会影响最佳检查点（即结果输出模型）的识别方式。</p>
+<h2 id="4-Experiment"><a href="#4-Experiment" class="headerlink" title="4 Experiment"></a>4 Experiment</h2><p>本节讨论为实施、理解和评估上面列出的建议而进行的实验设置和步骤。</p>
+<h3 id="4-1-Data"><a href="#4-1-Data" class="headerlink" title="4.1 Data"></a>4.1 Data</h3><h4 id="4-11-Datasets"><a href="#4-11-Datasets" class="headerlink" title="4.11 Datasets"></a>4.11 Datasets</h4><p>我们使用 FLoRes 存储库中可用的 4 种语言训练了 mBART.CC25 预训练模型。 Ps-En和Km-En的训练数据平行语料来源于OPUS数据库。这些语言的单语语料库来自 statmt.org 的新文章语料库。同时，用于迁移学习的母语的并行数据也来自 OPUS 库。我们主要依靠 GNOME [20]、KDE4 [21]、Ubuntu [22] 本地化语料库和 OpenSubtitles [23] 电影字幕语料库 &#x2F; Global Voices [24] 新闻文章语料库进行训练，这也给出了很好的混合短片以及如长句。用于验证和测试的语料库是维基百科。</p>
+<p>语料库大小详见表1</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525135709071.png" srcset="/img/loading.gif" lazyload alt="image-20230525135709071"></p>
+<h4 id="4-1-2-Preprocessing"><a href="#4-1-2-Preprocessing" class="headerlink" title="4.1.2 Preprocessing"></a>4.1.2 Preprocessing</h4><p>与 mBART.CC25 类似，我们使用句子片段模型 (SPM) 进行标记化。对数据集进行预处理以排除任何太小的句子——即尼泊尔语 (ne)、普什图语 (ps) 和高棉语 (km) 的一个标记长句和僧伽罗语 (si) 少于 6 个标记的句子。我们使用 fairseq 库来运行预处理和训练，但我们没有依赖 FLoRes 存储库提供的句子片段标记化模型，而是使用了 mBART.CC25 提供的模型。</p>
+<h3 id="4-2-Evaluation-method"><a href="#4-2-Evaluation-method" class="headerlink" title="4.2 Evaluation method"></a>4.2 Evaluation method</h3><p>我们已将 sacreBLEU 指标用于评估方法以获得上述结果。正如 Papineni 等人在 2002 年中提到的那样，比较 BLEU 分数比它应该做的要难。每个解码器都有自己的实现，通常是从 moses那里借来的，但可能会有细微的变化。 Moses 本身有许多作为独立脚本的实现，几乎没有说明它们有何不同。传递给这些脚本中的每一个的不同标志可以在最终得分中产生很大的波动。所有这些都可能以不同的方式处理标记化。所以 sacreBLEU 所做的是在将句子传递给 corpus-bleu 之前对句子进行解码和去标记化。 SacreBLEU 旨在通过将原始参考实现与其他有用的功能包装在一起来解决这些问题。</p>
+<p>默认值是按照 BLEU 的计算方式设置的，脚本输出一个简短的版本字符串，让其他人可以准确地知道已经做了什么。 NLTK 和 SacreBLEU 使用不同的标记化规则，主要是在处理标点符号方面。 NLTK 使用其标记化，而 SacreBLEU 复制了原始的 Perl 实现。标记化规则在 NLTK 中可能更加详尽，但它们使数字与原始实现无法比较。</p>
+<p>对于我们的评估，我们使用带有 SacreBLEU 的 fairseq-generate CLI 作为评分方法。此外，我们还使用了 Yinhan et al., 2002 [1] 中建议的 lenpen 超参数，其值为 12，因此它有利于较长的句子。这种方法给了我们更好的 BLEU 分数。</p>
+<h3 id="4-3-Model-settings"><a href="#4-3-Model-settings" class="headerlink" title="4.3 Model settings"></a>4.3 Model settings</h3><p>我们选择了 mbart_large 架构，它遵循与 bart-large 相同的设置——即 24 层、1024 隐藏、16 头，但参数为 400M，mbart_large 有 610M 参数（训练数量：610851840）。我们选择了 0.0003 的学习率、0.3 的辍学率和 ADAM [27] 优化器进行训练。由于语料库非常小，我们选择使用 fairseq-train 命令的 max_updates 参数来确定训练的停止标准。 updates 表示学习和调整参数值的次数。我们选择在 40,000 次更新时停止。在资源方面，我们选择了 12 台 NVIDIA 的 Tesla T4 GPU 机器对所有 4 种语言进行为期 1 周的训练。</p>
+<h3 id="4-4-Results"><a href="#4-4-Results" class="headerlink" title="4.4 Results"></a>4.4 Results</h3><p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525140217968.png" srcset="/img/loading.gif" lazyload alt="image-20230525140217968"></p>
+<p>从表 2 可以看出，基线模型没有优于最先进的模型 (mBART)，这主要是因为我们主要使用由短句组成的 GNOME、KDE4 和 Ubuntu 本地化文件语料库来训练我们的基线模型（即标记较少的句子），但验证&#x2F;测试是在包含较长句子的维基百科语料库上完成的。除此之外，维基百科语料库还引起了域漂移，导致与最先进的技术相比，BLEU 分数较低。</p>
+<p>Focal Loss的实验显示了对基线模型的改进，但无法击败最先进的模型。尽管它满足了我们优于基线模型的预期，并证实了我们的假设，即<strong>对于低资源语言，Focal Loss是优于交叉熵的损失</strong>，但结果仍然不比最先进的模型好。这可能是因为Focal Loss的微调是在基线模型上完成的，由于在语料库中观察到的质量和域漂移，基线模型的性能已经受到影响。</p>
+<p>通过反向翻译，我们观察到该模型优于基线和最先进的模型，如表 2 中以粗体突出显示的那样。这主要是因为在反向翻译的情况下，从单语语料库生成的合成并行数据在至少比附加到最终训练数据的现有并行数据大五倍，从而提高了模型性能。</p>
+<p>此外，在迁移学习的情况下，我们观察到语言对 - Ne-En、Km-En、Ps-En 优于基线以及表 2 中以粗体突出显示的最先进模型。但是事实证明，Si-En是个例外。这一结果可归因于缺乏干净的、带注释的泰米尔语语料库。 Ta-En 平行语料库相对较小，还包含许多小（较少的标记）句子，导致没有增强 Si-En 的性能。</p>
+<p>三种语言（Ne-En、Km-En、Ps-En）的 BLEU 评分结果确实表明我们的假设、方法和方法论在处理低资源语言翻译问题上是正确的，但也凸显了数据的重要性可以在 Si-En -Transfer Learning with Focal Loss的实验中观察到的质量，其中数据质量对结果的影响比方法论更大。</p>
+<h2 id="5-Analysis"><a href="#5-Analysis" class="headerlink" title="5 Analysis"></a>5 Analysis</h2><p>使用 fairseq-generate 和 fairseq-interactive 这两个由 fairseq 包提供的命令行工具来分析训练模型的翻译输出。 fairseq-interactive 使用经过训练的模型一次将原始源文本转换为目标，而 fairseq-generate 使用经过训练的模型将一批或预处理源数据文件转换为目标数据。训练后，翻译是在这些工具的帮助下进行的。最后，将生成的翻译与 google translate 的输出进行比较，以了解模型翻译的好坏。图 2 中可以看到尼泊尔语与英语翻译比较的示例。</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230525140800540.png" srcset="/img/loading.gif" lazyload alt="image-20230525140800540"></p>
+<p>从图 2 中的比较可以看出，基线模型翻译是最不准确的。回译模型的翻译类似于google translator和ground truth。比较四种训练语言的 BLEU 分数，可以看出，与迁移学习相比，尼泊尔语 (ne) 和僧伽罗语 (si) 的分数明显更高。</p>
+<p>造成这种情况的原因之一可能是模型 mBART.CC25 是使用尼泊尔语 (ne) 和僧伽罗语 (si) 而不是其他两种语言进行预训练的。该模型将更好地理解用于预训练的语言，从而有助于在这些语言中表现更好。</p>
+<h2 id="6-Conclusion"><a href="#6-Conclusion" class="headerlink" title="6 Conclusion"></a>6 Conclusion</h2><p>在本文中，我们展示了利用预训练模型的好处。我们观察到，与经过 10 倍以上迭代训练的 mBART.CC25 相比，在预训练模型上构建基线所需的训练迭代次数要少得多。尽管如此，这仍然是资源密集型的，需要大量的培训时间。此外，我们能够证明应用反向翻译以及具有Focal Loss的迁移学习来克服低资源语言的局限性的好处；这可以在分数中观察到。这些模型观察到的分数超过了尼泊尔语 (ne) 和僧伽罗语 (si) 的最先进模型。对于高棉语 (KM) 和普什图语 (PS)，没有发布基线，因此我们是第一个创建最先进基准的人，它可以用作进一步改进未来研究的基线。</p>
+<h3 id="6-1-Future-work"><a href="#6-1-Future-work" class="headerlink" title="6.1 Future work"></a>6.1 Future work</h3><p>本文中进行的所有实验都是在筒仓中进行的。看看通过相互增强可以看到哪些改进会很有趣，这意味着对通过迁移学习训练的模型应用反向翻译可以提高分数。或者，另一种研究途径是 Hoang 等人引用的迭代方法。我们可以在多个单语语料库上执行反向翻译的多次迭代，这显着增加了训练数据的大小。类似的思维过程也可以扩展到迁移学习。我们可以<strong>探索在一系列与所讨论的语言具有相似性的高资源语言上进行训练的可能性，而不是在单一的高资源语言上进行训练，从而产生更好的结果</strong>，正如 Dong、Wu、He、Yu 等人在论文中提出的那样。</p>
+<p>作为结束语，我们想提醒大家注意，最近围绕 MNMT 的工作虽然显着增加，但仍然存在许多阻碍其进展的因素；例如缺乏人工评估。寻找让更多人参与的途径将有助于加快在 MNMT 上完成的工作。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%AF%8F%E6%97%A5%E8%AF%BB%E8%AE%BA%E6%96%87/">#每日读论文</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Neural Machine Translation for Low Resource Language</div>
+      <div>http://example.com/2023/05/25/Neural Machine Translation for Low Resource Language/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Menglong</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年5月25日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/05/25/Multilingual%20Translation%20with%20Extensible%20Multilingual%20Pretraining%20and%20Finetuning/" title="Multilingual Translation with Extensible Multilingual Pretraining and Finetuning">
+                        <span class="hidden-mobile">Multilingual Translation with Extensible Multilingual Pretraining and Finetuning</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>哪里可以找到我：</span> <a href="https://github.com/menglong-123" target="_blank" rel="nofollow noopener"><span>Github</span></a> <i class="iconfont icon-love"></i> <a href="https://blog.csdn.net/M_L_Fighting" target="_blank" rel="nofollow noopener"><span>CSDN</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

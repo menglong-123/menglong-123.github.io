@@ -1,0 +1,699 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
+  <link rel="icon" href="/img/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Menglong">
+  <meta name="keywords" content="随笔">
+  
+    <meta name="description" content="Abstract现有的翻译工作通过训练能够在任何两种语言之间进行翻译的单一模型，展示了大规模多语言机器翻译的潜力。然而，这项工作的大部分都是以英语为中心的，仅对从英语翻译过来或翻译成英语的数据进行训练。虽然这得到大量训练数据的支持，但并不能反映全球的翻译需求。在这项工作中，我们创建了一个真正的多对多多语言翻译模型，可以在任何 100 种语言之间直接翻译。我们构建并开源了一个训练数据集，该数据集涵盖">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&#39;M2M-100:多语言翻译模型&#39;">
+<meta property="og:url" content="http://example.com/2023/05/08/M2M-100-%E5%A4%9A%E8%AF%AD%E8%A8%80%E7%BF%BB%E8%AF%91%E6%A8%A1%E5%9E%8B/index.html">
+<meta property="og:site_name" content="追梦少年的博客">
+<meta property="og:description" content="Abstract现有的翻译工作通过训练能够在任何两种语言之间进行翻译的单一模型，展示了大规模多语言机器翻译的潜力。然而，这项工作的大部分都是以英语为中心的，仅对从英语翻译过来或翻译成英语的数据进行训练。虽然这得到大量训练数据的支持，但并不能反映全球的翻译需求。在这项工作中，我们创建了一个真正的多对多多语言翻译模型，可以在任何 100 种语言之间直接翻译。我们构建并开源了一个训练数据集，该数据集涵盖">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230508221534280.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230508222217689.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230509204405201.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230509204447388.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230509204725430.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230509204757501.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230509224619912.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230512212952782.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230512213127614.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230512214256862.png">
+<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230512215318371.png">
+<meta property="article:published_time" content="2023-05-08T13:59:34.000Z">
+<meta property="article:modified_time" content="2023-05-12T16:02:35.731Z">
+<meta property="article:author" content="Menglong">
+<meta property="article:tag" content="机器翻译论文">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230508221534280.png">
+  
+  
+  
+  <title>&#39;M2M-100:多语言翻译模型&#39; - 追梦少年的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>追梦少年的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="&#39;M2M-100:多语言翻译模型&#39;"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-05-08 21:59" pubdate>
+          2023年5月8日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          78 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">&#39;M2M-100:多语言翻译模型&#39;</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>现有的翻译工作通过训练能够在任何两种语言之间进行翻译的单一模型，展示了大规模多语言机器翻译的潜力。然而，这项工作的大部分都是以英语为中心的，仅对从英语翻译过来或翻译成英语的数据进行训练。虽然这得到大量训练数据的支持，但并不能反映全球的翻译需求。在这项工作中，我们创建了一个真正的多对多多语言翻译模型，可以在任何 100 种语言之间直接翻译。<strong>我们构建并开源了一个训练数据集，该数据集涵盖了通过大规模挖掘创建的具有监督数据的数千种语言方向。</strong>然后，我们探索如何通过结合密集缩放和特定于语言的稀疏参数来创建高质量模型来有效地增加模型容量。当直接在非英语方向之间进行转换时，我们对非以英语为中心的模型的关注带来了超过 10 BLEU 的收益，同时与 WMT 的最佳单一系统相比具有竞争力。我们开源我们的脚本，以便其他人可以在此处复制数据、评估和最终的 M2M-100 模型。</p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>多语言机器翻译 (MMT) 旨在构建单一模型以在任何一对语言之间进行翻译。神经网络模型在双语机器翻译方面非常成功，最近，神经 MMT 模型显示出可喜的结果。<strong>多语言翻译模型在翻译成多种语言时分解计算并在相似语言之间共享信息，这有利于低资源方向并实现零样本翻译</strong>。</p>
+<p>然而，在过去，这些系统在对相同语言对进行训练时的表现不如双语模型，因为模型容量必然必须在多种语言之间分配。这已通过增加模型容量得到缓解，但增加模型大小也需要更大的多语言训练数据集，这既费力又难以创建。为了缓解这一挑战，大多数先前的工作都集中在以英语为中心的数据集和模型上，这些数据集和模型可以在英语之间进行翻译，但不会在非英语语言之间进行翻译。<strong>数据和结果模型中的这种以英语为中心的偏见并不能反映人们如何使用翻译，并且根据经验会导致非英语翻译方向的性能下降。</strong></p>
+<p>在这项工作中，我们通过为 100 种语言构建一个大规模的多对多数据集来创建更多样化的多语言机器翻译模型。<strong>我们通过自动构建平行语料库和一种利用语言相似性避免挖掘所有方向的新型数据挖掘策略，大大降低了这项任务的复杂性</strong>。我们<strong>还利用反向翻译来提高零样本和低资源语言对模型的质量。</strong>总的来说，我们构建了第一个真正的多对多数据集，包含 100 种语言的 7.5B 个训练句子，为数千个翻译方向提供直接训练数据。</p>
+<p><strong>多对多数据集中的数据量随语言数量呈二次方增长，使得具有标准容量的神经网络迅速欠拟合。</strong>为此，我们利用扩展方面的进展来训练比当前具有模型并行性的双语模型大 <strong>50 倍</strong>以上的模型。即使使用这些工具，参数数量的缩放也很难遵循多对多设置引起的数据的二次增长，我们提出了几种针对我们问题的特殊性量身定制的缩放策略。特别是，我们考虑了一种<strong>确定性的专家混合策略，将模型参数拆分为不重叠的语言组</strong>，我们使用一种新颖的<strong>重新路由策略对其进行训练</strong>。<strong>特定于语言的专家混合也减少了密集更新参数的需要，并且在多机设置中更加并行化。</strong>总体而言，结合这些策略使我们能够将模型的容量扩展到 15.4B 参数的大小，并且仍然可以在数百个 GPU 上高效地训练它们。</p>
+<p>由此产生的方法使我们能够扩展 Transformers 并直接在 100 种语言之间进行翻译，而无需以英语为中心，其性能在许多竞争基准（包括 WMT）上可与双语模型相媲美。图 1 说明了我们的数据挖掘策略以及我们的模型架构。本文组织如下：首先，我们介绍了现代机器翻译的几个标准组件，并解释了它们如何应用于多语言环境（§ 2），然后描述我们扩展语言对数量以创建多对多数据集的策略 (§ 3)。然后，我们系统地将这个多对多数据集与以英语为中心的方法进行比较 (§ 4)。接下来，我们通过密集缩放和稀疏专家混合来合并增加的模型规模（§ 5）。最后，我们对我们的 100x100 多对多翻译系统的质量进行了全面分析，包括人工评估（§ 6）。</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230508221534280.png" srcset="/img/loading.gif" lazyload alt="image-20230508221534280"></p>
+<h2 id="2-Preliminaries"><a href="#2-Preliminaries" class="headerlink" title="2 Preliminaries"></a>2 Preliminaries</h2><p>在这项工作中，我们研究了如何使用单一模型最好地将 100 种语言翻译成 100 种语言，或 9900 个方向。我们在本节中描述了我们的出发点，并提供了基于 Transformer 的神经机器翻译模型的初步背景。</p>
+<p>Seq2Seq模型在序列对上进行训练，以输入序列为条件以产生输出序列。每个句子都被分成标记，可以是单词或字符，产生序列对 (w<del>1</del>, . . . , w<del>S</del>) 和 (v<del>1</del>, . . . , v<del>T</del> )。大多数机器翻译系统都是通过最大化目标序列的概率来训练的，给定源语句和目标语言l<del>t</del>：</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230508222217689.png" srcset="/img/loading.gif" lazyload alt="image-20230508222217689"></p>
+<p>现代神经机器翻译系统基于几个标准组件，即子词分割方法和称为Transformer的encoder-decoder架构。我们在多语言翻译的背景下描述了这些组件。</p>
+<p><strong>使用SentencePiece进行分割    **  翻译系统的输入和输出是一系列token。这些token是字典中的单元，其目标是用任何语言重建任何句子。</strong>使用单词作为基本单位具有挑战性，因为它会导致词汇表覆盖率低或词汇量大。<strong>在多语言环境中尤其如此。</strong>基于单词的系统的另一个限制是语言不能自然地拆分成单词<strong>，比如泰语。另一种方法是使用直接从数据中学习的子词单元。</strong>我们使用 SentencePiece**，因为它设计用于处理没有分段的语言，因此特别适合我们的设置。我们训练了一个字符覆盖率为 0.9995 的模型，以充分表示基于字符的语言。</p>
+<p><strong>创建一个多语言字典    <strong>SentencePiece 根据它们在训练数据集中的频率生成子词单元。</strong>天真地将其应用于我们的语料库会导致低资源语言和使用频率较低的脚本编写的语言在生成的词典中的代表性不足。</strong>随机抽样数据有利于代表过多的语言，因为选择语言的概率与其句子数量 D成正比，即 <img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230509204405201.png" srcset="/img/loading.gif" lazyload alt="image-20230509204405201">。我们通过为低资源语言添加单语数据和使用 T &#x3D; 5 的温度采样来规避这个问题。更准确地说，概率 p被重新调整为 <img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230509204447388.png" srcset="/img/loading.gif" lazyload alt="image-20230509204447388">，其中温度 T 控制分布。例如，将 T 设置为 1 给出原始数据分布。生成的字典包含 128k 个独特的toekn，这些token很好地分布在各种语言中，如附录 A 所示。</p>
+<h3 id="2-1-Transformers"><a href="#2-1-Transformers" class="headerlink" title="2.1 Transformers"></a>2.1 Transformers</h3><p>我们的多语言机器翻译模型基于 Transformer 序列到序列架构，它由两个模块组成：编码器和解码器。编码器将源令牌序列转换为相同长度的嵌入序列。然后，解码器按顺序逐个标记或自回归地生成目标句子。更准确地说，编码器采用token序列 W &#x3D; (w<del>1</del>, . . . , w<del>S</del>) 和源语言 l<del>s</del>，并生成嵌入序列 H &#x3D; (h<del>1</del>, . . . , h<del>S</del>)，然后将其馈入解码器使用目标语言t 依次生成目标标记序列 V &#x3D; (v<del>1</del>, . . . , v<del>T</del> )，即，</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230509204725430.png" srcset="/img/loading.gif" lazyload alt="image-20230509204725430"></p>
+<p>编码器和解码器都由相同类型的层组成，称为 Transformer 层。每个 Transformer 层都将一个向量序列作为输入并输出一个向量序列。在编码器中，Transformer 层由两个子层组成，一个是自注意力层，一个是前馈层。这些是按顺序应用的，然后都是残差连接（He et al., 2015）和层归一化：</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230509204757501.png" srcset="/img/loading.gif" lazyload alt="image-20230509204757501"></p>
+<p>自注意力层是一个注意力层，它通过查看其他元素来更新序列中的每个元素，而前馈层 (FFN) 通过 2 层 MLP 独立地传递序列中的每个元素。在解码器中，在自注意力和前馈之间还有一个额外的第三个子层，它计算对编码器输出的注意力。我们将读者推荐给 Vaswani 有关这些层的详细信息。</p>
+<p><strong>目标语言token   <strong>Transformer 架构专为双语情况而设计，其中目标语言是固定的。在多语言机器翻译的情况下，目标语言不是固定的，可以应用多种策略来调节网络以生成所需目标语言的句子。与 Ha 等人和约翰逊等人类似，我们</strong>在编码器中添加了一个特殊标记来指示源语言，并在解码器中添加了一个特殊标记来指示目标语言。</strong></p>
+<p>**训练    ** 我们改进大规模多语言翻译模型的起点是一个大型 Transformer 模型，它有 12 个编码器层和 12 个解码器层，FFN 大小为 8192，嵌入维度为 1024。我们共享输入和输出嵌入的权重矩阵。总参数数为 1.2B。我们使用 Adam 优化器进行训练，并首先预热 4000 次更新，标签平滑度为 0.1。对于正则化，我们将 dropout 参数调整在 {0.1, 0.2, 0.3} 之间。为了稳定更深层 Transformer 的训练，我们使用 LayerDrop 0.05 和预归一化进行训练。</p>
+<p>为了训练数十亿个句子，我们将训练数据分成 256 个不同的shard来管理内存消耗。但是，直接将中低资源语言划分为分片会减少每个分片的数据对中低资源语言的可变性。想象一下每个分片中的一个语言方向只有 100 个句子的情况——模型很容易过度拟合。因此，<strong>每种语言根据资源级别划分为不同数量的分片，资源高的语言有更多的分片，资源最低的语言只有一个分片。随后，较低的资源分片被复制，直到达到分片的全部数量。</strong></p>
+<p>**生成   ** 除非另有说明：对于所有结果，我们报告没有检查点平均的单一模型，使用beam 为5 的波束搜索，并且不调整长度惩罚。</p>
+<h2 id="3-Building-a-Many-to-Many-Parallel-Dataset-for-100-Languages"><a href="#3-Building-a-Many-to-Many-Parallel-Dataset-for-100-Languages" class="headerlink" title="3. Building a Many-to-Many Parallel Dataset for 100 Languages"></a>3. Building a Many-to-Many Parallel Dataset for 100 Languages</h2><p>在本节中，我们概述了我们的多对多设置：100 种语言的选择、评估基准以及通过数据挖掘和回译构建大规模训练集提供了数千个方向的训练数据。</p>
+<h3 id="3-1-Creating-a-Multilingual-Benchmark"><a href="#3-1-Creating-a-Multilingual-Benchmark" class="headerlink" title="3.1 Creating a Multilingual Benchmark"></a>3.1 Creating a Multilingual Benchmark</h3><p>建立多对多数据集的第一步是选择 100 种语言，这些语言已经存在可用于模型评估的高质量、带注释的数据集。</p>
+<h4 id="3-1-1-语言选择"><a href="#3-1-1-语言选择" class="headerlink" title="3.1.1 语言选择"></a>3.1.1 语言选择</h4><p>我们考虑了几个因素来选择要关注的语言。首先，我们包括来自不同地域的语系的广泛使用的语言。我们涵盖了多种脚本和资源级别（如表 1 所示），以实现对全球语言的高度覆盖。其次，我们使用存在公共评估数据的语言，因为我们必须能够量化模型性能。最后，我们只使用单语数据可用的语言，因为单语数据是大规模挖掘的关键资源。结合这三个标准结果创建了我们的 100 种语言的完整列表，总结在表 1 中。</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230509224619912.png" srcset="/img/loading.gif" lazyload alt="image-20230509224619912"></p>
+<h4 id="3-1-2-评价基准"><a href="#3-1-2-评价基准" class="headerlink" title="3.1.2 评价基准"></a>3.1.2 评价基准</h4><p>我们使用公开可用的评估数据集来评估我们所有模型的性能。为了涵盖我们的100种语言和2200个方向，我们汇集了来自各种来源的数据。我们在下面描述每个评估数据集。</p>
+<ul>
+<li>WMT – WMT 中的大多数语言对都经过英语，数据来自新闻领域。我们考虑了 13 种语言的数据。</li>
+<li>WAT – WAT 比赛涵盖亚洲语言和英语。我们考虑包含新闻文章的缅甸英语数据。 WAT 包含许多其他评估方向，但其中许多已被 WMT 或特定领域涵盖，因此我们仅关注 WAT 的缅甸英语。</li>
+<li>IWSLT – IWSLT 翻译比赛包含来自 TED 演讲的数据，并配有英文翻译。我们使用 4 种语言的数据。</li>
+<li>FLORES – FLORES将两种低资源语言（僧伽罗语和尼泊尔语）与维基百科域中的英语配对。</li>
+<li>TED – TED Talks 数据集包含 50 多种语言之间的翻译；大多数对不包括英语。评估数据是n路并行的，包含数千个方向。</li>
+<li>Autshumato – Autshumato是一个 11 路并行数据集，包含来自政府领域的 10 种非洲语言和英语。没有标准的验证&#x2F;测试拆分，因此我们使用数据集的前半部分进行验证，后半部分用于测试。</li>
+<li>Tatoeba – Tatoeba Challenge 涵盖来自混合领域的 692 个测试对，其中句子由志愿者在线贡献和翻译。我们使用的来自 Tatoeba 的评估对涵盖 85 种不同的语言。</li>
+</ul>
+<p>我们使用 BLEU 评估翻译质量。我们首先对所有数据进行去标记化，然后在计算 BLEU 之前为每种语言应用标准标记器。对于大多数语言，我们使用 moses 分词器。对于中文，我们使用 SacreBLEU 分词器（tok zh）并使用 HanziConv将模型生成的所有繁体字符转换为简体字，对于印度语言，我们使用 Indic NLP 库，对于日语，我们使用 Kytea，对于泰语，我们使用 PyThaiNLP，对于阿拉伯语，我们使用 QCRI Arabic Normalizer，对于韩语我们使用 Mecab，对于缅甸语我们使用 Ding 等人提供的官方分词工具。对于罗马尼亚语，我们遵循 Sennrich 等人并应用 Moses 标记化、特殊规范化并删除罗马尼亚语文本的变音符号， 最后对于塞尔维亚语，我们在计算 BLEU 之前将输出音译为拉丁字符。我们在此处发布标记化和评估脚本以实现可重复性 。我们从训练集中删除所有评估集中的所有数据。</p>
+<h3 id="3-2-通过挖掘相关平行数据来覆盖语言矩阵"><a href="#3-2-通过挖掘相关平行数据来覆盖语言矩阵" class="headerlink" title="3.2 通过挖掘相关平行数据来覆盖语言矩阵"></a>3.2 通过挖掘相关平行数据来覆盖语言矩阵</h3><p>监督翻译系统依赖于大量的平行句，我们称之为双文本数据，传统上来自人工翻译。大多数现有的双文本数据集都使用英语，只有一些特定领域的例外情况，例如来自国际组织的会议记录。这些语料库的大小和领域有限，另一种方法是在大量单语数据集合中挖掘并行数据。在这项工作中，我们利用并扩展了其中两个挖矿项目提供的语料库：CCMatrix和 CCAligned。在下文中，我们描述了我们的挖掘策略并总结了 CCMatrix 和 CCAligned 的主要思想。我们建议读者参考参考资料以获取对这些方法的详细描述。</p>
+<p><strong>使用LASER挖掘并行数据    **  <strong>挖掘平行数据包括在大型单语语料库中搜索可能是潜在翻译的句子。此搜索需要一种度量来捕获不同语言的句子之间的语义相似性</strong>。</strong>大多数最新方法通过比较在多语言数据上训练的神经网络的嵌入来建立这种相似性。我们专注于 LASER 编码器生成的嵌入，它可以比较 94 种不同语言的句子**。然后，我们使用 FAISS 索引有效地检索平行语料库。LASER Embedding泛化到看不见的语言，比如阿斯图里亚斯语，使我们能够挖掘 100 种语言的双文本。通用数据挖掘管道包括几个步骤：(1) 对大型文本语料库进行预处理并将其分为不同的语言，(2) 将对齐的句子候选对嵌入并存储在索引中，(3) 将索引的句子与形成潜在对，（4）在后处理中过滤得到的候选对。</p>
+<p>**CCMatrix挖掘方法  **  CCMatrix 采用全局方法：将一种语言中的所有独特句子与另一种语言中的所有独特句子进行比较。这种全局挖掘方法的优点是在搜索句子的翻译时考虑所有可能的文档。 CCMatrix 适用于 CCNet 的 91 种语言的大型单语语料库，但在这种规模下，即使使用 FAISS 的快速索引，全局搜索的计算要求也很高。因此，我们将其应用于选定的相关对子集，如第 3.2.1 节所述。</p>
+<p>**CCAligned挖掘方法   **  CCAligned 通过预选文档进行比较，避免了全局挖掘的规模挑战。这种局部挖掘遵循分层方法：首先，应用文档级语言识别和各种规则来查找可能包含相互翻译的整个文档。然后仅在配对文档中使用基于LASER的对齐来挖掘平行句。进行过滤以去除由于原始网页没有任何并行数据，只有部分并行数据或其他处理失败而存在的未对齐数据。这种方法的一个优点是它非常快速、可扩展，并且可以高精度地检索平行句子。另一个是每个英语文档都与许多非英语文档对齐——因此，可以通过将非英语文档与同一源配对来快速执行挖掘非英语对。</p>
+<p>**后处理  ** 我们应用过滤步骤来删除标点符号超过 50% 的句子。然后对数据进行去重，我们删除任何出现在任何验证或测试数据集中的句子——即使它与另一个语言对相关联。最后，我们应用长度和特定于语言的过滤。长度过滤会去除太长的句子——SPM 分割后超过 250 个子词——或者句子与其翻译之间的长度不匹配——如果长度比大于 3×。特定于语言的过滤会删除包含超过 50% 的字符的句子，这些字符未被标记为已识别语言的核心字符——具体来说，是已识别语言中常用的字符，但空格、数字、标点符号和非拉丁脚本语言的拉丁字符。</p>
+<h4 id="3-2-1-桥接语言组挖掘策略"><a href="#3-2-1-桥接语言组挖掘策略" class="headerlink" title="3.2.1 桥接语言组挖掘策略"></a>3.2.1 桥接语言组挖掘策略</h4><p>为每个语言对挖掘数据是令人望而却步的——以前的工作通过只关注 99 个通过英语的对来绕过这个问题。挖掘所有可能的对组合所需的大量计算的一种替代方法是稀疏挖掘，或仅挖掘选定的对子集。一个直接的策略是随机选择对来挖掘，但这不使用任何关于语言如何在全局范围内相互关联和使用的语言信息。</p>
+<p>在这项工作中，我们提出了一种基于语言家族和桥接语言的替代方案，避免详尽地挖掘每一个可能的对。我们的目标是减少双文本对的数量，同时保留实际兴趣的翻译方向。我们首先将所有 100 种语言分为 14 个语言组。一个组内的所有语言都是相互挖掘的。例如，在印度语组中，我们挖掘了所有成对的孟加拉语、印地语、马拉地语、泰米尔语、乌尔都语等。这一战略的动机是双重的。首先，生活在同一群体中使用多种语言的地区的人们往往相互交流很多，并且会从高质量的直接翻译中受益。其次，系统地挖掘同一组的语言有助于训练特定语言的参数模型（见§5.2）。</p>
+<p>在大多数情况下，语言是按语言相似性分组的，例如日耳曼语、斯拉夫语或马来-波利尼西亚语。但是，生成的分组的大小差异很大，导致最小分组中的语言的挖掘数据较少。我们进一步根据地理和文化接近度对语言进行分组，以减少这种差异。例如，乌拉尔语和波罗的海语被聚集到一个组中以增加挖掘数据的数量。得到的分组如表 1 所示。</p>
+<p>为了跨组连接语言，我们在每个组中定义了 1-3 种桥梁语言，通常是资源最多的语言，例如印度-雅利安语系 12 种语言中的孟加拉语、印地语和泰米尔语。表 1 突出显示了所有 26 种桥接语言。这些桥接语言是针对所有其他桥接语言进行挖掘的。最后，所有 100 种语言都是针对英语进行挖掘的。我们在图 2 中说明了这种挖掘策略。在左侧，我们描述了许多当前的模型模型：仅通过英语的数据。在右边，我们描绘了几种示例语言的多对多语言矩阵。与以英语为中心相比，我们的数据集对非英语直接翻译方向的覆盖范围要大得多。</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230512212952782.png" srcset="/img/loading.gif" lazyload alt="image-20230512212952782"></p>
+<p>图2：与 Bridge Language Mining Strategy 相比，English-Only 数据挖掘设置的描述。我们显示一个数据矩阵，其中语言显示在 X 和 Y 轴上。数据是在一个方向（例如印地语到马拉地语）中挖掘的，并用于双向训练。</p>
+<p>**训练数据统计   ** 总的来说，我们最终的训练数据集包含 7.5B 个平行句，对应 2200 个方向。在图 3 中，我们展示了所有桥接语言，并展示了它们的相关训练数据如何在英语翻译、语言组内或跨语言组的桥接语言之间进行划分。特别感兴趣的是附加的多对多数据与通过英语的数据之间的比较。我们观察到，与以英语为中心的策略相比，如果使用多对多策略，可以挖掘出多 5-10 倍的并行数据。这对中低资源语言特别有利。</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230512213127614.png" srcset="/img/loading.gif" lazyload alt="image-20230512213127614"></p>
+<p>图3：我们 100x100 训练语料库中通过桥接语言的数据总量。我们描述了通过英语（灰色）的数据量，通过不包括英语的桥接语言（橙色）的数据量，以及通过不包括桥接语言（蓝色）的语言分组的数据量。</p>
+<h4 id="3-2-2-结果"><a href="#3-2-2-结果" class="headerlink" title="3.2.2 结果"></a>3.2.2 结果</h4><p>我们验证了在数据构建过程中做出的几个决定的影响。首先，我们研究了我们的桥接语言策略与其他随机对增强的以英语为中心的挖掘以及完全随机挖掘相比的影响。其次，我们研究了在桥接策略中选择的稀疏程度的影响，重点关注 50 种语言的子集。</p>
+<p>**桥接语言策略 vs 随机和以英语为中心的随机。    **我们通过实验评估了桥接语言挖掘策略对（左）中基线模型性能的影响（表 2）。我们考虑两个额外的基线，一个完全随机的挖掘策略（随机 20%）和一个以英语为中心的 + 随机策略（随机 20% w&#x2F; En）。在 Random 策略中，挖掘的对是随机选择的，而在 English-Centric + Random 策略中，我们通过英语保留所有对，只随机选择剩余的对。我们表明，完全随机挖掘对性能有很大的负面影响，因为大量高质量数据是通过英语对齐的，因此完全随机抽样会消除很大一部分潜在的训练集。随机 20% w&#x2F; En 也更糟。通过检查，我们发现随机抽样对进行挖掘通常会选择不会产生那么多数据的对，因为这些对可能不包含高资源语言。然而，桥接语言策略确保高资源语言被挖掘，然后重点挖掘相关家族的语言。这会产生大量的双文本，同时涵盖许多语言方向。</p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230512214256862.png" srcset="/img/loading.gif" lazyload alt="image-20230512214256862"></p>
+<p>图2： （左）稀疏挖掘策略的比较。我们首先将稀疏度水平固定在 80%——与随机选择对进行挖掘相比，Bridge Language 挖掘策略表现得非常好。 （右）不同稀疏级别的桥接语言策略。我们分析了语言矩阵中不同级别的稀疏性，以了解要挖掘多少对。基于这些结果，我们将 60% 的稀疏度作为强大性能和合理挖矿数量之间的权衡点。 0% 表示没有稀疏性，或者是完全挖掘的语言矩阵。</p>
+<p>**稀疏度的影响    **我们使用桥接语言的数量来控制语言矩阵的稀疏性。在图 2（右）中，我们展示了与完全挖掘的语言矩阵（0% 稀疏）相比，稀疏性对我们的基线模型性能的影响。我们观察到增加挖掘数据量以减少矩阵的稀疏性是有帮助的，但完全挖掘矩阵并没有实质上更好。主要原因是我们的挖掘策略优先考虑经常使用的对，这些对通常与最大的双文本相关联，而丢弃的对通常与较小的双文本相关联。例如，完全挖掘矩阵会挖掘出冰岛语到汉语这样的一对，但是挖掘这对产生的数据量非常低。这种情况代表了随着越来越多的数据被挖掘而完整矩阵被挖掘时发生的情况，额外的对开始添加较少的数据，这反过来导致质量改进递减。</p>
+<h3 id="3-3-使用回译增强双向文本数据"><a href="#3-3-使用回译增强双向文本数据" class="headerlink" title="3.3 使用回译增强双向文本数据"></a>3.3 使用回译增强双向文本数据</h3><p>反向翻译 (BT) 从未对齐的单语数据创建合成双文本。核心思想是反向翻译单语句子，并将得到的合成翻译加入训练集。更准确地说，当训练模型从源语言翻译成目标语言时，反向翻译通过将单语目标句子翻译成源语言来生成额外的数据。因此，使用反向翻译需要能够双向翻译，这非常适合多语言机器翻译的设置。然而，生成这些反向翻译即使对于单个方向也是耗时的，这在多对多的情况下更加复杂。因此，<strong>我们专注于对特定对应用反向翻译，以在需要时补充挖掘数据。</strong></p>
+<p><strong>选择回译语言对     ** 我们的目标是在 100 种语言之间进行翻译，并为尽可能多的翻译方向提供良好的翻译质量。为此，我们</strong>使用回译来改进最初翻译质量较低的方向<strong>。我们通过在应用 BT 之前测量我们的 1.2B 参数多语言模型的质量来识别这些语言方向。由于反向翻译是计算密集型的，我们</strong>关注 100 个 BLEU 分数在 2 到 10 之间的方向**。对于其中的 50 个方向，我们根本没有任何双文本，因为我们没有挖掘所有 4,450 种可能的语言对。</p>
+<p><strong>使用额外的回译数据训练多语言模型。    <strong>对于选定的对，我们首先生成合成翻译，将其添加到训练集中而不进行上采样。继 Caswell 等人之后，我们</strong>在这些翻译中添加了一个特殊的编码器端 BT 令牌，以向模型表明它们是合成的</strong>。对于 100 种目标语言中的每一种，我们从 Wenzek 等人清理过的 CommonCrawl 语料库中随机抽取 5000 万个独特的单语句子。然后使用我们的 1.2B MMT 模型生成合成翻译。我们使用波束大小为 5 的波束搜索，并将所有超参数（包括长度惩罚）固定为所有方向的相同值。<strong>我们对反向翻译应用与原始挖掘训练数据相同的过滤，这大大减少了生成的合成双文本的大小。</strong></p>
+<p><strong>回译数据的影响。   <strong>结果如图 4 所示，我们将用于创建反向翻译的原始多对多模型（蓝线）与训练添加了反向翻译的多语言模型（橙色散点）后的改进进行了比较。</strong>反向翻译几乎总能提高任何方向的性能，而不管原始 BLEU 分数如何。</strong>由于 BT 生成的数据量与训练时间的长短相关，我们决定<strong>专注于将 BT 应用于性能较低的方向（BLEU 在 2 到 10 之间），以改进我们的 MMT 系统表现不佳的地方。</strong></p>
+<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230512215318371.png" srcset="/img/loading.gif" lazyload alt="image-20230512215318371"></p>
+<p>图4：添加回译数据的改进。对于我们通过添加反向翻译探索的 100 种语言方向中的每一种。蓝线表示原始模型，如果方向在 2 到 10 BLEU 之间，则选择方向。橙色散点表示添加反向翻译的效果。语言在回译之前按其原始 BLEU 分数排序。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%9C%BA%E5%99%A8%E7%BF%BB%E8%AF%91%E8%AE%BA%E6%96%87/">#机器翻译论文</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>&#39;M2M-100:多语言翻译模型&#39;</div>
+      <div>http://example.com/2023/05/08/M2M-100-多语言翻译模型/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Menglong</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年5月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/05/09/KL%E6%95%A3%E5%BA%A6/" title="KL散度">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">KL散度</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/04/27/ssh%E8%BF%9E%E6%8E%A5%E4%B8%8D%E4%B8%8A/" title="vscode ssh连接不上">
+                        <span class="hidden-mobile">vscode ssh连接不上</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>哪里可以找到我：</span> <a href="https://github.com/menglong-123" target="_blank" rel="nofollow noopener"><span>Github</span></a> <i class="iconfont icon-love"></i> <a href="https://blog.csdn.net/M_L_Fighting" target="_blank" rel="nofollow noopener"><span>CSDN</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

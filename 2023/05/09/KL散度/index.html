@@ -16,22 +16,22 @@
   <meta name="author" content="Menglong">
   <meta name="keywords" content="随笔">
   
-    <meta name="description" content="使用数组下标对数组进行排序C++实现123456789101112131415161718#include&lt;bits&#x2F;stdc++.h&gt;using namespace std;int main()&amp;#123;    vector&lt;int&gt; nums&amp;#123;1,5,6,9,7,2,3&amp;#125;;    int n &#x3D; nums.size();    vector&lt;">
+    <meta name="description" content="使用Pytorch计算KL散度：KL(p || q) 1234# p是target distribution# q是predict distributionkl_loss &#x3D; nn.KLDivLoss(reduction&#x3D;&amp;#x27;&amp;#x27;)loss &#x3D; kl_loss(q.log(), p)      1torch.nn.functional.kl_div(q.log(), p)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用下标进行排序">
-<meta property="og:url" content="http://example.com/2023/04/25/%E4%BD%BF%E7%94%A8%E4%B8%8B%E6%A0%87%E8%BF%9B%E8%A1%8C%E6%8E%92%E5%BA%8F/index.html">
+<meta property="og:title" content="KL散度">
+<meta property="og:url" content="http://example.com/2023/05/09/KL%E6%95%A3%E5%BA%A6/index.html">
 <meta property="og:site_name" content="追梦少年的博客">
-<meta property="og:description" content="使用数组下标对数组进行排序C++实现123456789101112131415161718#include&lt;bits&#x2F;stdc++.h&gt;using namespace std;int main()&amp;#123;    vector&lt;int&gt; nums&amp;#123;1,5,6,9,7,2,3&amp;#125;;    int n &#x3D; nums.size();    vector&lt;">
+<meta property="og:description" content="使用Pytorch计算KL散度：KL(p || q) 1234# p是target distribution# q是predict distributionkl_loss &#x3D; nn.KLDivLoss(reduction&#x3D;&amp;#x27;&amp;#x27;)loss &#x3D; kl_loss(q.log(), p)      1torch.nn.functional.kl_div(q.log(), p)">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-04-25T05:07:19.000Z">
-<meta property="article:modified_time" content="2023-04-25T09:05:30.475Z">
+<meta property="article:published_time" content="2023-05-09T06:13:01.000Z">
+<meta property="article:modified_time" content="2023-05-13T08:34:52.349Z">
 <meta property="article:author" content="Menglong">
-<meta property="article:tag" content="算法">
+<meta property="article:tag" content="随笔">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>使用下标进行排序 - 追梦少年的博客</title>
+  <title>KL散度 - 追梦少年的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="使用下标进行排序"></span>
+            <span id="subtitle" data-typed-text="KL散度"></span>
           
         </div>
 
@@ -208,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-04-25 13:07" pubdate>
-          2023年4月25日 下午
+        <time datetime="2023-05-09 14:13" pubdate>
+          2023年5月9日 下午
         </time>
       </span>
     
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          748 字
+          1.3k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          7 分钟
+          12 分钟
         
       </span>
     
@@ -269,14 +269,31 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">使用下标进行排序</h1>
+            <h1 style="display: none">KL散度</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="使用数组下标对数组进行排序"><a href="#使用数组下标对数组进行排序" class="headerlink" title="使用数组下标对数组进行排序"></a>使用数组下标对数组进行排序</h2><h3 id="C-实现"><a href="#C-实现" class="headerlink" title="C++实现"></a>C++实现</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    vector&lt;<span class="hljs-type">int</span>&gt; nums&#123;<span class="hljs-number">1</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">9</span>,<span class="hljs-number">7</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>&#125;;<br>    <span class="hljs-type">int</span> n = nums.<span class="hljs-built_in">size</span>();<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">indices</span><span class="hljs-params">(n)</span></span>;<br>    <span class="hljs-comment">// 为indices赋值，从0开始，每个元素增加1</span><br>    <span class="hljs-built_in">iota</span>(indices.<span class="hljs-built_in">begin</span>(), indices.<span class="hljs-built_in">end</span>(), <span class="hljs-number">0</span>);<br>    <span class="hljs-comment">// 在不修改nums数组的情况下，使用下标数组对nums进行排序</span><br>    <span class="hljs-built_in">sort</span>(indices.<span class="hljs-built_in">begin</span>(), indices.<span class="hljs-built_in">end</span>(), [&amp;](<span class="hljs-type">int</span> x, <span class="hljs-type">int</span> y)&#123;<br>        <span class="hljs-keyword">return</span> nums[x] &lt; nums[y];<br>    &#125;);<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i : indices) cout&lt;&lt;i&lt;&lt;<span class="hljs-string">&quot; &quot;</span>;<br>    cout&lt;&lt;endl;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i : indices) cout&lt;&lt;nums[i]&lt;&lt;<span class="hljs-string">&quot; &quot;</span>;<br>    cout&lt;&lt;endl;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+                <p>使用Pytorch计算KL散度：KL(p || q)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># p是target distribution</span><br><span class="hljs-comment"># q是predict distribution</span><br>kl_loss = nn.KLDivLoss(reduction=<span class="hljs-string">&#x27;&#x27;</span>)<br>loss = kl_loss(q.log(), p)<br></code></pre></td></tr></table></figure>
 
-<h3 id="Python实现"><a href="#Python实现" class="headerlink" title="Python实现"></a>Python实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">nums = [<span class="hljs-number">1</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">9</span>,<span class="hljs-number">7</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]<br>indices = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(nums)))<br>indices.sort(key=<span class="hljs-keyword">lambda</span> x : nums[x], reverse=<span class="hljs-literal">False</span>)<br>res = [nums[i] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> indices]<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;排序后的下标数组：&quot;</span>, indices)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;排序后的数组：&quot;</span>, res)<br></code></pre></td></tr></table></figure>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">torch.nn.functional.kl_div(q.log(), p)<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="—————"><a href="#—————" class="headerlink" title="—————"></a>—————</h1><p>之前错误计算的KL散度</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python">noise_output = self.noise_model(**noise_input)<br>out = self.noise_model.get_normalized_probs(noise_output, log_probs=<span class="hljs-literal">True</span>)<br>robust_net_prob, _ = torch.split(out, out.size(<span class="hljs-number">0</span>)//<span class="hljs-number">2</span>, dim=<span class="hljs-number">0</span>)<br>p_loss = torch.nn.functional.kl_div(q, robust_net_prob, reduction=<span class="hljs-string">&#x27;none&#x27;</span>)<br><br>clean_output = self.clean_model(**clean_input)<br>clean_net_prob = self.clean_model.get_normalized_probs(clean_output, log_probs=<span class="hljs-literal">False</span>)<br>q_loss = torch.nn.functional.kl_div(p, clean_net_prob, reduction=<span class="hljs-string">&#x27;none&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>现在的KL散度</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 让当前模型的真实数据输出，更接近噪声模型的噪声数据输出</span><br><span class="hljs-comment"># input是当前模型的真实数据输出，要取log (q)</span><br><span class="hljs-comment"># target是噪声模型的噪声数据输出，不取log</span><br>noise_output = self.noise_model(**noise_input)<br>out = self.noise_model.get_normalized_probs(noise_output, log_probs=<span class="hljs-literal">False</span>)<br><span class="hljs-comment"># 噪声模型的prob</span><br>target, _ = torch.split(out, out.size(<span class="hljs-number">0</span>)//<span class="hljs-number">2</span>, dim=<span class="hljs-number">0</span>)<br>p_loss = torch.nn.functional.kl_div(q, target, reduction=<span class="hljs-string">&#x27;none&#x27;</span>)<br><span class="hljs-comment"># ----------------------------------------------------------------</span><br><span class="hljs-comment"># 让当前模型的噪声数据输出，更接近于干净模型的干净数据输出</span><br><span class="hljs-comment"># input是当前模型的噪声输出，要取log  (p)</span><br><span class="hljs-comment"># target是干净模型的干净输出，不取log</span><br>clean_output = self.clean_model(**clean_input)<br><span class="hljs-comment"># clean模型的prob</span><br>target = self.clean_model.get_normalized_probs(clean_output, log_probs=<span class="hljs-literal">False</span>)<br>q_loss = torch.nn.functional.kl_div(p, target, reduction=<span class="hljs-string">&#x27;none&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+
 
 
 
@@ -289,13 +306,6 @@
               <div class="post-metas my-3">
   
   
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/%E7%AE%97%E6%B3%95/">#算法</a>
-      
-    </div>
-  
 </div>
 
 
@@ -304,8 +314,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>使用下标进行排序</div>
-      <div>http://example.com/2023/04/25/使用下标进行排序/</div>
+      <div>KL散度</div>
+      <div>http://example.com/2023/05/09/KL散度/</div>
     </div>
     <div class="license-meta">
       
@@ -317,7 +327,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年4月25日</div>
+          <div>2023年5月9日</div>
         </div>
       
       
@@ -349,9 +359,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/04/27/ssh%E8%BF%9E%E6%8E%A5%E4%B8%8D%E4%B8%8A/" title="vscode ssh连接不上">
+                      <a href="/2023/05/23/Bloom/" title="Bloom">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">vscode ssh连接不上</span>
+                        <span class="hidden-mobile">Bloom</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -359,8 +369,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/04/20/%E5%9C%A8fairseq%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%96%B0%E6%B3%A8%E5%86%8C%E7%9A%84%E6%A8%A1%E5%9E%8B%E3%80%81%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%AD%89/" title="在fairseq中使用新注册的模型、损失函数等">
-                        <span class="hidden-mobile">在fairseq中使用新注册的模型、损失函数等</span>
+                      <a href="/2023/05/08/M2M-100-%E5%A4%9A%E8%AF%AD%E8%A8%80%E7%BF%BB%E8%AF%91%E6%A8%A1%E5%9E%8B/" title="&#39;M2M-100:多语言翻译模型&#39;">
+                        <span class="hidden-mobile">&#39;M2M-100:多语言翻译模型&#39;</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
