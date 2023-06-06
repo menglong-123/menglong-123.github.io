@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>git操作</title>
+    <link href="/2023/06/06/git%E6%93%8D%E4%BD%9C/"/>
+    <url>/2023/06/06/git%E6%93%8D%E4%BD%9C/</url>
+    
+    <content type="html"><![CDATA[<h2 id="将项目部署到github上"><a href="#将项目部署到github上" class="headerlink" title="将项目部署到github上"></a>将项目部署到github上</h2><ol><li>在github上创建仓库，获取仓库的链接 <a href="https://github.com/xxx/xxx.git">https://github.com/xxx/xxx.git</a></li><li>在本地命令行中 git clone xxx.git</li><li>在clone的文件夹中创建新文件 xx.py</li><li>git remote add [name] [url] (其中name随意指定，url为上面仓库的xxx.git)</li><li>git add xx.py</li><li>git commit -m ‘注释’</li><li>git push [name]</li></ol>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>fairseq数据预处理</title>
     <link href="/2023/06/05/fairseq%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/"/>
     <url>/2023/06/05/fairseq%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/</url>
