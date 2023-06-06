@@ -16,24 +16,22 @@
   <meta name="author" content="Menglong">
   <meta name="keywords" content="随笔">
   
-    <meta name="description" content="摘要大型语言模型 (LLM) 已被证明能够根据一些演示或自然语言指令执行新任务。虽然这些功能已被广泛采用，但大多数 LLM 是由资源丰富的组织开发的，并且经常不向公众公开。作为使这项强大技术民主化的一步，我们展示了 BLOOM，这是一种由数百名研究人员合作设计和构建的 176B 参数开放访问语言模型。 BLOOM 是一种仅解码器的 Transformer 语言模型，它是在 ROOTS 语料库上训练">
+    <meta name="description" content="使用sacrebleu来计算BLEU值123456789101112import sacrebleufrom sacrebleu import sentence_bleu, corpus_bleupred1 &#x3D; &quot;we are all born. we bring children to the world.&quot;ref1 &#x3D; &quot;we&amp;#x27;re all born.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Bloom">
-<meta property="og:url" content="http://example.com/2023/05/23/Bloom/index.html">
+<meta property="og:title" content="BLEU值的计算">
+<meta property="og:url" content="http://example.com/2023/05/30/BLEU%E5%80%BC%E7%9A%84%E8%AE%A1%E7%AE%97/index.html">
 <meta property="og:site_name" content="追梦少年的博客">
-<meta property="og:description" content="摘要大型语言模型 (LLM) 已被证明能够根据一些演示或自然语言指令执行新任务。虽然这些功能已被广泛采用，但大多数 LLM 是由资源丰富的组织开发的，并且经常不向公众公开。作为使这项强大技术民主化的一步，我们展示了 BLOOM，这是一种由数百名研究人员合作设计和构建的 176B 参数开放访问语言模型。 BLOOM 是一种仅解码器的 Transformer 语言模型，它是在 ROOTS 语料库上训练">
+<meta property="og:description" content="使用sacrebleu来计算BLEU值123456789101112import sacrebleufrom sacrebleu import sentence_bleu, corpus_bleupred1 &#x3D; &quot;we are all born. we bring children to the world.&quot;ref1 &#x3D; &quot;we&amp;#x27;re all born.">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230523213029732.png">
-<meta property="article:published_time" content="2023-05-23T13:19:45.000Z">
-<meta property="article:modified_time" content="2023-05-24T08:13:41.444Z">
+<meta property="article:published_time" content="2023-05-30T07:45:04.000Z">
+<meta property="article:modified_time" content="2023-06-06T05:25:32.117Z">
 <meta property="article:author" content="Menglong">
-<meta property="article:tag" content="读论文">
+<meta property="article:tag" content="随笔">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="c:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230523213029732.png">
   
   
   
-  <title>Bloom - 追梦少年的博客</title>
+  <title>BLEU值的计算 - 追梦少年的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Bloom"></span>
+            <span id="subtitle" data-typed-text="BLEU值的计算"></span>
           
         </div>
 
@@ -210,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-05-23 21:19" pubdate>
-          2023年5月23日 晚上
+        <time datetime="2023-05-30 15:45" pubdate>
+          2023年5月30日 下午
         </time>
       </span>
     
@@ -222,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.4k 字
+          2.3k 字
         
       </span>
     
@@ -233,7 +231,7 @@
         
         
         
-          29 分钟
+          20 分钟
         
       </span>
     
@@ -271,25 +269,25 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Bloom</h1>
+            <h1 style="display: none">BLEU值的计算</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>大型语言模型 (LLM) 已被证明能够根据一些演示或自然语言指令执行新任务。虽然这些功能已被广泛采用，但大多数 LLM 是由资源丰富的组织开发的，并且经常不向公众公开。作为使这项强大技术民主化的一步，我们展示了 BLOOM，这是一种由数百名研究人员合作设计和构建的 176B 参数开放访问语言模型。 BLOOM 是一种<strong>仅解码器的 Transformer 语言模型</strong>，它是在 ROOTS 语料库上训练的，该数据集包含 46 种自然语言和 13 种编程语言（总共 59 种）的数百个来源。我们发现 BLOOM 在各种基准测试中都取得了有竞争力的表现，在经过多任务提示微调后取得了更好的结果。为了促进未来使用 LLM 的研究和应用，我们根据 Responsible AI License 公开发布了我们的模型和代码。</p>
-<h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1. 介绍"></a>1. 介绍</h2><p>预训练语言模型已成为现代自然语言处理 (NLP) 管道的基石，因为它们通常可以从较少量的有标签的数据中产生更好的性能。 ELMo、ULMFiT、GPT和 BERT的发展导致了预训练模型的广泛使用作为下游任务微调的初始化。随后发现预训练语言模型无需任何额外训练即可执行有用的任务进一步证明了它们的实用性。此外，根据经验观察，随着模型变大，语言模型的性能往往会提高——有时是可以预见的，有时是突然的——导致了规模不断扩大的趋势。除了环境问题，训练大型语言模型 (LLM) 的成本只有资源充足的组织才能负担得起。此外，直到最近，大多数 LLM 都没有公开发布。结果，大多数研究团体被排除在LLMs的发展之外。这种排斥产生了具体的后果；例如，大多数LLMs主要接受英语文本的训练（中文和韩语有明显的例外）。</p>
-<p>为了解决这些问题，我们提出了 BigScience Large Open-science Open-access Multilingual Language Model (BLOOM)。 BLOOM 是一个 1760 亿参数的语言模型，在 46 种自然语言和 13 种编程语言上进行训练，由数百名研究人员合作开发并发布。用于训练 BLOOM 的计算是通过 GENCI 和 IDRIS 的法国公共资助提供的，利用了 IDRIS 的 Jean Zay 超级计算机。为了构建 BLOOM，我们对其每个组件进行了全面的设计过程，包括训练数据集（第 3.1 节）、模型架构和训练目标（第 3.2 节）以及分布式学习的工程策略（第 3.4 节）。我们还对模型的功能进行了分析（第 4 节）。我们的总体目标不仅是公开发布性能可与最近开发的系统相媲美的大规模多语言语言模型，而且还记录其开发的协调过程（第 2.2 节）。本文的目的是提供这些设计步骤的高级概述，同时参考我们在开发 BLOOM 过程中生成的各个报告。</p>
-<h2 id="2-背景"><a href="#2-背景" class="headerlink" title="2. 背景"></a>2. 背景</h2><p>在描述 BLOOM 模型本身之前，在本节中，我们提供了 LLM 的必要背景以及 BigScience 工作的组织概述。</p>
-<h3 id="2-1-语言模型"><a href="#2-1-语言模型" class="headerlink" title="2.1 语言模型"></a>2.1 语言模型</h3><p>语言建模是指对文本中一系列标记的概率进行建模的任务，其中标记是文本的一个单位（例如词、子词、字符或字节等）。在这项工作中（以及在大多数当前的语言建模应用中），我们将文本中标记的联合概率建模为：</p>
-<p><img src="C:\Users\18215\AppData\Roaming\Typora\typora-user-images\image-20230523213029732.png" srcset="/img/loading.gif" lazyload alt="image-20230523213029732"></p>
-<p>其中 x 是标记序列，x<del>t</del> 是第 t 个标记，x<del>&lt;t</del> 是 x<del>t</del> 之前的标记序列。这种方法被称为自回归语言建模，可以看作是迭代地预测下一个标记的概率。</p>
-<p>**早期语言模型     ** 语言模型在 NLP 中的应用由来已久。早期的语言模型主要是 n-gram 模型，根据它在训练语料库中出现的次数来估计长度为 n 的标记序列的概率。在实践中，n-gram 模型面临两个主要问题：首先，随着 n 的增加，它们的大小呈指数增长；其次，他们没有直接的方法来为未出现在他们的训练数据中的一系列标记生成概率。这些问题的进展使 n-gram 模型能够在 NLP 的大多数领域得到广泛使用。</p>
-<p>**神经语言模型    **  n-gram 模型的替代方案，是使用神经网络来估计给定先前标记的下一个标记的概率。首先由 Miikkulainen等人提出，后来由 Bengio 等人推广。虽然早期的工作使用具有固定长度历史窗口的前馈网络，但 Mikolov 等人提议改用递归神经网络，并发现这显着提高了性能。最近，基于 Transformer 架构的语言模型被证明比循环神经网络更有效。因此，Transformer 成为了语言模型事实上的选择。</p>
-<p>**迁移学习  ** 随着使用神经网络的语言建模的进步，NLP 管道越来越多地采用迁移学习的框架。在迁移学习中，模型的参数首先在数据丰富的任务上进行预训练，然后再在下游任务上进行微调。历史上获得预训练参数的一种常见方法是对词向量进行训练，以便同时出现的词向量的点积很大。然而，Peters 等人的后续工作表明 Collobert 等人的框架，在微调之前对整个模型进行预训练，可以获得更强的性能。特别是，Radford 等人使用预训练的 Transformer 语言模型展示了强大的结果，促使人们开发越来越好的模型。</p>
-<p><strong>Few shot和Zero shot Learning</strong>   虽然微调预训练模型仍然是使用有限标记数据获得高性能的有效方法，但并行工作表明预训练语言模型可以被诱导执行任务而无需任何后续训练。在 Vinyals 和 Le在神经对话模型中观察到有限的任务执行行为之后，Radford 等人后来证明，基于从网络上抓取的文本训练的基于 Transformer 的语言模型可以在不同程度上执行各种任务。值得注意的是，Radford 等人发现性能随着模型规模的增加而提高，激发了表征和利用的工作。这种方法成功的一个主要因素是特定于任务的示例在输入模型时的格式化方式。布朗等人推广了设计“prompt（提示）”的想法，这些提示提供任务的自然语言描述，还允许输入一些输入-输出行为的示例。</p>
-<p>**社区发展LLM的限制  **  虽然大型语言模型规模的持续增加导致了广泛任务的改进，但也加剧了它们的开发和使用问题。大型模型的计算费用也阻碍了大多数研究团体参与它们的开发、评估和日常使用。此外，计算成本还导致人们担心大型语言模型的训练和使用会产生碳排放, 现有的碳排放研究可能低估了排放量。增加全球碳排放会加剧气候变化，这对已经边缘化的社区影响最为严重。此外，资源集中在少数主要具有技术专长的（通常是工业）机构中，阻碍了对技术进行包容、协作和可靠治理的前景。首先，关于由行业参与者推动的技术的公开叙述可能导致对其适用性的期望过高，导致研究和政策优先事项错位以及潜在的可怕后果，例如医疗应用。其次，在一个以技术为媒介的世界中，其发展各个阶段的选择最终会以一种与法规最接近的方式塑造人们的生活，尽管没有与利益相关者进行同样明确的协商过程。当开发工作以内部性能定义优先于其对社会的影响为指导时，开发人员的价值就会比直接和间接用户的价值更受重视。尽管允许企业单方面开发这项技术存在重大社会危险，但 EleutherAI是中国以外唯一在 BigScience Workshop 召开之前开发大型语言模型的非企业实体。</p>
-<h3 id="2-2-BigScience"><a href="#2-2-BigScience" class="headerlink" title="2.2 BigScience"></a>2.2 BigScience</h3><p>**参与者  ** BLOOM 的开发由 BigScience 协调，BigScience 是一个开放的研究合作组织，其目标是公开发布 LLM。该项目是在 GENCI 授予其位于 IDRIS&#x2F;CNRS 的 Jean Zay 超级计算机上的计算资助后启动的。它最初是围绕 Hugging Face 和法国 NLP 社区（“创始成员”）的共同努力而建立的，并迅速开放，发展成为更广泛的国际合作，以支持其语言、地理和科学多样性的目标。最终，超过 1200 人注册成为 BigScience 的参与者，并获得了访问其沟通渠道的权限。他们不仅拥有机器学习和计算机科学背景，还拥有语言学、统计学、社会文化人类学、哲学、法律等领域的背景。其中，数百人直接为该项目的一个已发布工件做出了贡献。虽然最多的参与者最终来自美国，但有 38 个国家&#x2F;地区的代表参加。</p>
-<p>**组织  **  BigScience 努力解决的一系列相关研究问题反映在该项目的工作组组织中。每个工作组都由参与程度各不相同的几名参与者组成，其中包括负责围绕整个项目的特定方面进行自我组织的主席。重要的是，鼓励参与者加入多个工作组以分享经验和信息，这导致了图 1 中显示的 30 个工作组。大多数工作组专注于与 BLOOM 开发直接相关的任务。此外，一些小组专注于特定领域的 LLM 评估和数据集开发，例如生物医学文本（Fries 等人，2022b）和历史文本（De Toni 等人，2022）。可以在 Akiki 等人的著作中找到有关该倡议背后的动机、历史和一些经验教训的更全面的概述。</p>
+                <h2 id="使用sacrebleu来计算BLEU值"><a href="#使用sacrebleu来计算BLEU值" class="headerlink" title="使用sacrebleu来计算BLEU值"></a>使用sacrebleu来计算BLEU值</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> sacrebleu<br><span class="hljs-keyword">from</span> sacrebleu <span class="hljs-keyword">import</span> sentence_bleu, corpus_bleu<br><br>pred1 = <span class="hljs-string">&quot;we are all born. we bring children to the world.&quot;</span><br>ref1 = <span class="hljs-string">&quot;we&#x27;re all born. we all bring our children into the world.&quot;</span><br>pred2 = <span class="hljs-string">&quot;we go through initiation rituals.&quot;</span><br>ref2 = <span class="hljs-string">&quot;we go through initiation rites.&quot;</span><br><br>bleu1 = sacrebleu.sentence_bleu(hypothesis=pred1, references=[ref1])<br>bleu2 = sacrebleu.sentence_bleu(hypothesis=pred2, references=[ref2])<br>bleu = sacrebleu.corpus_bleu(hypotheses=[pred1, pred2], references=[[ref1, ref2]])<br><span class="hljs-built_in">print</span>(bleu1,bleu2, bleu)<br></code></pre></td></tr></table></figure>
+
+<p>bleu1 : BLEU &#x3D; 30.04 75.0&#x2F;45.5&#x2F;30.0&#x2F;11.1 (BP &#x3D; 0.920 ratio &#x3D; 0.923 hyp_len &#x3D; 12 ref_len &#x3D; 13)<br>bleu2 : BLEU &#x3D; 53.73 83.3&#x2F;60.0&#x2F;50.0&#x2F;33.3 (BP &#x3D; 1.000 ratio &#x3D; 1.000 hyp_len &#x3D; 6 ref_len &#x3D; 6)<br>bleu : BLEU &#x3D; 36.90 77.8&#x2F;50.0&#x2F;35.7&#x2F;16.7 (BP &#x3D; 0.946 ratio &#x3D; 0.947 hyp_len &#x3D; 18 ref_len &#x3D; 19)</p>
+<p>其中BP是惩罚项：</p>
+<p>$$BP&#x3D;\begin{cases} 1，l_h \gt l_r \ e^{1-l_r&#x2F;l_h}， l_h \leq l_r\end{cases}   $$</p>
+<p>其中l<del>h</del> 是 hyp_len， l<del>r</del>是 ref_len，ratio  &#x3D; l<del>r</del> &#x2F; l<del>h</del></p>
+<h2 id="使用nltk来计算BLEU值"><a href="#使用nltk来计算BLEU值" class="headerlink" title="使用nltk来计算BLEU值"></a>使用nltk来计算BLEU值</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> nltk.translate.bleu_score <span class="hljs-keyword">import</span> sentence_bleu, corpus_bleu<br>bleu1 = sentence_bleu(reerences=[ref1.split()], hypothesis=pred1.split(), weights=[(<span class="hljs-number">0.25</span>,<span class="hljs-number">0.25</span>,<span class="hljs-number">0.25</span>,<span class="hljs-number">0.25</span>),(<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>),(<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>),(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>),(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>)])<br><br>bleu2 = sentence_bleu(references=[ref2.split()], hypothesis=pred2.split(), weights=[(<span class="hljs-number">0.25</span>,<span class="hljs-number">0.25</span>,<span class="hljs-number">0.25</span>,<span class="hljs-number">0.25</span>),(<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>),(<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>),(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>),(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>)])<br><br>bleu = corpus_bleu(hypotheses=[[ref1.split()],references=[ref2.split()]], [pred1.split(),pred2.split()], weights=[(<span class="hljs-number">0.25</span>,<span class="hljs-number">0.25</span>,<span class="hljs-number">0.25</span>,<span class="hljs-number">0.25</span>),(<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>),(<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>),(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>),(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>)])<br></code></pre></td></tr></table></figure>
+
+<p>[4.566972108023278e-78, 0.6333861926251716, 0.30161247267865315, 0.11310467725449497, 2.0133300850710214e-308]<br>[0.668740304976422, 0.8, 0.75, 0.6666666666666666, 0.5]<br>[0.29771168489262667, 0.686038455689853, 0.4317724546299775, 0.2551382686449866, 0.10394522055906863]</p>
+<p>对于sacredbleu的sentence_bleu，它和nltk的sentence_bleu相比，有自己的tokenize策略和smooth策略。</p>
+<p>对于sacrebleu的输出结果：BLEU &#x3D; 30.04 75.0&#x2F;45.5&#x2F;30.0&#x2F;11.1 (BP &#x3D; 0.920 ratio &#x3D; 0.923 hyp_len &#x3D; 12 ref_len &#x3D; 13)</p>
+<p>其中30.04 对应的是累计n-gram bleu：权重为（0.25,0.25,0.25,0.25），有BP惩罚<br>75.0对于的权重是(1,0,0,0)，无BP惩罚<br>45.5对于的权重是(0,1,0,0)，无BP惩罚<br>30.0对于的权重是(0,0,1,0)，无BP惩罚<br>11.1对应的权重为(0,0,0,1)，无BP惩罚</p>
+<p>而nltk的sentence_bleu 输入相应的权重，计算出bleu值，每个都有BP惩罚。</p>
+<p><strong>corpus_bleu不是每个sentence_bleu求平均，而是将求每个sentence_bleu的分子之和&#x2F; 分母之和，然后乘总体的惩罚项。</strong></p>
 
                 
               </div>
@@ -299,13 +297,6 @@
               <div class="post-metas my-3">
   
   
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/%E8%AF%BB%E8%AE%BA%E6%96%87/">#读论文</a>
-      
-    </div>
-  
 </div>
 
 
@@ -314,8 +305,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Bloom</div>
-      <div>http://example.com/2023/05/23/Bloom/</div>
+      <div>BLEU值的计算</div>
+      <div>http://example.com/2023/05/30/BLEU值的计算/</div>
     </div>
     <div class="license-meta">
       
@@ -327,7 +318,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年5月23日</div>
+          <div>2023年5月30日</div>
         </div>
       
       
@@ -359,9 +350,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/05/25/Multilingual%20Denoising%20Pre-training%20for%20Neural%20Machine%20Translation/" title="Multilingual Denoising Pre-training for Neural Machine Translation">
+                      <a href="/2023/06/05/fairseq%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/" title="fairseq数据预处理">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Multilingual Denoising Pre-training for Neural Machine Translation</span>
+                        <span class="hidden-mobile">fairseq数据预处理</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     

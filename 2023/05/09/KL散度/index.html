@@ -16,15 +16,15 @@
   <meta name="author" content="Menglong">
   <meta name="keywords" content="随笔">
   
-    <meta name="description" content="使用Pytorch计算KL散度：KL(p || q) 1234# p是target distribution# q是predict distributionkl_loss &#x3D; nn.KLDivLoss(reduction&#x3D;&amp;#x27;&amp;#x27;)loss &#x3D; kl_loss(q.log(), p)      1torch.nn.functional.kl_div(q.log(), p)">
+    <meta name="description" content="使用Pytorch计算KL散度：KL(p || q) 有两种方式： 12345# p是target distribution# q是predict distributionkl_loss &#x3D; nn.KLDivLoss(reduction&#x3D;&amp;#x27;mean&amp;#x27;)loss1 &#x3D; kl_loss(q.log(), p)loss2 &#x3D; torch.nn.functional.kl_div(q.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="KL散度">
 <meta property="og:url" content="http://example.com/2023/05/09/KL%E6%95%A3%E5%BA%A6/index.html">
 <meta property="og:site_name" content="追梦少年的博客">
-<meta property="og:description" content="使用Pytorch计算KL散度：KL(p || q) 1234# p是target distribution# q是predict distributionkl_loss &#x3D; nn.KLDivLoss(reduction&#x3D;&amp;#x27;&amp;#x27;)loss &#x3D; kl_loss(q.log(), p)      1torch.nn.functional.kl_div(q.log(), p)">
+<meta property="og:description" content="使用Pytorch计算KL散度：KL(p || q) 有两种方式： 12345# p是target distribution# q是predict distributionkl_loss &#x3D; nn.KLDivLoss(reduction&#x3D;&amp;#x27;mean&amp;#x27;)loss1 &#x3D; kl_loss(q.log(), p)loss2 &#x3D; torch.nn.functional.kl_div(q.">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-09T06:13:01.000Z">
-<meta property="article:modified_time" content="2023-05-13T08:34:52.349Z">
+<meta property="article:modified_time" content="2023-06-05T14:57:20.664Z">
 <meta property="article:author" content="Menglong">
 <meta property="article:tag" content="随笔">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          220 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          12 分钟
+          2 分钟
         
       </span>
     
@@ -275,23 +275,8 @@
               <div class="markdown-body">
                 
                 <p>使用Pytorch计算KL散度：KL(p || q)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># p是target distribution</span><br><span class="hljs-comment"># q是predict distribution</span><br>kl_loss = nn.KLDivLoss(reduction=<span class="hljs-string">&#x27;&#x27;</span>)<br>loss = kl_loss(q.log(), p)<br></code></pre></td></tr></table></figure>
-
-
-
-
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">torch.nn.functional.kl_div(q.log(), p)<br></code></pre></td></tr></table></figure>
-
-
-
-
-
-<h1 id="—————"><a href="#—————" class="headerlink" title="—————"></a>—————</h1><p>之前错误计算的KL散度</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python">noise_output = self.noise_model(**noise_input)<br>out = self.noise_model.get_normalized_probs(noise_output, log_probs=<span class="hljs-literal">True</span>)<br>robust_net_prob, _ = torch.split(out, out.size(<span class="hljs-number">0</span>)//<span class="hljs-number">2</span>, dim=<span class="hljs-number">0</span>)<br>p_loss = torch.nn.functional.kl_div(q, robust_net_prob, reduction=<span class="hljs-string">&#x27;none&#x27;</span>)<br><br>clean_output = self.clean_model(**clean_input)<br>clean_net_prob = self.clean_model.get_normalized_probs(clean_output, log_probs=<span class="hljs-literal">False</span>)<br>q_loss = torch.nn.functional.kl_div(p, clean_net_prob, reduction=<span class="hljs-string">&#x27;none&#x27;</span>)<br></code></pre></td></tr></table></figure>
-
-<p>现在的KL散度</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 让当前模型的真实数据输出，更接近噪声模型的噪声数据输出</span><br><span class="hljs-comment"># input是当前模型的真实数据输出，要取log (q)</span><br><span class="hljs-comment"># target是噪声模型的噪声数据输出，不取log</span><br>noise_output = self.noise_model(**noise_input)<br>out = self.noise_model.get_normalized_probs(noise_output, log_probs=<span class="hljs-literal">False</span>)<br><span class="hljs-comment"># 噪声模型的prob</span><br>target, _ = torch.split(out, out.size(<span class="hljs-number">0</span>)//<span class="hljs-number">2</span>, dim=<span class="hljs-number">0</span>)<br>p_loss = torch.nn.functional.kl_div(q, target, reduction=<span class="hljs-string">&#x27;none&#x27;</span>)<br><span class="hljs-comment"># ----------------------------------------------------------------</span><br><span class="hljs-comment"># 让当前模型的噪声数据输出，更接近于干净模型的干净数据输出</span><br><span class="hljs-comment"># input是当前模型的噪声输出，要取log  (p)</span><br><span class="hljs-comment"># target是干净模型的干净输出，不取log</span><br>clean_output = self.clean_model(**clean_input)<br><span class="hljs-comment"># clean模型的prob</span><br>target = self.clean_model.get_normalized_probs(clean_output, log_probs=<span class="hljs-literal">False</span>)<br>q_loss = torch.nn.functional.kl_div(p, target, reduction=<span class="hljs-string">&#x27;none&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<p>有两种方式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># p是target distribution</span><br><span class="hljs-comment"># q是predict distribution</span><br>kl_loss = nn.KLDivLoss(reduction=<span class="hljs-string">&#x27;mean&#x27;</span>)<br>loss1 = kl_loss(q.log(), p)<br>loss2 = torch.nn.functional.kl_div(q.log(), p, reduction=<span class="hljs-string">&#x27;mean&#x27;</span>)<br></code></pre></td></tr></table></figure>
 
 
 
@@ -359,9 +344,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/05/23/Bloom/" title="Bloom">
+                      <a href="/2023/05/30/BLEU%E5%80%BC%E7%9A%84%E8%AE%A1%E7%AE%97/" title="BLEU值的计算">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Bloom</span>
+                        <span class="hidden-mobile">BLEU值的计算</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -369,8 +354,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/05/08/M2M-100-%E5%A4%9A%E8%AF%AD%E8%A8%80%E7%BF%BB%E8%AF%91%E6%A8%A1%E5%9E%8B/" title="&#39;M2M-100:多语言翻译模型&#39;">
-                        <span class="hidden-mobile">&#39;M2M-100:多语言翻译模型&#39;</span>
+                      <a href="/2023/04/27/ssh%E8%BF%9E%E6%8E%A5%E4%B8%8D%E4%B8%8A/" title="vscode ssh连接不上">
+                        <span class="hidden-mobile">vscode ssh连接不上</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
