@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>Java判断Integer是否溢出</title>
+    <link href="/2023/07/01/Java%E5%88%A4%E6%96%ADInteger%E6%98%AF%E5%90%A6%E6%BA%A2%E5%87%BA/"/>
+    <url>/2023/07/01/Java%E5%88%A4%E6%96%ADInteger%E6%98%AF%E5%90%A6%E6%BA%A2%E5%87%BA/</url>
+    
+    <content type="html"><![CDATA[<p>在Java中，直接使用数学运算符进行操作，如果出现溢出也不会抛出异常。</p><p>所以判断数学运算是否发生溢出，可以使用Math库。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Test</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">a</span> <span class="hljs-operator">=</span> Integer.MAX_VALUE, b = Integer.MIN_VALUE, c;<br>        <span class="hljs-comment">// 判断 a + 1 是否溢出</span><br>        <span class="hljs-keyword">try</span>&#123;<br>            c = Math.addExact(a, <span class="hljs-number">1</span>);<br>        &#125;<span class="hljs-keyword">catch</span> (ArithmeticException e)&#123;<br>            System.out.println(<span class="hljs-string">&quot;a + 1 溢出&quot;</span>);<br>        &#125;<br>        <span class="hljs-comment">// 判断 b - 1 是否溢出</span><br>        <span class="hljs-keyword">try</span>&#123;<br>            c = Math.subtractExact(b, <span class="hljs-number">1</span>);<br>        &#125;<span class="hljs-keyword">catch</span> (ArithmeticException e)&#123;<br>            System.out.println(<span class="hljs-string">&quot;a - 1 溢出&quot;</span>);<br>        &#125;<br>        <span class="hljs-comment">// 判断 a * 10 是否溢出</span><br>        <span class="hljs-keyword">try</span> &#123;<br>            c = Math.multiplyExact(a, <span class="hljs-number">10</span>);<br>        &#125;<span class="hljs-keyword">catch</span> (ArithmeticException e)&#123;<br>            System.out.println(<span class="hljs-string">&quot;a * 10 溢出&quot;</span>);<br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">* 程序输出：</span><br><span class="hljs-comment">* a + 1 溢出</span><br><span class="hljs-comment">* a - 1 溢出</span><br><span class="hljs-comment">* a * 10 溢出</span><br><span class="hljs-comment">* */</span><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>hexo命令</title>
     <link href="/2023/06/26/hexo%E5%91%BD%E4%BB%A4/"/>
     <url>/2023/06/26/hexo%E5%91%BD%E4%BB%A4/</url>
