@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>Mac homebrew安装和卸载redis</title>
+    <link href="/2023/07/02/Mac-homebrew%E5%AE%89%E8%A3%85%E5%92%8C%E5%8D%B8%E8%BD%BDredis/"/>
+    <url>/2023/07/02/Mac-homebrew%E5%AE%89%E8%A3%85%E5%92%8C%E5%8D%B8%E8%BD%BDredis/</url>
+    
+    <content type="html"><![CDATA[<h2 id="查询可安装的redis版本"><a href="#查询可安装的redis版本" class="headerlink" title="查询可安装的redis版本"></a>查询可安装的redis版本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">brew search redis<br></code></pre></td></tr></table></figure><h2 id="安装redis"><a href="#安装redis" class="headerlink" title="安装redis"></a>安装redis</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">brew install redis<br></code></pre></td></tr></table></figure><h2 id="卸载redis"><a href="#卸载redis" class="headerlink" title="卸载redis"></a>卸载redis</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">brew unstall redis<br></code></pre></td></tr></table></figure><h2 id="启动redis"><a href="#启动redis" class="headerlink" title="启动redis"></a>启动redis</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">brew services start redis<br></code></pre></td></tr></table></figure><h2 id="关闭redis服务"><a href="#关闭redis服务" class="headerlink" title="关闭redis服务"></a>关闭redis服务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">brew services stop redis<br></code></pre></td></tr></table></figure><h2 id="重启redis服务"><a href="#重启redis服务" class="headerlink" title="重启redis服务"></a>重启redis服务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">brew services restart redis<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Java判断Integer是否溢出</title>
     <link href="/2023/07/01/Java%E5%88%A4%E6%96%ADInteger%E6%98%AF%E5%90%A6%E6%BA%A2%E5%87%BA/"/>
     <url>/2023/07/01/Java%E5%88%A4%E6%96%ADInteger%E6%98%AF%E5%90%A6%E6%BA%A2%E5%87%BA/</url>

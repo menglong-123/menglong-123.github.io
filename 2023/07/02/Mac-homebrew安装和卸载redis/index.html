@@ -16,22 +16,22 @@
   <meta name="author" content="Menglong">
   <meta name="keywords" content="随笔">
   
-    <meta name="description" content="在Java中，直接使用数学运算符进行操作，如果出现溢出也不会抛出异常。 所以判断数学运算是否发生溢出，可以使用Math库。 1234567891011121314151617181920212223242526272829public class Test &amp;#123;    public static void main(String[] args) &amp;#123;        int a &#x3D;">
+    <meta name="description" content="查询可安装的redis版本1brew search redis  安装redis1brew install redis  卸载redis1brew unstall redis  启动redis1brew services start redis  关闭redis服务1brew services stop redis  重启redis服务1brew services restart redis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java判断Integer是否溢出">
-<meta property="og:url" content="http://example.com/2023/07/01/Java%E5%88%A4%E6%96%ADInteger%E6%98%AF%E5%90%A6%E6%BA%A2%E5%87%BA/index.html">
+<meta property="og:title" content="Mac homebrew安装和卸载redis">
+<meta property="og:url" content="http://example.com/2023/07/02/Mac-homebrew%E5%AE%89%E8%A3%85%E5%92%8C%E5%8D%B8%E8%BD%BDredis/index.html">
 <meta property="og:site_name" content="追梦少年的博客">
-<meta property="og:description" content="在Java中，直接使用数学运算符进行操作，如果出现溢出也不会抛出异常。 所以判断数学运算是否发生溢出，可以使用Math库。 1234567891011121314151617181920212223242526272829public class Test &amp;#123;    public static void main(String[] args) &amp;#123;        int a &#x3D;">
+<meta property="og:description" content="查询可安装的redis版本1brew search redis  安装redis1brew install redis  卸载redis1brew unstall redis  启动redis1brew services start redis  关闭redis服务1brew services stop redis  重启redis服务1brew services restart redis">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-07-01T11:22:53.000Z">
-<meta property="article:modified_time" content="2023-07-01T11:30:38.560Z">
+<meta property="article:published_time" content="2023-07-02T15:43:07.000Z">
+<meta property="article:modified_time" content="2023-07-02T15:47:25.460Z">
 <meta property="article:author" content="Menglong">
 <meta property="article:tag" content="随笔">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Java判断Integer是否溢出 - 追梦少年的博客</title>
+  <title>Mac homebrew安装和卸载redis - 追梦少年的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Java判断Integer是否溢出"></span>
+            <span id="subtitle" data-typed-text="Mac homebrew安装和卸载redis"></span>
           
         </div>
 
@@ -208,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-07-01 19:22" pubdate>
-          2023年7月1日 晚上
+        <time datetime="2023-07-02 23:43" pubdate>
+          2023年7月2日 晚上
         </time>
       </span>
     
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          642 字
+          172 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          6 分钟
+          2 分钟
         
       </span>
     
@@ -269,14 +269,22 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Java判断Integer是否溢出</h1>
+            <h1 style="display: none">Mac homebrew安装和卸载redis</h1>
             
             
               <div class="markdown-body">
                 
-                <p>在Java中，直接使用数学运算符进行操作，如果出现溢出也不会抛出异常。</p>
-<p>所以判断数学运算是否发生溢出，可以使用Math库。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Test</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">a</span> <span class="hljs-operator">=</span> Integer.MAX_VALUE, b = Integer.MIN_VALUE, c;<br>        <span class="hljs-comment">// 判断 a + 1 是否溢出</span><br>        <span class="hljs-keyword">try</span>&#123;<br>            c = Math.addExact(a, <span class="hljs-number">1</span>);<br>        &#125;<span class="hljs-keyword">catch</span> (ArithmeticException e)&#123;<br>            System.out.println(<span class="hljs-string">&quot;a + 1 溢出&quot;</span>);<br>        &#125;<br>        <span class="hljs-comment">// 判断 b - 1 是否溢出</span><br>        <span class="hljs-keyword">try</span>&#123;<br>            c = Math.subtractExact(b, <span class="hljs-number">1</span>);<br>        &#125;<span class="hljs-keyword">catch</span> (ArithmeticException e)&#123;<br>            System.out.println(<span class="hljs-string">&quot;a - 1 溢出&quot;</span>);<br>        &#125;<br>        <span class="hljs-comment">// 判断 a * 10 是否溢出</span><br>        <span class="hljs-keyword">try</span> &#123;<br>            c = Math.multiplyExact(a, <span class="hljs-number">10</span>);<br>        &#125;<span class="hljs-keyword">catch</span> (ArithmeticException e)&#123;<br>            System.out.println(<span class="hljs-string">&quot;a * 10 溢出&quot;</span>);<br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">* 程序输出：</span><br><span class="hljs-comment">* a + 1 溢出</span><br><span class="hljs-comment">* a - 1 溢出</span><br><span class="hljs-comment">* a * 10 溢出</span><br><span class="hljs-comment">* */</span><br></code></pre></td></tr></table></figure>
+                <h2 id="查询可安装的redis版本"><a href="#查询可安装的redis版本" class="headerlink" title="查询可安装的redis版本"></a>查询可安装的redis版本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">brew search redis<br></code></pre></td></tr></table></figure>
+
+<h2 id="安装redis"><a href="#安装redis" class="headerlink" title="安装redis"></a>安装redis</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">brew install redis<br></code></pre></td></tr></table></figure>
+
+<h2 id="卸载redis"><a href="#卸载redis" class="headerlink" title="卸载redis"></a>卸载redis</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">brew unstall redis<br></code></pre></td></tr></table></figure>
+
+<h2 id="启动redis"><a href="#启动redis" class="headerlink" title="启动redis"></a>启动redis</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">brew services start redis<br></code></pre></td></tr></table></figure>
+
+<h2 id="关闭redis服务"><a href="#关闭redis服务" class="headerlink" title="关闭redis服务"></a>关闭redis服务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">brew services stop redis<br></code></pre></td></tr></table></figure>
+
+<h2 id="重启redis服务"><a href="#重启redis服务" class="headerlink" title="重启redis服务"></a>重启redis服务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">brew services restart redis<br></code></pre></td></tr></table></figure>
 
 
                 
@@ -295,8 +303,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Java判断Integer是否溢出</div>
-      <div>http://example.com/2023/07/01/Java判断Integer是否溢出/</div>
+      <div>Mac homebrew安装和卸载redis</div>
+      <div>http://example.com/2023/07/02/Mac-homebrew安装和卸载redis/</div>
     </div>
     <div class="license-meta">
       
@@ -308,7 +316,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年7月1日</div>
+          <div>2023年7月2日</div>
         </div>
       
       
@@ -340,18 +348,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/07/02/Mac-homebrew%E5%AE%89%E8%A3%85%E5%92%8C%E5%8D%B8%E8%BD%BDredis/" title="Mac homebrew安装和卸载redis">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Mac homebrew安装和卸载redis</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/06/26/hexo%E5%91%BD%E4%BB%A4/" title="hexo命令">
-                        <span class="hidden-mobile">hexo命令</span>
+                      <a href="/2023/07/01/Java%E5%88%A4%E6%96%ADInteger%E6%98%AF%E5%90%A6%E6%BA%A2%E5%87%BA/" title="Java判断Integer是否溢出">
+                        <span class="hidden-mobile">Java判断Integer是否溢出</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
