@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>Linux命令</title>
+    <link href="/2024/01/06/Linux%E5%91%BD%E4%BB%A4/"/>
+    <url>/2024/01/06/Linux%E5%91%BD%E4%BB%A4/</url>
+    
+    <content type="html"><![CDATA[<h4 id="列出用户的所有进程"><a href="#列出用户的所有进程" class="headerlink" title="列出用户的所有进程"></a>列出用户的所有进程</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs BASH">ps -u username<br><br></code></pre></td></tr></table></figure><h4 id="杀死进程"><a href="#杀死进程" class="headerlink" title="杀死进程"></a>杀死进程</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">kill</span> PID<br></code></pre></td></tr></table></figure><h4 id="杀死某用户所有进程"><a href="#杀死某用户所有进程" class="headerlink" title="杀死某用户所有进程"></a>杀死某用户所有进程</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">killall -u username<br></code></pre></td></tr></table></figure><h4 id="服务器之间传数据"><a href="#服务器之间传数据" class="headerlink" title="服务器之间传数据"></a>服务器之间传数据</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">scp -r -P 目标服务器端口 当前要传文件的路径 username@ip地址:目的文件路径<br></code></pre></td></tr></table></figure><h4 id="tmux-命令"><a href="#tmux-命令" class="headerlink" title="tmux 命令"></a>tmux 命令</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">tmux new -s &lt;name&gt; 创建一个名字为name的终端<br>tmux <span class="hljs-built_in">ls</span> 列出目前终端中存在哪些会话<br>tmux a -t &lt;name&gt; 从终端中进入名字为name的会话中<br>ctrl+b 再按下d 则可以退出终端<br>ctrl+b 再按下s 则可以在会话中直接切换到其他会话中，就不用退出再重新进入其他会话<br>tmux kill-session -t &lt;name&gt; 删除名字为name的会话这个一般不常用谁没事删这个<br></code></pre></td></tr></table></figure><h4 id="统计文件夹大小并排序"><a href="#统计文件夹大小并排序" class="headerlink" title="统计文件夹大小并排序"></a>统计文件夹大小并排序</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">du</span> -sh * 2&gt;/dev/null | <span class="hljs-built_in">sort</span> -hr<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>linux</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>linux</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Hexo Fluid主题添加音乐</title>
     <link href="/2024/01/06/Hexo-Fluid%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E9%9F%B3%E4%B9%90/"/>
     <url>/2024/01/06/Hexo-Fluid%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E9%9F%B3%E4%B9%90/</url>
@@ -17,6 +42,12 @@
       
     </categories>
     
+    
+    <tags>
+      
+      <tag>fluid</tag>
+      
+    </tags>
     
   </entry>
   
@@ -37,6 +68,12 @@
     </categories>
     
     
+    <tags>
+      
+      <tag>homebrew</tag>
+      
+    </tags>
+    
   </entry>
   
   
@@ -55,6 +92,12 @@
       
     </categories>
     
+    
+    <tags>
+      
+      <tag>leetcode</tag>
+      
+    </tags>
     
   </entry>
   
@@ -75,6 +118,12 @@
     </categories>
     
     
+    <tags>
+      
+      <tag>leetcode</tag>
+      
+    </tags>
+    
   </entry>
   
   
@@ -93,6 +142,12 @@
       
     </categories>
     
+    
+    <tags>
+      
+      <tag>leetcode</tag>
+      
+    </tags>
     
   </entry>
   
@@ -113,6 +168,12 @@
     </categories>
     
     
+    <tags>
+      
+      <tag>leetcode</tag>
+      
+    </tags>
+    
   </entry>
   
   
@@ -131,6 +192,12 @@
       
     </categories>
     
+    
+    <tags>
+      
+      <tag>leetcode</tag>
+      
+    </tags>
     
   </entry>
   
@@ -151,6 +218,12 @@
     </categories>
     
     
+    <tags>
+      
+      <tag>leetcode</tag>
+      
+    </tags>
+    
   </entry>
   
   
@@ -169,6 +242,12 @@
       
     </categories>
     
+    
+    <tags>
+      
+      <tag>leetcode</tag>
+      
+    </tags>
     
   </entry>
   
@@ -189,6 +268,12 @@
     </categories>
     
     
+    <tags>
+      
+      <tag>leetcode</tag>
+      
+    </tags>
+    
   </entry>
   
   
@@ -207,6 +292,12 @@
       
     </categories>
     
+    
+    <tags>
+      
+      <tag>leetcode</tag>
+      
+    </tags>
     
   </entry>
   
@@ -227,6 +318,12 @@
     </categories>
     
     
+    <tags>
+      
+      <tag>leetcode</tag>
+      
+    </tags>
+    
   </entry>
   
   
@@ -239,6 +336,12 @@
     <content type="html"><![CDATA[<h2 id="获取1000000000以内的回文整数"><a href="#获取1000000000以内的回文整数" class="headerlink" title="获取1000000000以内的回文整数"></a>获取1000000000以内的回文整数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 严格按顺序从小到大生成所有回文数</span><br>pal = []<br>base = <span class="hljs-number">1</span><br><span class="hljs-keyword">while</span> base &lt;= <span class="hljs-number">10000</span>:<br>    <span class="hljs-comment"># 生成奇数长度回文数</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(base, base * <span class="hljs-number">10</span>):<br>        x, t = i, i // <span class="hljs-number">10</span><br>        <span class="hljs-keyword">while</span> t:<br>            x = x * <span class="hljs-number">10</span> + t % <span class="hljs-number">10</span><br>            t //= <span class="hljs-number">10</span><br>        pal.append(x)<br>    <span class="hljs-comment"># 生成偶数长度回文数</span><br>    <span class="hljs-keyword">if</span> base &lt;= <span class="hljs-number">1000</span>:<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(base, base * <span class="hljs-number">10</span>):<br>            x = t = i<br>            <span class="hljs-keyword">while</span> t:<br>                x = x * <span class="hljs-number">10</span> + t % <span class="hljs-number">10</span><br>                t //= <span class="hljs-number">10</span><br>            pal.append(x)<br>    base *= <span class="hljs-number">10</span><br>pal.append(<span class="hljs-number">1_000_000_001</span>)<br></code></pre></td></tr></table></figure>]]></content>
     
     
+    
+    <tags>
+      
+      <tag>刷题</tag>
+      
+    </tags>
     
   </entry>
   
@@ -259,6 +362,12 @@
     </categories>
     
     
+    <tags>
+      
+      <tag>Python</tag>
+      
+    </tags>
+    
   </entry>
   
   
@@ -271,6 +380,12 @@
     <content type="html"><![CDATA[<p>第一步，引入依赖</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;dependency&gt;<br>  &lt;groupId&gt;com.alibaba&lt;/groupId&gt;<br>  &lt;artifactId&gt;easyexcel&lt;/artifactId&gt;<br>  &lt;version&gt;<span class="hljs-number">3.1</span><span class="hljs-number">.0</span>&lt;/version&gt;<br> &lt;/dependency&gt;<br></code></pre></td></tr></table></figure><p>第二部，为读操作创建一个监听器类</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.dream.test;<br><br><span class="hljs-keyword">import</span> com.alibaba.excel.context.AnalysisContext;<br><span class="hljs-keyword">import</span> com.alibaba.excel.event.AnalysisEventListener;<br><br><span class="hljs-keyword">import</span> java.util.ArrayList;<br><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Author</span>: cml</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Date</span>: 2023/11/6 22:35</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Version</span> 1.0</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Description</span>:</span><br><span class="hljs-comment"> */</span><br><span class="hljs-comment">// 继承EasyExcel的监听器类</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ExcelListener</span>&lt;T&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_">AnalysisEventListener</span>&lt;T&gt; &#123;<br>    <span class="hljs-keyword">private</span> List&lt;T&gt; data = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>  <br>  <span class="hljs-comment">// // 从第二行读取，将每行数据封装到 t 对象中</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">invoke</span><span class="hljs-params">(T t, AnalysisContext analysisContext)</span> &#123;<br>        data.add(t);<br>    &#125;<br><span class="hljs-comment">// 将数据返回</span><br>    <span class="hljs-keyword">public</span> List&lt;T&gt; <span class="hljs-title function_">getData</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-keyword">return</span> data;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doAfterAllAnalysed</span><span class="hljs-params">(AnalysisContext analysisContext)</span> &#123;<br><br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure><p>第三步，读写操作</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.dream.test;<br><br><span class="hljs-keyword">import</span> com.alibaba.excel.EasyExcel;<br><span class="hljs-keyword">import</span> com.dream.spzx.model.vo.product.CategoryExcelVo;<br><br><span class="hljs-keyword">import</span> java.util.Arrays;<br><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Author</span>: cml</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Date</span>: 2023/11/6 22:34</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Version</span> 1.0</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Description</span>:</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">EasyExcelTest</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br><span class="hljs-comment">//        read();</span><br>        write();<br>    &#125;<br><br>    <span class="hljs-comment">// 读操作</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">read</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// 1. 定义读取excel文件位置</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">fileName</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;xxx/01.xlsx&quot;</span>;<br>        <span class="hljs-comment">// 调用方法</span><br>        ExcelListener&lt;CategoryExcelVo&gt; excelListener = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExcelListener</span>();<br>        EasyExcel.read(fileName, CategoryExcelVo.class, excelListener).sheet().doRead();<br>        List&lt;CategoryExcelVo&gt; data = excelListener.getData();<br>        System.out.println(data);<br>    &#125;<br><br>    <span class="hljs-comment">// 写操作</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">write</span><span class="hljs-params">()</span> &#123;<br>        List&lt;CategoryExcelVo&gt; list = Arrays.asList(<span class="hljs-keyword">new</span> <span class="hljs-title class_">CategoryExcelVo</span>(<span class="hljs-number">1L</span>, <span class="hljs-string">&quot;数码办公&quot;</span>, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-number">0L</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>),<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">CategoryExcelVo</span>(<span class="hljs-number">11L</span>, <span class="hljs-string">&quot;华为手机&quot;</span>, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-number">1L</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>));<br>        <span class="hljs-type">String</span> <span class="hljs-variable">fileName</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;xxx/02.xlsx&quot;</span>;<br>        EasyExcel.write(fileName, CategoryExcelVo.class).sheet(<span class="hljs-string">&quot;分类数据&quot;</span>).doWrite(list);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
     
     
+    
+    <tags>
+      
+      <tag>Java开发</tag>
+      
+    </tags>
     
   </entry>
   
@@ -304,6 +419,12 @@
     </categories>
     
     
+    <tags>
+      
+      <tag>leetcode</tag>
+      
+    </tags>
+    
   </entry>
   
   
@@ -322,6 +443,12 @@
       
     </categories>
     
+    
+    <tags>
+      
+      <tag>leetcode</tag>
+      
+    </tags>
     
   </entry>
   
@@ -342,6 +469,12 @@
     </categories>
     
     
+    <tags>
+      
+      <tag>leetcode</tag>
+      
+    </tags>
+    
   </entry>
   
   
@@ -361,6 +494,12 @@
     </categories>
     
     
+    <tags>
+      
+      <tag>leetcode</tag>
+      
+    </tags>
+    
   </entry>
   
   
@@ -373,6 +512,12 @@
     <content type="html"><![CDATA[<h2 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h2><p>@Autowired注解：默认使用类型进行装配，当ioc容器中存在多个当前类型的bean，那么会找到ioc容器中id为属性名的Bean进行装配，或者使用@Qualifier注解来指定固定id的bean。</p><p>@Resource注解：@Resource(name &#x3D; “”) 默认通过id进行匹配来注入bean，如果byId方式无法找到bean，那么就使用byType的方式来注入。</p><p>对基本引用对象进行赋值：</p><p>①对成员变量直接复制<br>②使用**@Value**注解，一般情况下在读取外部配置文件时使用<br>@Value使用默认值语法，@Value(“${key:<strong>默认值</strong>}”)</p><p>SpringAop底层是使用动态代理实现的，当目标类有实现的接口，那么SpringAop会使用jdk动态代理；若目标类没有实现接口，那么SpringAop会使用cglib动态代理。</p><p>声明一个接口，接口有一个实现类，然后使用AOP的切面类，对上面接口的实现类应用通知，此时当进行ioc注入时，只能够通过接口类型来获取，不能通过实现类类型来获取。</p><p>因为当目标类有接口时，aop会对目标类进行jdk动态代理，在ioc容器中只保存代理类，不保存目标类。</p><p>当目标类没有接口，此时对该目标类应用通知，此时aop会使用cglib动态代理，此时可以通过目标类类型来接收注入。</p>]]></content>
     
     
+    
+    <tags>
+      
+      <tag>Spring</tag>
+      
+    </tags>
     
   </entry>
   
@@ -387,6 +532,12 @@
     
     
     
+    <tags>
+      
+      <tag>maven</tag>
+      
+    </tags>
+    
   </entry>
   
   
@@ -399,6 +550,12 @@
     <content type="html"><![CDATA[<h2 id="方式1："><a href="#方式1：" class="headerlink" title="方式1："></a>方式1：</h2><ul><li>在IDEA中创建普通的Maven项目</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">├── pom.xml<br>└── src<br>    ├── main<br>    │   ├── java<br>    │   ├── resources<br>    └── <span class="hljs-built_in">test</span><br>        └── java<br></code></pre></td></tr></table></figure><ul><li>在main目录下创建webapp目录，在webapp目录下创建WEB-INF目录，在WEB-INF目录下创建web.xml文件</li></ul><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span> ?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">web-app</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;</span></span><br><span class="hljs-tag">         <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span><br><span class="hljs-tag">         <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">&quot;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd&quot;</span></span><br><span class="hljs-tag">         <span class="hljs-attr">version</span>=<span class="hljs-string">&quot;4.0&quot;</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">web-app</span>&gt;</span><br></code></pre></td></tr></table></figure><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">├── pom.<span class="hljs-keyword">xml</span><br><span class="hljs-title">└── src</span><br>    ├── main<br>    │   ├── java<br>    │   ├── resources<br>    │   └── webapp<br>    │       └── WEB<span class="hljs-literal">-INF</span><br>    │           └── web.<span class="hljs-keyword">xml</span><br>    <span class="hljs-title">└── test</span><br>        └── java<br></code></pre></td></tr></table></figure><ul><li><p>再POM.xml文件中将打包方式改为war  <code>&lt;packaging&gt;war&lt;/packaging&gt;</code> </p></li><li><p>然后刷新Maven</p></li></ul><h2 id="方式2："><a href="#方式2：" class="headerlink" title="方式2："></a>方式2：</h2><p>在IDEA上创建普通的Maven项目，然后在IDEA中下载<code>JBLJavaToWeb</code> 插件，然后在项目根目录上右键，选择<code>JBLJavaToWeb</code> 就能创建JavaWeb项目。</p>]]></content>
     
     
+    
+    <tags>
+      
+      <tag>IDEA</tag>
+      
+    </tags>
     
   </entry>
   
@@ -413,6 +570,12 @@
     
     
     
+    <tags>
+      
+      <tag>elasticSearch</tag>
+      
+    </tags>
+    
   </entry>
   
   
@@ -425,6 +588,12 @@
     <content type="html"><![CDATA[<h1 id="docker命令"><a href="#docker命令" class="headerlink" title="docker命令"></a>docker命令</h1><h2 id="镜像相关命令"><a href="#镜像相关命令" class="headerlink" title="镜像相关命令"></a>镜像相关命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 拉取镜像</span><br>docker pull 镜像名称:版本<br><br><span class="hljs-comment"># 查看安装的所有镜像</span><br>docker images<br><br><span class="hljs-comment"># 将镜像保存为压缩文件</span><br>docker save -o 文件名 镜像<span class="hljs-built_in">id</span>(或者 镜像名称:版本)<br><br><span class="hljs-comment"># 从本地的压缩文件中加载镜像</span><br>docker load -i 文件名<br><br><span class="hljs-comment"># 删除镜像</span><br>docker rmi 镜像<span class="hljs-built_in">id</span>(或者 镜像名称:版本)<br><br><span class="hljs-comment"># 将镜像推送到仓库</span><br>docker push <br></code></pre></td></tr></table></figure><h2 id="容器相关命令"><a href="#容器相关命令" class="headerlink" title="容器相关命令"></a>容器相关命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 运行容器</span><br>docker run --name 容器名 -p 端口映射 -d(后台运行) 镜像名<br><br><span class="hljs-comment"># 删除指定容器</span><br>docker <span class="hljs-built_in">rm</span> -f(强制删除运行中的容器) 容器名<br><br><span class="hljs-comment"># 暂停某个容器(运行 -&gt; 暂停)</span><br>docker pause 容器名<br><br><span class="hljs-comment"># 恢复某个容器(暂停 -&gt; 运行)</span><br>docker unpause 容器名<br><br><span class="hljs-comment"># 停止某个容器(运行 -&gt; 停止)</span><br>docker stop 容器名<br><br><span class="hljs-comment"># 恢复某个容器(停止 -&gt; 运行)</span><br>docker start 容器名<br><br><span class="hljs-comment"># 查询所有运行的容器及其状态</span><br>docker ps -a(查询所有的容器，而非仅查询运行中的)<br><br><span class="hljs-comment"># 查询容器运行日志</span><br>docker logs -f(持续跟踪日志) 容器名<br><br><span class="hljs-comment"># 进行容器执行命令</span><br>docker <span class="hljs-built_in">exec</span> -it(标准输入输出) 容器名  bash(使用bash执行命令)<br></code></pre></td></tr></table></figure><h2 id="数据卷相关命令"><a href="#数据卷相关命令" class="headerlink" title="数据卷相关命令"></a>数据卷相关命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 创建一个数据卷</span><br>docker volume create<br><br><span class="hljs-comment"># 显示一个或多个数据集信息</span><br>docker volume inspect<br><br><span class="hljs-comment"># 列出所有的volume</span><br>docker volume <span class="hljs-built_in">ls</span><br><br><span class="hljs-comment"># 删除未使用的volume</span><br>docker volume prune<br><br><span class="hljs-comment"># 删除指定的一个或多个volume</span><br>docker volume <span class="hljs-built_in">rm</span><br><br><span class="hljs-comment"># 挂载数据集   在创建容器的时候可以指定挂载数据卷</span><br>docker run --name 容器名 -v 数据卷名:容器内的目录  -p 端口映射 镜像名<br><br><span class="hljs-comment"># 将本机目录挂载在容器中</span><br>docker run --name 容器名 -v 本机目录:容器内的目录  -p 端口映射 镜像名<br></code></pre></td></tr></table></figure><p>macOS数据集不能直接进入，需要使用debian镜像连接进入</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run -it --privileged --pid=host debian nsenter -t 1 -m -u -n -i sh<br><br><span class="hljs-built_in">cd</span> /var/lib/docker/volumes<br></code></pre></td></tr></table></figure><h2 id="制作docker镜像"><a href="#制作docker镜像" class="headerlink" title="制作docker镜像"></a>制作docker镜像</h2><p>创建一个新的文件夹，在文件夹里面放项目所需要的资源，例如java的jar包，java的jdk等</p><p>当前文件夹</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">|____Dockerfile<br>|____jdk8.tar.gz<br>|____docker-demo.jar<br></code></pre></td></tr></table></figure><p>Dockerfile</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 指定基础镜像</span><br>FROM ubuntu:16.04<br><span class="hljs-comment"># 配置环境变量，JDK的安装目录</span><br>ENV JAVA_DIR=/usr/local<br><br><span class="hljs-comment"># 拷贝jdk和java项目的包</span><br>COPY ./jdk8.tar.gz <span class="hljs-variable">$JAVA_DIR</span>/<br>COPY ./docker-demo.jar /tmp/app.jar<br><br><span class="hljs-comment"># 安装JDK</span><br>RUN <span class="hljs-built_in">cd</span> <span class="hljs-variable">$JAVA_DIR</span> \<br> &amp;&amp; tar -xf ./jdk8.tar.gz \<br> &amp;&amp; <span class="hljs-built_in">mv</span> ./jdk1.8.0_202 ./java8<br><br><br><span class="hljs-comment"># 配置环境变量</span><br>ENV JAVA_HOME=<span class="hljs-variable">$JAVA_DIR</span>/java8<br>ENV PATH=<span class="hljs-variable">$PATH</span>:<span class="hljs-variable">$JAVA_HOME</span>/bin<br><br><span class="hljs-comment"># 暴露端口</span><br>EXPOSE 8090<br><span class="hljs-comment"># 入口，java项目的启动命令</span><br>ENTRYPOINT java -jar /tmp/app.jar<br></code></pre></td></tr></table></figure><p>然后执行<code>docker build -t javaweb:1.0 .</code> 来制作镜像</p><p>执行<code> docker run --name web -p 8090:8090 -d javaweb:1.0</code> 命令来生成容器</p><p>如果要制成的镜像使用java8+Ubuntu的环境，那么Dockerfile可以简写为</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 指定基础镜像</span><br>FROM java:8-alpine<br><span class="hljs-comment"># 拷贝java项目</span><br>COPY ./docker-demo.jar /tmp/app.jar<br><span class="hljs-comment"># 暴露端口</span><br>EXPOSE 8090<br><span class="hljs-comment"># 入口，java项目的启动命令</span><br>ENTRYPOINT java -jar /tmp/app.jar<br></code></pre></td></tr></table></figure><h2 id="DockerCompose"><a href="#DockerCompose" class="headerlink" title="DockerCompose"></a>DockerCompose</h2><p>代替Dockerfile快速构建和部署集群</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">version</span> <span class="hljs-string">&quot;3.8&quot;</span><br><span class="hljs-attr">services:</span><br>  <span class="hljs-attr">mysql:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">mysql:5.7.25</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">MYSQL_ROOT_PASSWORD:</span> <span class="hljs-number">123</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">/xxx</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">/xxxxx</span><br>  <span class="hljs-attr">web:</span><br>    <span class="hljs-string">build</span> <span class="hljs-string">.</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">8090:</span> <span class="hljs-number">8090</span><br></code></pre></td></tr></table></figure><p>代替Dockerfile命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run --name mysql -e MYSQL_ROOT_PASSWORD=123 \<br>  -p 3306:3306 -v /xxx -v /xxxxx -d  mysql:5.7.25<br><br><span class="hljs-comment"># 构建镜像</span><br>docker build -t web:1.0 .<br><span class="hljs-comment"># 运行容器</span><br>docker run --name web -p 8090:8090 -d web:1.0<br></code></pre></td></tr></table></figure><p>微服务创建docker镜像的例子</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">version:</span> <span class="hljs-string">&quot;3.2&quot;</span><br><br><span class="hljs-attr">services:</span><br>  <span class="hljs-attr">nacos:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">zhusaidong/nacos-server-m1:2.0.3</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">MODE:</span> <span class="hljs-string">standalone</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;8848:8848&quot;</span><br>  <span class="hljs-attr">mysql:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">ibex/debian-mysql-server-5.7</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">MYSQL_ROOT_PASSWORD:</span> <span class="hljs-number">123</span><br>      <span class="hljs-attr">MYSQL_ROOT_HOST:</span> <span class="hljs-string">&#x27;%&#x27;</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;$PWD/mysql/data:/var/lib/mysql&quot;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;$PWD/mysql/conf:/etc/mysql/conf.d/&quot;</span><br>  <span class="hljs-attr">userservice:</span><br>    <span class="hljs-attr">build:</span> <span class="hljs-string">./user-service</span><br>  <span class="hljs-attr">orderservice:</span><br>    <span class="hljs-attr">build:</span> <span class="hljs-string">./order-service</span><br>  <span class="hljs-attr">gateway:</span><br>    <span class="hljs-attr">build:</span> <span class="hljs-string">./gateway</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;10010:10010&quot;</span><br></code></pre></td></tr></table></figure>]]></content>
     
     
+    
+    <tags>
+      
+      <tag>docker</tag>
+      
+    </tags>
     
   </entry>
   
@@ -439,6 +608,12 @@
     
     
     
+    <tags>
+      
+      <tag>redis</tag>
+      
+    </tags>
+    
   </entry>
   
   
@@ -448,7 +623,7 @@
     <link href="/2023/07/14/git%E6%93%8D%E4%BD%9C/"/>
     <url>/2023/07/14/git%E6%93%8D%E4%BD%9C/</url>
     
-    <content type="html"><![CDATA[<p>git是一个版本控制的工具</p><h2 id="git命令"><a href="#git命令" class="headerlink" title="git命令"></a>git命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 配置用户名</span><br>git config --global user.name <span class="hljs-string">&quot;xxx&quot;</span><br><span class="hljs-comment"># 配置邮箱</span><br>git config --global user.email <span class="hljs-string">&quot;xxx@xx.com&quot;</span><br><br><span class="hljs-comment"># 保存用户信息，不用每次都输入</span><br>git config --global credential.helper store<br><br><span class="hljs-comment"># 查看用户的配置信息</span><br>git config --global --list<br><br><span class="hljs-comment"># 创建仓库</span><br>git init   <span class="hljs-comment"># 将自己的目录变为仓库</span><br>git init name  <span class="hljs-comment"># 在当前目录下创建一个name的目录，把name初始化为仓库</span><br>git <span class="hljs-built_in">clone</span> xxx.git   <span class="hljs-comment"># 克隆一个已经存在的仓库</span><br><br><span class="hljs-comment"># 查看当前的状态</span><br>git status<br><br><span class="hljs-comment"># 保存到暂存区</span><br>git add file<br><br><span class="hljs-comment"># 保留本地区file文件，删除暂存区和仓库中的file文件</span><br>git <span class="hljs-built_in">rm</span> --cached file  <br><span class="hljs-comment"># 同时删除本地区、暂存区的file文件 后面加上 git commit 就能同时删除仓库中的file文件</span><br>git <span class="hljs-built_in">rm</span> file  <br><br><span class="hljs-comment"># 把暂存区中的所有文件提交到仓库中   -m 后面写注释</span><br>git commit -m xxx<br><br><span class="hljs-comment"># 查看仓库的提交信息</span><br>git <span class="hljs-built_in">log</span><br>git <span class="hljs-built_in">log</span> --oneline   <span class="hljs-comment"># 查看简短的提交信息</span><br><br><span class="hljs-comment"># 回退版本</span><br>git reset --soft <span class="hljs-built_in">id</span>   <span class="hljs-comment"># 回退版本，但保留工作区和暂存区的内容</span><br>git reset --hard <span class="hljs-built_in">id</span>   <span class="hljs-comment"># 回退版本，丢弃工作区和暂存区的内容</span><br>git reset --mixed <span class="hljs-built_in">id</span>  <span class="hljs-comment"># 回退版本，只保留工作区，丢弃暂存区的内容</span><br><br><span class="hljs-comment"># 查看暂存区内容</span><br>git ls-files<br><br><span class="hljs-comment"># 查看git的所有操作</span><br>git reflog<br><br><span class="hljs-comment"># 根据git的操作id，退到这个操作前</span><br>git reset --hard <span class="hljs-built_in">id</span> <br><br><span class="hljs-comment"># 查看差异</span><br>git diff   <span class="hljs-comment"># 查看工作区和暂存区相同文件的差异</span><br>git diff HEAD  <span class="hljs-comment"># 查看工作区和仓库中文件的差异</span><br>git diff --cache  <span class="hljs-comment"># 查看暂存区和仓库文件的差异</span><br><span class="hljs-comment"># 比较两个版本之间的差异  id为提交操作的id  HEAD表示最新版本的id  </span><br><span class="hljs-comment"># HEAD~ 和 HEAD^ 表示上一版本的id HEAD~n 表示最新版本的前n个版本的id</span><br>git diff id1 id2  <br>git diff id1 id2 file <span class="hljs-comment"># 查看两个版本直接file这个文件的差异</span><br>git diff branch1 branch2  <span class="hljs-comment"># 查看两个分支之间的差异</span><br></code></pre></td></tr></table></figure><p>git中有三个区域，工作区、暂存区和本地仓库区。</p><p>当前整个目录就是工作区，然后使用<code>git add file</code> 将文件file保存的暂存区，最后使用<code>git commit</code> 将暂存区的所有文件提交到本地仓库。</p><p>![截屏2023-07-14 20.59.47](..&#x2F;..&#x2F;..&#x2F;..&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;截屏2023-07-14 20.59.47.png)</p><p>.gitignore文件来设置对某种类型的文件不提交到仓库中，从而让仓库变得比较整洁。</p><p>通常需要忽略日志文件，编译后的文件、压缩文件以及涉及身份、密码、口令等敏感文件等。</p><p>文件夹的格式是以<code>/</code> 结尾</p><p>.gitignore的内容可以使用通配符</p><h2 id="关联远程仓库Github"><a href="#关联远程仓库Github" class="headerlink" title="关联远程仓库Github"></a>关联远程仓库Github</h2><p>如果当前的本地仓库是在远程仓库中clone的，那么当修改完本地仓库时，只需要运行<code>git push</code> 就能把本地仓库同步到远程仓库。</p><p>如果当前的本地仓库是本地通过<code>git init</code>创建的，并且在本地已经执行过<code>git add</code> 和 <code>git commit</code> 命令后，那么需要以下步骤把本地仓库同步到远程仓库。</p><ol><li>在github上创建仓库，复制仓库的url地址：<a href="mailto:&#x67;&#105;&#116;&#64;&#103;&#x69;&#x74;&#104;&#117;&#x62;&#x2e;&#x63;&#111;&#109;">&#x67;&#105;&#116;&#64;&#103;&#x69;&#x74;&#104;&#117;&#x62;&#x2e;&#x63;&#111;&#109;</a>:xxx&#x2F;xxx.git</li><li>然后运行<code>git remote add</code>  任意起个name  url</li><li>然后<code>git branch -M main</code> 指定分支为main</li><li>然后 <code>git push -u name main:main</code>  将本地的main分支推送到远程仓库的main分支</li></ol><p>当远程仓库做出修改后，可以使用<code>git pull 远程仓库名 远程分支名: 本地分支名</code> 来将远程仓库同步到本地仓库，当分支名为main时可以省略。</p><p><code>git pull</code>命令会自动进行合并操作，使用<code>git fetch</code>就是只拉取内容，然后自己可以手动合并。</p><h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs bsah"># 查看分支<br>git branch<br><br># 创建分支<br>git branch 分支名<br><br># 切换分支<br>git checkout 分支名  # 有歧义<br>git switch 分支名  # 常用<br><br># 合并分支<br>git merge 分支名name   # 将name分支合并到当前分支<br><br># 查看分支图<br>git log --graph --oneline --decorate --all<br><br># 合并后删除分支<br>git branch -d 分支名<br><br># 未合并删除分支<br>git branch -D 分支名<br><br># 当在两个分支中同时修改一个文件，并且要合并两个分支时，会显示合并冲突，并把冲突的结果写到了这个文件中；此时可以手动修改这个文件然后再commit<br><br># 显示冲突后想中断这次合并，此时当前分支的文件也被删除了<br>git merge --abort<br><br></code></pre></td></tr></table></figure><p>合并分支还有另外一种方式，rebase（变基）。这个操作可以在任一分支上使用。</p><p>若在branch1上执行<code>git rebase branch2</code> ，那么会将交汇点到branch1当前指针直接的操作合并到branch2当前指针后面；若在branch2上执行<code>git rebase branch1</code> ，那么会将交汇点到branch2当前指针直接的操作合并到branch1当前指针后面。</p><h2 id="两条合并分支命令的优缺点："><a href="#两条合并分支命令的优缺点：" class="headerlink" title="两条合并分支命令的优缺点："></a>两条合并分支命令的优缺点：</h2><h3 id="git-merge"><a href="#git-merge" class="headerlink" title="git merge"></a>git merge</h3><p>优点：不会破坏原分支的提交历史，方便回溯和查看</p><p>缺点：会产生额外的提交节点，分支图比较复杂</p><h3 id="git-rebase"><a href="#git-rebase" class="headerlink" title="git rebase"></a>git rebase</h3><p>优点：不会新增额外的提交记录，形成线性历史，比较干净和直观</p><p>缺点：会改变提交历史，改变了当前分支branch out的节点。避免在共享分支使用</p>]]></content>
+    <content type="html"><![CDATA[<p>git是一个版本控制的工具</p><h2 id="git命令"><a href="#git命令" class="headerlink" title="git命令"></a>git命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 配置用户名</span><br>git config --global user.name <span class="hljs-string">&quot;xxx&quot;</span><br><span class="hljs-comment"># 配置邮箱</span><br>git config --global user.email <span class="hljs-string">&quot;xxx@xx.com&quot;</span><br><br><span class="hljs-comment"># 保存用户信息，不用每次都输入</span><br>git config --global credential.helper store<br><br><span class="hljs-comment"># 查看用户的配置信息</span><br>git config --global --list<br><br><span class="hljs-comment"># 创建仓库</span><br>git init   <span class="hljs-comment"># 将自己的目录变为仓库</span><br>git init name  <span class="hljs-comment"># 在当前目录下创建一个name的目录，把name初始化为仓库</span><br>git <span class="hljs-built_in">clone</span> xxx.git   <span class="hljs-comment"># 克隆一个已经存在的仓库</span><br><br><span class="hljs-comment"># 查看当前的状态</span><br>git status<br><br><span class="hljs-comment"># 保存到暂存区</span><br>git add file<br><br><span class="hljs-comment"># 保留本地区file文件，删除暂存区和仓库中的file文件</span><br>git <span class="hljs-built_in">rm</span> --cached file  <br><span class="hljs-comment"># 同时删除本地区、暂存区的file文件 后面加上 git commit 就能同时删除仓库中的file文件</span><br>git <span class="hljs-built_in">rm</span> file  <br><br><span class="hljs-comment"># 把暂存区中的所有文件提交到仓库中   -m 后面写注释</span><br>git commit -m xxx<br><br><span class="hljs-comment"># 查看仓库的提交信息</span><br>git <span class="hljs-built_in">log</span><br>git <span class="hljs-built_in">log</span> --oneline   <span class="hljs-comment"># 查看简短的提交信息</span><br><br><span class="hljs-comment"># 回退版本</span><br>git reset --soft <span class="hljs-built_in">id</span>   <span class="hljs-comment"># 回退版本，但保留工作区和暂存区的内容</span><br>git reset --hard <span class="hljs-built_in">id</span>   <span class="hljs-comment"># 回退版本，丢弃工作区和暂存区的内容</span><br>git reset --mixed <span class="hljs-built_in">id</span>  <span class="hljs-comment"># 回退版本，只保留工作区，丢弃暂存区的内容</span><br><br><span class="hljs-comment"># 查看暂存区内容</span><br>git ls-files<br><br><span class="hljs-comment"># 查看git的所有操作</span><br>git reflog<br><br><span class="hljs-comment"># 根据git的操作id，退到这个操作前</span><br>git reset --hard <span class="hljs-built_in">id</span> <br><br><span class="hljs-comment"># 查看差异</span><br>git diff   <span class="hljs-comment"># 查看工作区和暂存区相同文件的差异</span><br>git diff HEAD  <span class="hljs-comment"># 查看工作区和仓库中文件的差异</span><br>git diff --cache  <span class="hljs-comment"># 查看暂存区和仓库文件的差异</span><br><span class="hljs-comment"># 比较两个版本之间的差异  id为提交操作的id  HEAD表示最新版本的id  </span><br><span class="hljs-comment"># HEAD~ 和 HEAD^ 表示上一版本的id HEAD~n 表示最新版本的前n个版本的id</span><br>git diff id1 id2  <br>git diff id1 id2 file <span class="hljs-comment"># 查看两个版本直接file这个文件的差异</span><br>git diff branch1 branch2  <span class="hljs-comment"># 查看两个分支之间的差异</span><br></code></pre></td></tr></table></figure><p>git中有三个区域，工作区、暂存区和本地仓库区。</p><p>当前整个目录就是工作区，然后使用<code>git add file</code> 将文件file保存的暂存区，最后使用<code>git commit</code> 将暂存区的所有文件提交到本地仓库。</p><p>![截屏2023-07-14 20.59.47](..&#x2F;..&#x2F;..&#x2F;..&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;截屏2023-07-14 20.59.47.png)</p><p>.gitignore文件来设置对某种类型的文件不提交到仓库中，从而让仓库变得比较整洁。</p><p>通常需要忽略日志文件，编译后的文件、压缩文件以及涉及身份、密码、口令等敏感文件等。</p><p>文件夹的格式是以<code>/</code> 结尾</p><p>.gitignore的内容可以使用通配符</p><h2 id="关联远程仓库Github"><a href="#关联远程仓库Github" class="headerlink" title="关联远程仓库Github"></a>关联远程仓库Github</h2><p>如果当前的本地仓库是在远程仓库中clone的，那么当修改完本地仓库时，只需要运行<code>git push</code> 就能把本地仓库同步到远程仓库。</p><p>如果当前的本地仓库是本地通过<code>git init</code>创建的，并且在本地已经执行过<code>git add</code> 和 <code>git commit</code> 命令后，那么需要以下步骤把本地仓库同步到远程仓库。</p><ol><li>在github上创建仓库，复制仓库的url地址：<a href="mailto:&#103;&#x69;&#x74;&#x40;&#103;&#105;&#x74;&#104;&#x75;&#x62;&#x2e;&#x63;&#111;&#109;">&#103;&#x69;&#x74;&#x40;&#103;&#105;&#x74;&#104;&#x75;&#x62;&#x2e;&#x63;&#111;&#109;</a>:xxx&#x2F;xxx.git</li><li>然后运行<code>git remote add</code>  任意起个name  url</li><li>然后<code>git branch -M main</code> 指定分支为main</li><li>然后 <code>git push -u name main:main</code>  将本地的main分支推送到远程仓库的main分支</li></ol><p>当远程仓库做出修改后，可以使用<code>git pull 远程仓库名 远程分支名: 本地分支名</code> 来将远程仓库同步到本地仓库，当分支名为main时可以省略。</p><p><code>git pull</code>命令会自动进行合并操作，使用<code>git fetch</code>就是只拉取内容，然后自己可以手动合并。</p><h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs bsah"># 查看分支<br>git branch<br><br># 创建分支<br>git branch 分支名<br><br># 切换分支<br>git checkout 分支名  # 有歧义<br>git switch 分支名  # 常用<br><br># 合并分支<br>git merge 分支名name   # 将name分支合并到当前分支<br><br># 查看分支图<br>git log --graph --oneline --decorate --all<br><br># 合并后删除分支<br>git branch -d 分支名<br><br># 未合并删除分支<br>git branch -D 分支名<br><br># 当在两个分支中同时修改一个文件，并且要合并两个分支时，会显示合并冲突，并把冲突的结果写到了这个文件中；此时可以手动修改这个文件然后再commit<br><br># 显示冲突后想中断这次合并，此时当前分支的文件也被删除了<br>git merge --abort<br><br></code></pre></td></tr></table></figure><p>合并分支还有另外一种方式，rebase（变基）。这个操作可以在任一分支上使用。</p><p>若在branch1上执行<code>git rebase branch2</code> ，那么会将交汇点到branch1当前指针直接的操作合并到branch2当前指针后面；若在branch2上执行<code>git rebase branch1</code> ，那么会将交汇点到branch2当前指针直接的操作合并到branch1当前指针后面。</p><h2 id="两条合并分支命令的优缺点："><a href="#两条合并分支命令的优缺点：" class="headerlink" title="两条合并分支命令的优缺点："></a>两条合并分支命令的优缺点：</h2><h3 id="git-merge"><a href="#git-merge" class="headerlink" title="git merge"></a>git merge</h3><p>优点：不会破坏原分支的提交历史，方便回溯和查看</p><p>缺点：会产生额外的提交节点，分支图比较复杂</p><h3 id="git-rebase"><a href="#git-rebase" class="headerlink" title="git rebase"></a>git rebase</h3><p>优点：不会新增额外的提交记录，形成线性历史，比较干净和直观</p><p>缺点：会改变提交历史，改变了当前分支branch out的节点。避免在共享分支使用</p>]]></content>
     
     
     <categories>
@@ -457,6 +632,12 @@
       
     </categories>
     
+    
+    <tags>
+      
+      <tag>git</tag>
+      
+    </tags>
     
   </entry>
   
@@ -477,6 +658,12 @@
     </categories>
     
     
+    <tags>
+      
+      <tag>leetcode</tag>
+      
+    </tags>
+    
   </entry>
   
   
@@ -495,6 +682,12 @@
       
     </categories>
     
+    
+    <tags>
+      
+      <tag>nginx</tag>
+      
+    </tags>
     
   </entry>
   
@@ -515,6 +708,12 @@
     </categories>
     
     
+    <tags>
+      
+      <tag>nginx</tag>
+      
+    </tags>
+    
   </entry>
   
   
@@ -533,6 +732,12 @@
       
     </categories>
     
+    
+    <tags>
+      
+      <tag>nginx</tag>
+      
+    </tags>
     
   </entry>
   
@@ -553,6 +758,12 @@
     </categories>
     
     
+    <tags>
+      
+      <tag>nginx</tag>
+      
+    </tags>
+    
   </entry>
   
   
@@ -572,6 +783,12 @@
     </categories>
     
     
+    <tags>
+      
+      <tag>nginx</tag>
+      
+    </tags>
+    
   </entry>
   
   
@@ -590,6 +807,12 @@
       
     </categories>
     
+    
+    <tags>
+      
+      <tag>homebrew</tag>
+      
+    </tags>
     
   </entry>
   
