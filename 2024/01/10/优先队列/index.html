@@ -16,22 +16,22 @@
   <meta name="author" content="Menglong">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Spring事务的本质是通过SpringAOP生成代理对象 Spring事务的优先级和自定义切面类的优先级当自己使用SpringAOP定义切面类，没有指定Order时，默认Order为Integer.MAX(最低)，但是Spring事务的代理对象的Order也是Integer.MAX(最低)，但是默认会将Spring事务排在前面，即先执行Spring事务的切面类，再执行自定义的切面类。因为Spri">
+    <meta name="description" content="数据流的中位数中位数是有序整数列表中的中间值。如果列表的大小是偶数，则没有中间值，中位数是两个中间值的平均值。  例如 arr &#x3D; [2,3,4] 的中位数是 3 。 例如 arr &#x3D; [2,3] 的中位数是 (2 + 3) &#x2F; 2 &#x3D; 2.5 。  实现 MedianFinder 类:  MedianFinder() 初始化 MedianFinder 对象。 void addNum(int nu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring事务">
-<meta property="og:url" content="http://example.com/2024/01/08/Spring%E4%BA%8B%E5%8A%A1/index.html">
+<meta property="og:title" content="优先队列">
+<meta property="og:url" content="http://example.com/2024/01/10/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/index.html">
 <meta property="og:site_name" content="追梦少年的博客">
-<meta property="og:description" content="Spring事务的本质是通过SpringAOP生成代理对象 Spring事务的优先级和自定义切面类的优先级当自己使用SpringAOP定义切面类，没有指定Order时，默认Order为Integer.MAX(最低)，但是Spring事务的代理对象的Order也是Integer.MAX(最低)，但是默认会将Spring事务排在前面，即先执行Spring事务的切面类，再执行自定义的切面类。因为Spri">
+<meta property="og:description" content="数据流的中位数中位数是有序整数列表中的中间值。如果列表的大小是偶数，则没有中间值，中位数是两个中间值的平均值。  例如 arr &#x3D; [2,3,4] 的中位数是 3 。 例如 arr &#x3D; [2,3] 的中位数是 (2 + 3) &#x2F; 2 &#x3D; 2.5 。  实现 MedianFinder 类:  MedianFinder() 初始化 MedianFinder 对象。 void addNum(int nu">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-01-08T12:07:37.000Z">
-<meta property="article:modified_time" content="2024-01-08T12:15:42.332Z">
+<meta property="article:published_time" content="2024-01-09T16:49:06.000Z">
+<meta property="article:modified_time" content="2024-01-09T17:25:37.969Z">
 <meta property="article:author" content="Menglong">
-<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="优先队列">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Spring事务 - 追梦少年的博客</title>
+  <title>优先队列 - 追梦少年的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -221,7 +221,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Spring事务"></span>
+            <span id="subtitle" data-typed-text="优先队列"></span>
           
         </div>
 
@@ -232,8 +232,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-01-08 20:07" pubdate>
-          2024年1月8日 晚上
+        <time datetime="2024-01-10 00:49" pubdate>
+          2024年1月10日 凌晨
         </time>
       </span>
     
@@ -244,7 +244,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          328 字
+          1.3k 字
         
       </span>
     
@@ -255,7 +255,7 @@
         
         
         
-          3 分钟
+          11 分钟
         
       </span>
     
@@ -292,19 +292,33 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Spring事务</h1>
+            <h1 id="seo-header">优先队列</h1>
             
             
               <div class="markdown-body">
                 
-                <p>Spring事务的本质是通过SpringAOP生成代理对象</p>
-<h2 id="Spring事务的优先级和自定义切面类的优先级"><a href="#Spring事务的优先级和自定义切面类的优先级" class="headerlink" title="Spring事务的优先级和自定义切面类的优先级"></a>Spring事务的优先级和自定义切面类的优先级</h2><p>当自己使用SpringAOP定义切面类，没有指定Order时，默认Order为Integer.MAX(最低)，但是Spring事务的代理对象的Order也是Integer.MAX(最低)，但是默认会将Spring事务排在前面，即先执行Spring事务的切面类，再执行自定义的切面类。因为Spring扫描的时候会先扫到Spring事务。</p>
-<p>此时若自定义的切面类中遇到异常没有抛出，那么Spring事务就会认为没有发送异常。</p>
-<p>解决方法：</p>
+                <h2 id="数据流的中位数"><a href="#数据流的中位数" class="headerlink" title="数据流的中位数"></a>数据流的中位数</h2><p><strong>中位数</strong>是有序整数列表中的中间值。如果列表的大小是偶数，则没有中间值，中位数是两个中间值的平均值。</p>
 <ul>
-<li>在自定义切面类时使用<code>@Order</code> 注解，value小于Integer.MAX即可</li>
-<li>自定义切面类时遇到异常不要捕获，或者捕获后再抛出</li>
+<li>例如 <code>arr = [2,3,4]</code> 的中位数是 <code>3</code> 。</li>
+<li>例如 <code>arr = [2,3]</code> 的中位数是 <code>(2 + 3) / 2 = 2.5</code> 。</li>
 </ul>
+<p>实现 MedianFinder 类:</p>
+<ul>
+<li><code>MedianFinder() </code>初始化 <code>MedianFinder</code> 对象。</li>
+<li><code>void addNum(int num)</code> 将数据流中的整数 <code>num</code> 添加到数据结构中。</li>
+<li><code>double findMedian()</code> 返回到目前为止所有元素的中位数。与实际答案相差 <code>10-5</code> 以内的答案将被接受。</li>
+</ul>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs prolog">输入<br>[<span class="hljs-string">&quot;MedianFinder&quot;</span>, <span class="hljs-string">&quot;addNum&quot;</span>, <span class="hljs-string">&quot;addNum&quot;</span>, <span class="hljs-string">&quot;findMedian&quot;</span>, <span class="hljs-string">&quot;addNum&quot;</span>, <span class="hljs-string">&quot;findMedian&quot;</span>]<br>[[], [<span class="hljs-number">1</span>], [<span class="hljs-number">2</span>], [], [<span class="hljs-number">3</span>], []]<br>输出<br>[null, null, null, <span class="hljs-number">1.5</span>, null, <span class="hljs-number">2.0</span>]<br><br>解释<br><span class="hljs-symbol">MedianFinder</span> medianFinder = new <span class="hljs-symbol">MedianFinder</span>();<br>medianFinder.addNum(<span class="hljs-number">1</span>);    // arr = [<span class="hljs-number">1</span>]<br>medianFinder.addNum(<span class="hljs-number">2</span>);    // arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]<br>medianFinder.findMedian(); // 返回 <span class="hljs-number">1.5</span> ((<span class="hljs-number">1</span> + <span class="hljs-number">2</span>) / <span class="hljs-number">2</span>)<br>medianFinder.addNum(<span class="hljs-number">3</span>);    // arr[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]<br>medianFinder.findMedian(); // return <span class="hljs-number">2.0</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>提示:</strong></p>
+<ul>
+<li><code>-105 &lt;= num &lt;= 105</code></li>
+<li>在调用 <code>findMedian</code> 之前，数据结构中至少有一个元素</li>
+<li>最多 <code>5 * 104</code> 次调用 <code>addNum</code> 和 <code>findMedian</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MedianFinder</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        self.queMin = [] <span class="hljs-comment"># 前一部分，伪大跟堆</span><br>        self.queMax = [] <span class="hljs-comment"># 后一半，小根堆</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">addNum</span>(<span class="hljs-params">self, num: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> self.queMin <span class="hljs-keyword">or</span> num &lt;= -self.queMin[<span class="hljs-number">0</span>]:<br>            heappush(self.queMin, -num)<br>            <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(self.queMin) - <span class="hljs-number">1</span> &gt; <span class="hljs-built_in">len</span>(self.queMax):<br>                heappush(self.queMax, -heappop(self.queMin))<br>        <span class="hljs-keyword">else</span>:<br>            heappush(self.queMax, num)<br>            <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(self.queMax) &gt; <span class="hljs-built_in">len</span>(self.queMin):<br>                heappush(self.queMin, -heappop(self.queMax))<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">findMedian</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-built_in">float</span>:<br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(self.queMin) &gt; <span class="hljs-built_in">len</span>(self.queMax):<br>            <span class="hljs-keyword">return</span> -self.queMin[<span class="hljs-number">0</span>]<br>        <span class="hljs-keyword">return</span> (-self.queMin[<span class="hljs-number">0</span>] + self.queMax[<span class="hljs-number">0</span>]) / <span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
@@ -313,11 +327,32 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AE%97%E6%B3%95/" class="category-chain-item">算法</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Spring/" class="print-no-link">#Spring</a>
+        <a href="/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/" class="print-no-link">#优先队列</a>
       
     </div>
   
@@ -329,8 +364,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Spring事务</div>
-      <div>http://example.com/2024/01/08/Spring事务/</div>
+      <div>优先队列</div>
+      <div>http://example.com/2024/01/10/优先队列/</div>
     </div>
     <div class="license-meta">
       
@@ -342,7 +377,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年1月8日</div>
+          <div>2024年1月10日</div>
         </div>
       
       
@@ -374,9 +409,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/01/10/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/" title="优先队列">
+                      <a href="/2024/01/10/%E6%A0%88/" title="栈">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">优先队列</span>
+                        <span class="hidden-mobile">栈</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -384,8 +419,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/01/07/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="动态规划">
-                        <span class="hidden-mobile">动态规划</span>
+                      <a href="/2024/01/08/Spring%E4%BA%8B%E5%8A%A1/" title="Spring事务">
+                        <span class="hidden-mobile">Spring事务</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

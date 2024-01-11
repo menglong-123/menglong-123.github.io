@@ -16,15 +16,15 @@
   <meta name="author" content="Menglong">
   <meta name="keywords" content="">
   
-    <meta name="description" content="简单寻找峰值峰值元素是指其值严格大于左右相邻值的元素。 给你一个整数数组 nums，找到峰值元素并返回其索引。数组可能包含多个峰值，在这种情况下，返回 任何一个峰值 所在位置即可。 你可以假设 nums[-1] &#x3D; nums[n] &#x3D; -∞ 。 你必须实现时间复杂度为 O(log n) 的算法来解决此问题。  示例 1： 123输入：nums &#x3D; [1,2,3,1]输出：2解释：3 是峰值元素，你">
+    <meta name="description" content="简单bisect_left1234567891011def bisect_left(nums, target):    left, right &#x3D; 0, len(nums) - 1    ans &#x3D; len(nums)    while left &lt;&#x3D; right:        mid &#x3D; (left + right) &#x2F;&#x2F; 2        if nums[mid] &gt;&#x3D; targ">
 <meta property="og:type" content="article">
 <meta property="og:title" content="二分查找">
 <meta property="og:url" content="http://example.com/2023/09/17/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/index.html">
 <meta property="og:site_name" content="追梦少年的博客">
-<meta property="og:description" content="简单寻找峰值峰值元素是指其值严格大于左右相邻值的元素。 给你一个整数数组 nums，找到峰值元素并返回其索引。数组可能包含多个峰值，在这种情况下，返回 任何一个峰值 所在位置即可。 你可以假设 nums[-1] &#x3D; nums[n] &#x3D; -∞ 。 你必须实现时间复杂度为 O(log n) 的算法来解决此问题。  示例 1： 123输入：nums &#x3D; [1,2,3,1]输出：2解释：3 是峰值元素，你">
+<meta property="og:description" content="简单bisect_left1234567891011def bisect_left(nums, target):    left, right &#x3D; 0, len(nums) - 1    ans &#x3D; len(nums)    while left &lt;&#x3D; right:        mid &#x3D; (left + right) &#x2F;&#x2F; 2        if nums[mid] &gt;&#x3D; targ">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-09-17T13:37:29.000Z">
-<meta property="article:modified_time" content="2024-01-07T05:59:48.868Z">
+<meta property="article:modified_time" content="2024-01-10T07:41:46.302Z">
 <meta property="article:author" content="Menglong">
 <meta property="article:tag" content="二分查找">
 <meta name="twitter:card" content="summary_large_image">
@@ -244,7 +244,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5k 字
+          5.4k 字
         
       </span>
     
@@ -255,7 +255,7 @@
         
         
         
-          42 分钟
+          46 分钟
         
       </span>
     
@@ -297,7 +297,13 @@
             
               <div class="markdown-body">
                 
-                <h1 id="简单"><a href="#简单" class="headerlink" title="简单"></a>简单</h1><h2 id="寻找峰值"><a href="#寻找峰值" class="headerlink" title="寻找峰值"></a>寻找峰值</h2><p>峰值元素是指其值严格大于左右相邻值的元素。</p>
+                <h1 id="简单"><a href="#简单" class="headerlink" title="简单"></a>简单</h1><h2 id="bisect-left"><a href="#bisect-left" class="headerlink" title="bisect_left"></a>bisect_left</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">bisect_left</span>(<span class="hljs-params">nums, target</span>):<br>    left, right = <span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(nums) - <span class="hljs-number">1</span><br>    ans = <span class="hljs-built_in">len</span>(nums)<br>    <span class="hljs-keyword">while</span> left &lt;= right:<br>        mid = (left + right) // <span class="hljs-number">2</span><br>        <span class="hljs-keyword">if</span> nums[mid] &gt;= target:<br>            ans = mid<br>            right = mid - <span class="hljs-number">1</span><br>        <span class="hljs-keyword">else</span>:<br>            left = mid + <span class="hljs-number">1</span><br>    <span class="hljs-keyword">return</span> ans<br></code></pre></td></tr></table></figure>
+
+<h2 id="bisect-right"><a href="#bisect-right" class="headerlink" title="bisect_right"></a>bisect_right</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">bisect_right</span>(<span class="hljs-params">nums, target</span>):<br>    left, right = <span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(nums) - <span class="hljs-number">1</span><br>    ans = <span class="hljs-built_in">len</span>(nums)<br>    <span class="hljs-keyword">while</span> left &lt;= right:<br>        mid = (left + right) // <span class="hljs-number">2</span><br>        <span class="hljs-keyword">if</span> nums[mid] &gt; target:<br>            ans = mid<br>            right = mid - <span class="hljs-number">1</span><br>        <span class="hljs-keyword">else</span>:<br>            left = mid + <span class="hljs-number">1</span><br>    <span class="hljs-keyword">return</span> ans<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="寻找峰值"><a href="#寻找峰值" class="headerlink" title="寻找峰值"></a>寻找峰值</h2><p>峰值元素是指其值严格大于左右相邻值的元素。</p>
 <p>给你一个整数数组 <code>nums</code>，找到峰值元素并返回其索引。数组可能包含多个峰值，在这种情况下，返回 <strong>任何一个峰值</strong> 所在位置即可。</p>
 <p>你可以假设 <code>nums[-1] = nums[n] = -∞</code> 。</p>
 <p>你必须实现时间复杂度为 <code>O(log n)</code> 的算法来解决此问题。 </p>
