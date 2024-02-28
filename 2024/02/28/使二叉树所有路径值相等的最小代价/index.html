@@ -16,22 +16,25 @@
   <meta name="author" content="Menglong">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前序遍历1234567891011class Solution:    def preorderTraversal(self, root: Optional[TreeNode]) -&gt; List[int]:        ans &#x3D; []        stack &#x3D; [root]        while stack:            p &#x3D; stack.pop()">
+    <meta name="description" content="给你一个整数 n 表示一棵 满二叉树 里面节点的数目，节点编号从 1 到 n 。根节点编号为 1 ，树中每个非叶子节点 i 都有两个孩子，分别是左孩子 2 * i 和右孩子 2 * i + 1 。 树中每个节点都有一个值，用下标从 0 开始、长度为 n 的整数数组 cost 表示，其中 cost[i] 是第 i + 1 个节点的值。每次操作，你可以将树中 任意 节点的值 增加 1 。你可以执行操作">
 <meta property="og:type" content="article">
-<meta property="og:title" content="二叉树遍历（非递归）">
-<meta property="og:url" content="http://example.com/2024/02/11/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86%EF%BC%88%E9%9D%9E%E9%80%92%E5%BD%92%EF%BC%89/index.html">
+<meta property="og:title" content="使二叉树所有路径值相等的最小代价">
+<meta property="og:url" content="http://example.com/2024/02/28/%E4%BD%BF%E4%BA%8C%E5%8F%89%E6%A0%91%E6%89%80%E6%9C%89%E8%B7%AF%E5%BE%84%E5%80%BC%E7%9B%B8%E7%AD%89%E7%9A%84%E6%9C%80%E5%B0%8F%E4%BB%A3%E4%BB%B7/index.html">
 <meta property="og:site_name" content="追梦少年的博客">
-<meta property="og:description" content="前序遍历1234567891011class Solution:    def preorderTraversal(self, root: Optional[TreeNode]) -&gt; List[int]:        ans &#x3D; []        stack &#x3D; [root]        while stack:            p &#x3D; stack.pop()">
+<meta property="og:description" content="给你一个整数 n 表示一棵 满二叉树 里面节点的数目，节点编号从 1 到 n 。根节点编号为 1 ，树中每个非叶子节点 i 都有两个孩子，分别是左孩子 2 * i 和右孩子 2 * i + 1 。 树中每个节点都有一个值，用下标从 0 开始、长度为 n 的整数数组 cost 表示，其中 cost[i] 是第 i + 1 个节点的值。每次操作，你可以将树中 任意 节点的值 增加 1 。你可以执行操作">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-02-11T03:27:26.000Z">
-<meta property="article:modified_time" content="2024-02-11T16:13:08.394Z">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2023/04/04/binaryytreeedrawio-4.png">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2023/04/04/binaryytreee2drawio.png">
+<meta property="article:published_time" content="2024-02-28T15:52:21.000Z">
+<meta property="article:modified_time" content="2024-02-28T15:53:49.333Z">
 <meta property="article:author" content="Menglong">
 <meta property="article:tag" content="二叉树">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://assets.leetcode.com/uploads/2023/04/04/binaryytreeedrawio-4.png">
   
   
   
-  <title>二叉树遍历（非递归） - 追梦少年的博客</title>
+  <title>使二叉树所有路径值相等的最小代价 - 追梦少年的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -221,7 +224,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="二叉树遍历（非递归）"></span>
+            <span id="subtitle" data-typed-text="使二叉树所有路径值相等的最小代价"></span>
           
         </div>
 
@@ -232,8 +235,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-02-11 11:27" pubdate>
-          2024年2月11日 上午
+        <time datetime="2024-02-28 23:52" pubdate>
+          2024年2月28日 晚上
         </time>
       </span>
     
@@ -244,7 +247,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          795 字
+          863 字
         
       </span>
     
@@ -255,7 +258,7 @@
         
         
         
-          7 分钟
+          8 分钟
         
       </span>
     
@@ -292,16 +295,35 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">二叉树遍历（非递归）</h1>
+            <h1 id="seo-header">使二叉树所有路径值相等的最小代价</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="前序遍历"><a href="#前序遍历" class="headerlink" title="前序遍历"></a>前序遍历</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">preorderTraversal</span>(<span class="hljs-params">self, root: <span class="hljs-type">Optional</span>[TreeNode]</span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]:<br>        ans = []<br>        stack = [root]<br>        <span class="hljs-keyword">while</span> stack:<br>            p = stack.pop()<br>            <span class="hljs-keyword">if</span> p <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>: <span class="hljs-keyword">continue</span><br>            ans.append(p.val)<br>            stack.append(p.right)<br>            stack.append(p.left)<br>        <span class="hljs-keyword">return</span> ans<br></code></pre></td></tr></table></figure>
+                <p>给你一个整数 <code>n</code> 表示一棵 <strong>满二叉树</strong> 里面节点的数目，节点编号从 <code>1</code> 到 <code>n</code> 。根节点编号为 <code>1</code> ，树中每个非叶子节点 <code>i</code> 都有两个孩子，分别是左孩子 <code>2 * i</code> 和右孩子 <code>2 * i + 1</code> 。</p>
+<p>树中每个节点都有一个值，用下标从 <strong>0</strong> 开始、长度为 <code>n</code> 的整数数组 <code>cost</code> 表示，其中 <code>cost[i]</code> 是第 <code>i + 1</code> 个节点的值。每次操作，你可以将树中 <strong>任意</strong> 节点的值 <strong>增加</strong> <code>1</code> 。你可以执行操作 <strong>任意</strong> 次。</p>
+<p>你的目标是让根到每一个 <strong>叶子结点</strong> 的路径值相等。请你返回 <strong>最少</strong> 需要执行增加操作多少次。</p>
+<p><strong>注意：</strong></p>
+<ul>
+<li><strong>满二叉树</strong> 指的是一棵树，它满足树中除了叶子节点外每个节点都恰好有 2 个子节点，且所有叶子节点距离根节点距离相同。</li>
+<li><strong>路径值</strong> 指的是路径上所有节点的值之和。</li>
+</ul>
+<p><strong>示例 1：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2023/04/04/binaryytreeedrawio-4.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：n = 7, cost = [1,5,2,2,3,3,1]<br>输出：6<br>解释：我们执行以下的增加操作：<br>- 将节点<span class="hljs-number"> 4 </span>的值增加一次。<br>- 将节点<span class="hljs-number"> 3 </span>的值增加三次。<br>- 将节点<span class="hljs-number"> 7 </span>的值增加两次。<br>从根到叶子的每一条路径值都为<span class="hljs-number"> 9 </span>。<br>总共增加次数为<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 3 </span>+<span class="hljs-number"> 2 </span>=<span class="hljs-number"> 6 </span>。<br>这是最小的答案。<br></code></pre></td></tr></table></figure>
 
-<h2 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">inorderTraversal</span>(<span class="hljs-params">self, root: <span class="hljs-type">Optional</span>[TreeNode]</span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]:<br>        ans = []<br>        stack = [(root, <span class="hljs-number">1</span>)]<br>        <span class="hljs-keyword">while</span> stack:<br>            p, c = stack.pop()<br>            <span class="hljs-keyword">if</span> p <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>: <span class="hljs-keyword">continue</span><br>            <span class="hljs-keyword">if</span> c == <span class="hljs-number">0</span>:<br>                ans.append(p.val)<br>            <span class="hljs-keyword">else</span>:<br>                stack.append((p.right, <span class="hljs-number">1</span>))<br>                stack.append((p, <span class="hljs-number">0</span>))<br>                stack.append((p.left, <span class="hljs-number">1</span>))<br>        <span class="hljs-keyword">return</span> ans<br></code></pre></td></tr></table></figure>
+<p><strong>示例 2：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2023/04/04/binaryytreee2drawio.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs excel">输入：<span class="hljs-built_in">n</span> = <span class="hljs-number">3</span>, cost = [<span class="hljs-number">5</span>,<span class="hljs-number">3</span>,<span class="hljs-number">3</span>]<br>输出：<span class="hljs-number">0</span><br>解释：两条路径已经有相等的路径值，所以不需要执行任何增加操作。 <br></code></pre></td></tr></table></figure>
 
-<h2 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">postorderTraversal</span>(<span class="hljs-params">self, root: <span class="hljs-type">Optional</span>[TreeNode]</span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]:<br>        ans = []<br>        <span class="hljs-keyword">if</span> root <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>: <span class="hljs-keyword">return</span> ans<br>        stack = [(root, <span class="hljs-number">1</span>)]<br>        <span class="hljs-keyword">while</span> stack:<br>            p, c = stack.pop()<br>            <span class="hljs-keyword">if</span> p <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>: <span class="hljs-keyword">continue</span><br>            <span class="hljs-keyword">if</span> c == <span class="hljs-number">0</span>:<br>                ans.append(p.val)<br>            <span class="hljs-keyword">else</span>:<br>                stack.append((p, <span class="hljs-number">0</span>))<br>                stack.append((p.right, <span class="hljs-number">1</span>))<br>                stack.append((p.left, <span class="hljs-number">1</span>))<br>        <span class="hljs-keyword">return</span> ans<br></code></pre></td></tr></table></figure>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>3 &lt;= n &lt;= 105</code></li>
+<li><code>n + 1</code> 是 <code>2</code> 的幂</li>
+<li><code>cost.length == n</code></li>
+<li><code>1 &lt;= cost[i] &lt;= 104</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    public <span class="hljs-built_in">int</span> minIncrements(<span class="hljs-built_in">int</span> n, <span class="hljs-built_in">int</span>[] cost) &#123;<br>        <span class="hljs-built_in">int</span> ans = <span class="hljs-number">0</span>;<br>        // 逆序遍历树<br>        <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = n - <span class="hljs-number">2</span>; i &gt; <span class="hljs-number">0</span>; i -= <span class="hljs-number">2</span>) &#123;<br>            // 对于兄弟节点，其他任意节点的操作都不会影响根到该兄弟节点是否相同<br>            // 所以只能操作兄弟节点其中一个<br>            ans += Math.<span class="hljs-built_in">abs</span>(cost[i] - cost[i + <span class="hljs-number">1</span>]);<br>            // 将兄弟节点的父节点的值+修改后一致的值<br>            // 叶节点 i 和 i+<span class="hljs-number">1</span> 的双亲节点下标为 i/<span class="hljs-number">2</span>（整数除法）<br>            cost[i / <span class="hljs-number">2</span>] += Math.<span class="hljs-built_in">max</span>(cost[i], cost[i + <span class="hljs-number">1</span>]);<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
                 
@@ -348,8 +370,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>二叉树遍历（非递归）</div>
-      <div>http://example.com/2024/02/11/二叉树遍历（非递归）/</div>
+      <div>使二叉树所有路径值相等的最小代价</div>
+      <div>http://example.com/2024/02/28/使二叉树所有路径值相等的最小代价/</div>
     </div>
     <div class="license-meta">
       
@@ -361,7 +383,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年2月11日</div>
+          <div>2024年2月28日</div>
         </div>
       
       
@@ -393,18 +415,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/02/28/%E4%BD%BF%E4%BA%8C%E5%8F%89%E6%A0%91%E6%89%80%E6%9C%89%E8%B7%AF%E5%BE%84%E5%80%BC%E7%9B%B8%E7%AD%89%E7%9A%84%E6%9C%80%E5%B0%8F%E4%BB%A3%E4%BB%B7/" title="使二叉树所有路径值相等的最小代价">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">使二叉树所有路径值相等的最小代价</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/01/18/Java%E7%9A%84%E9%9B%86%E5%90%88/" title="Java的集合">
-                        <span class="hidden-mobile">Java的集合</span>
+                      <a href="/2024/02/11/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86%EF%BC%88%E9%9D%9E%E9%80%92%E5%BD%92%EF%BC%89/" title="二叉树遍历（非递归）">
+                        <span class="hidden-mobile">二叉树遍历（非递归）</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
