@@ -24,7 +24,7 @@
 <meta property="og:description" content="Spring事务的本质是通过SpringAOP生成代理对象 Spring事务的优先级和自定义切面类的优先级当自己使用SpringAOP定义切面类，没有指定Order时，默认Order为Integer.MAX(最低)，但是Spring事务的代理对象的Order也是Integer.MAX(最低)，但是默认会将Spring事务排在前面，即先执行Spring事务的切面类，再执行自定义的切面类。因为Spri">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-08T12:07:37.000Z">
-<meta property="article:modified_time" content="2024-03-14T13:54:50.837Z">
+<meta property="article:modified_time" content="2024-03-14T14:03:26.545Z">
 <meta property="article:author" content="Menglong">
 <meta property="article:tag" content="Spring">
 <meta name="twitter:card" content="summary_large_image">
@@ -312,6 +312,27 @@
             <hr/>
             <div>
               <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Spring/" class="category-chain-item">Spring</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
   
   
     <div class="post-meta">
