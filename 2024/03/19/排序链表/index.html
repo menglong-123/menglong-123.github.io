@@ -16,22 +16,25 @@
   <meta name="author" content="Menglong">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Spring事务的本质是通过SpringAOP生成代理对象 Spring事务的优先级和自定义切面类的优先级当自己使用SpringAOP定义切面类，没有指定Order时，默认Order为Integer.MAX(最低)，但是Spring事务的代理对象的Order也是Integer.MAX(最低)，但是默认会将Spring事务排在前面，即先执行Spring事务的切面类，再执行自定义的切面类。因为Spri">
+    <meta name="description" content="给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。 示例 1：  12输入：head &#x3D; [4,2,1,3]输出：[1,2,3,4]  示例 2：  12输入：head &#x3D; [-1,5,3,4,0]输出：[-1,0,3,4,5]  示例 3： 12输入：head &#x3D; []输出：[]  提示：  链表中节点的数目在范围 [0, 5 * 104] 内 -105 &lt;&#x3D; No">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring事务">
-<meta property="og:url" content="http://example.com/2024/01/08/Spring%E4%BA%8B%E5%8A%A1/index.html">
+<meta property="og:title" content="排序链表">
+<meta property="og:url" content="http://example.com/2024/03/19/%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/index.html">
 <meta property="og:site_name" content="追梦少年的博客">
-<meta property="og:description" content="Spring事务的本质是通过SpringAOP生成代理对象 Spring事务的优先级和自定义切面类的优先级当自己使用SpringAOP定义切面类，没有指定Order时，默认Order为Integer.MAX(最低)，但是Spring事务的代理对象的Order也是Integer.MAX(最低)，但是默认会将Spring事务排在前面，即先执行Spring事务的切面类，再执行自定义的切面类。因为Spri">
+<meta property="og:description" content="给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。 示例 1：  12输入：head &#x3D; [4,2,1,3]输出：[1,2,3,4]  示例 2：  12输入：head &#x3D; [-1,5,3,4,0]输出：[-1,0,3,4,5]  示例 3： 12输入：head &#x3D; []输出：[]  提示：  链表中节点的数目在范围 [0, 5 * 104] 内 -105 &lt;&#x3D; No">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-01-08T12:07:37.000Z">
-<meta property="article:modified_time" content="2024-03-18T16:10:13.916Z">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2020/09/14/sort_list_1.jpg">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2020/09/14/sort_list_2.jpg">
+<meta property="article:published_time" content="2024-03-18T16:07:58.000Z">
+<meta property="article:modified_time" content="2024-03-18T16:10:11.144Z">
 <meta property="article:author" content="Menglong">
-<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="链表">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://assets.leetcode.com/uploads/2020/09/14/sort_list_1.jpg">
   
   
   
-  <title>Spring事务 - 追梦少年的博客</title>
+  <title>排序链表 - 追梦少年的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -221,7 +224,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Spring事务"></span>
+            <span id="subtitle" data-typed-text="排序链表"></span>
           
         </div>
 
@@ -232,8 +235,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-01-08 20:07" pubdate>
-          2024年1月8日 晚上
+        <time datetime="2024-03-19 00:07" pubdate>
+          2024年3月19日 凌晨
         </time>
       </span>
     
@@ -244,7 +247,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          328 字
+          1.5k 字
         
       </span>
     
@@ -255,7 +258,7 @@
         
         
         
-          3 分钟
+          13 分钟
         
       </span>
     
@@ -292,19 +295,32 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Spring事务</h1>
+            <h1 id="seo-header">排序链表</h1>
             
             
               <div class="markdown-body">
                 
-                <p>Spring事务的本质是通过SpringAOP生成代理对象</p>
-<h2 id="Spring事务的优先级和自定义切面类的优先级"><a href="#Spring事务的优先级和自定义切面类的优先级" class="headerlink" title="Spring事务的优先级和自定义切面类的优先级"></a>Spring事务的优先级和自定义切面类的优先级</h2><p>当自己使用SpringAOP定义切面类，没有指定Order时，默认Order为Integer.MAX(最低)，但是Spring事务的代理对象的Order也是Integer.MAX(最低)，但是默认会将Spring事务排在前面，即先执行Spring事务的切面类，再执行自定义的切面类。因为Spring扫描的时候会先扫到Spring事务。</p>
-<p>此时若自定义的切面类中遇到异常没有抛出，那么Spring事务就会认为没有发送异常。</p>
-<p>解决方法：</p>
+                <p>给你链表的头结点 <code>head</code> ，请将其按 <strong>升序</strong> 排列并返回 <strong>排序后的链表</strong> 。</p>
+<p><strong>示例 1：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2020/09/14/sort_list_1.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dns">输入：head = [<span class="hljs-number">4,2,1,3</span>]<br>输出：[<span class="hljs-number">1,2,3,4</span>]<br></code></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2020/09/14/sort_list_2.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dns">输入：head = [-<span class="hljs-number">1,5,3,4</span>,<span class="hljs-number">0</span>]<br>输出：[-<span class="hljs-number">1,0,3,4</span>,<span class="hljs-number">5</span>]<br></code></pre></td></tr></table></figure>
+
+<p><strong>示例 3：</strong></p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs inform7">输入：head = <span class="hljs-comment">[]</span><br>输出：<span class="hljs-comment">[]</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
 <ul>
-<li>在自定义切面类时使用<code>@Order</code> 注解，value小于Integer.MAX即可</li>
-<li>自定义切面类时遇到异常不要捕获，或者捕获后再抛出</li>
+<li>链表中节点的数目在范围 <code>[0, 5 * 104]</code> 内</li>
+<li><code>-105 &lt;= Node.val &lt;= 105</code></li>
 </ul>
+<h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> ListNode <span class="hljs-title function_">insertionSortList</span><span class="hljs-params">(ListNode head)</span> &#123;<br>        <span class="hljs-keyword">if</span>(head == <span class="hljs-literal">null</span> || head.next == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> head;<br>        <span class="hljs-type">ListNode</span> <span class="hljs-variable">newhead</span> <span class="hljs-operator">=</span> insertionSortList(head.next);<br>        <span class="hljs-keyword">if</span>(head.val &lt;= newhead.val)&#123;<br>            head.next = newhead;<br>            <span class="hljs-keyword">return</span> head;<br>        &#125;<br>        <span class="hljs-type">ListNode</span> <span class="hljs-variable">p</span> <span class="hljs-operator">=</span> newhead.next, pre = newhead;<br>        <span class="hljs-keyword">while</span>(p != <span class="hljs-literal">null</span>)&#123;<br>            <span class="hljs-keyword">if</span>(pre.val &lt;= head.val &amp;&amp; head.val &lt;= p.val)&#123;<br>                pre.next = head;<br>                head.next = p;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            pre = p;<br>            p = p.next;<br>        &#125;<br>        <span class="hljs-keyword">if</span>(p == <span class="hljs-literal">null</span>)&#123;<br>            pre.next = head;<br>            head.next = <span class="hljs-literal">null</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> newhead;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> ListNode <span class="hljs-title function_">merge</span><span class="hljs-params">(ListNode head1, ListNode head2)</span>&#123;<br>        <span class="hljs-type">ListNode</span> <span class="hljs-variable">head</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ListNode</span>(<span class="hljs-number">0</span>), p = head;<br>        <span class="hljs-keyword">while</span>(head1 != <span class="hljs-literal">null</span> &amp;&amp; head2 != <span class="hljs-literal">null</span>)&#123;<br>            <span class="hljs-keyword">if</span>(head1.val &lt; head2.val)&#123;<br>                p.next = head1;<br>                head1 = head1.next;<br>            &#125;<span class="hljs-keyword">else</span>&#123;<br>                p.next = head2;<br>                head2 = head2.next;<br>            &#125;<br>            p = p.next;<br>        &#125;<br>        <span class="hljs-keyword">if</span>(head1 != <span class="hljs-literal">null</span>) p.next = head1;<br>        <span class="hljs-keyword">if</span>(head2 != <span class="hljs-literal">null</span>) p.next = head2;<br>        <span class="hljs-keyword">return</span> head.next;<br>    &#125;<br>    <span class="hljs-keyword">public</span> ListNode <span class="hljs-title function_">sortList</span><span class="hljs-params">(ListNode head)</span> &#123;<br>        <span class="hljs-keyword">if</span>(head == <span class="hljs-literal">null</span> || head.next == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> head;<br>        <span class="hljs-type">ListNode</span> <span class="hljs-variable">slow</span> <span class="hljs-operator">=</span> head, fast = head;<br>        <span class="hljs-keyword">while</span>(fast != <span class="hljs-literal">null</span> &amp;&amp; fast.next != <span class="hljs-literal">null</span> &amp;&amp; fast.next.next != <span class="hljs-literal">null</span>)&#123;<br>            fast = fast.next.next;<br>            slow = slow.next;<br>        &#125;<br>        <span class="hljs-type">ListNode</span> <span class="hljs-variable">head1</span> <span class="hljs-operator">=</span> slow.next;<br>        slow.next = <span class="hljs-literal">null</span>;<br>        head = sortList(head);<br>        head1 = sortList(head1);<br>        <span class="hljs-keyword">return</span> merge(head, head1);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
@@ -323,7 +339,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Spring/" class="category-chain-item">Spring</a>
+  <a href="/categories/%E5%88%B7%E9%A2%98/" class="category-chain-item">刷题</a>
   
   
 
@@ -338,7 +354,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Spring/" class="print-no-link">#Spring</a>
+        <a href="/tags/%E9%93%BE%E8%A1%A8/" class="print-no-link">#链表</a>
       
     </div>
   
@@ -350,8 +366,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Spring事务</div>
-      <div>http://example.com/2024/01/08/Spring事务/</div>
+      <div>排序链表</div>
+      <div>http://example.com/2024/03/19/排序链表/</div>
     </div>
     <div class="license-meta">
       
@@ -363,7 +379,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年1月8日</div>
+          <div>2024年3月19日</div>
         </div>
       
       
@@ -395,18 +411,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/01/10/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/" title="优先队列">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">优先队列</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/01/07/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="动态规划">
-                        <span class="hidden-mobile">动态规划</span>
+                      <a href="/2024/03/13/Base64%E7%BC%96%E7%A0%81/" title="Base64编码">
+                        <span class="hidden-mobile">Base64编码</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
