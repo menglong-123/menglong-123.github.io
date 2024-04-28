@@ -24,7 +24,7 @@
 <meta property="og:description" content="整数数组的一个 排列 就是将其所有成员以序列或线性顺序排列。  例如，arr &#x3D; [1,2,3] ，以下这些都可以视作 arr 的排列：[1,2,3]、[1,3,2]、[3,1,2]、[2,3,1] 。  整数数组的 下一个排列 是指其整数的下一个字典序更大的排列。更正式地，如果数组的所有排列根据其字典顺序从小到大排列在一个容器中，那么数组的 下一个排列 就是在这个有序容器中排在它后面的那个排列。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-11T13:33:39.000Z">
-<meta property="article:modified_time" content="2024-03-14T13:53:14.356Z">
+<meta property="article:modified_time" content="2024-03-28T13:41:07.630Z">
 <meta property="article:author" content="Menglong">
 <meta property="article:tag" content="技巧">
 <meta name="twitter:card" content="summary_large_image">
@@ -244,7 +244,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.7k 字
+          1.8k 字
         
       </span>
     
@@ -255,7 +255,7 @@
         
         
         
-          15 分钟
+          16 分钟
         
       </span>
     
@@ -323,6 +323,7 @@
 <li><code>1 &lt;= nums.length &lt;= 100</code></li>
 <li><code>0 &lt;= nums[i] &lt;= 100</code></li>
 </ul>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>先从后往前遍历，得到第一个nums[i] &lt; nums[i + 1]的位置，此时[i + 1, end]是降序的；然后从后往前找到第一个大于nums[i]位置j，然后交换i，j两元素，此时[i + 1, end]依然是降序的，所以需要翻转它变为升序。此时就是下一个排列。</p>
 <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>C++</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">nextPermutation</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n = nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-type">int</span> i = n - <span class="hljs-number">2</span>, j = n - <span class="hljs-number">1</span>;<br>        <span class="hljs-comment">// 从后往前遍历，如果当前位置的值 小于 后一个值，说明该位置应该由一个较大的值来替换</span><br>        <span class="hljs-keyword">while</span>(i &gt;= <span class="hljs-number">0</span> &amp;&amp; nums[i] &gt;= nums[i + <span class="hljs-number">1</span>]) i--;<br>        <span class="hljs-keyword">if</span>(i &gt;= <span class="hljs-number">0</span>)&#123;<br>            <span class="hljs-comment">// 找到比nums[i]大的最小值</span><br>            <span class="hljs-keyword">while</span>(j &gt;=<span class="hljs-number">0</span> &amp;&amp; nums[i] &gt;= nums[j]) j--;<br>            <span class="hljs-comment">// 两者交换</span><br>            <span class="hljs-built_in">swap</span>(nums[i], nums[j]);<br>        &#125;<br>        <span class="hljs-comment">// i 后面的值颠倒顺序</span><br>        <span class="hljs-built_in">reverse</span>(nums.<span class="hljs-built_in">begin</span>()+ i + <span class="hljs-number">1</span>, nums.<span class="hljs-built_in">end</span>()); <br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 
