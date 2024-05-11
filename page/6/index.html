@@ -250,6 +250,189 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2023/07/14/macOS%E8%AE%BE%E7%BD%AE%E5%B1%80%E5%9F%9F%E7%BD%91%E8%AE%BF%E9%97%AEnginx%E6%9C%8D%E5%8A%A1%E5%99%A8/" target="_self">
+          macOS设置局域网访问nginx服务器
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/07/14/macOS%E8%AE%BE%E7%BD%AE%E5%B1%80%E5%9F%9F%E7%BD%91%E8%AE%BF%E9%97%AEnginx%E6%9C%8D%E5%8A%A1%E5%99%A8/" target="_self">
+        <div>
+          想要在mac系统下实现局域网内访问nginx服务器，只需要设置一下防火墙即可。 设置-&gt;网络-&gt;防火墙-&gt;选项-&gt;点加号添加应用 选择/opt/homebrew/Cellar/nginx/1.xx.x/bin/nginx 即可实现。
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-07-14 11:29" pubdate>
+              2023-07-14
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Mac/" class="category-chain-item">Mac</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/nginx/">#nginx</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/07/14/nginx%E9%85%8D%E7%BD%AEhttps/" target="_self">
+          nginx配置https
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/07/14/nginx%E9%85%8D%E7%BD%AEhttps/" target="_self">
+        <div>
+          生成SSL证书12345openssl genrsa -out private.key 2048openssl req -new -key private.key -out cert.csropenssl req -new -x509 -key private.key -out cacert.pem -days 3650  在nginx的配置文件所在目录的命令行中输入以上三个命令，根据提示输出信息
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-07-14 10:29" pubdate>
+              2023-07-14
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/" class="category-chain-item">中间件</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/nginx/">#nginx</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/07/13/%E4%BD%BF%E7%94%A8nginx%E5%AE%9E%E7%8E%B0%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" target="_self">
+          使用nginx实现负载均衡
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/07/13/%E4%BD%BF%E7%94%A8nginx%E5%AE%9E%E7%8E%B0%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" target="_self">
+        <div>
+          模拟场景使用Go语言写一个web项目 web.go 12345678910111213141516package mainimport (	&quot;fmt&quot;	&quot;log&quot;	&quot;net/http&quot;)func main() &#123;	// 定义路由处理函数	http.HandleFunc(&quot;/&quot;, func(w http.Res
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-07-13 23:42" pubdate>
+              2023-07-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%BC%80%E5%8F%91/" class="category-chain-item">开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/nginx/">#nginx</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2023/07/13/%E4%BD%BF%E7%94%A8nginx%E9%85%8D%E7%BD%AEhexo%E5%8D%9A%E5%AE%A2/" target="_self">
           使用nginx配置hexo博客
         </a>

@@ -16,24 +16,22 @@
   <meta name="author" content="Menglong">
   <meta name="keywords" content="">
   
-    <meta name="description" content="git是一个版本控制的工具 git命令123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657# 配置用户名git config --global user.name &quot;xxx&quot;# 配置邮箱git config --globa">
+    <meta name="description" content="398. 随机数索引 给你一个可能含有 重复元素 的整数数组 nums ，请你随机输出给定的目标数字 target 的索引。你可以假设给定的数字一定存在于数组中。 实现 Solution 类：  Solution(int[] nums) 用数组 nums 初始化对象。 int pick(int target) 从 nums 中选出一个满足 nums[i] &#x3D;&#x3D; target 的随机索引 i 。如果">
 <meta property="og:type" content="article">
-<meta property="og:title" content="git操作">
-<meta property="og:url" content="http://example.com/2023/07/14/git%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:title" content="蓄水池抽样">
+<meta property="og:url" content="http://example.com/2024/05/01/%E8%93%84%E6%B0%B4%E6%B1%A0%E6%8A%BD%E6%A0%B7/index.html">
 <meta property="og:site_name" content="追梦少年的博客">
-<meta property="og:description" content="git是一个版本控制的工具 git命令123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657# 配置用户名git config --global user.name &quot;xxx&quot;# 配置邮箱git config --globa">
+<meta property="og:description" content="398. 随机数索引 给你一个可能含有 重复元素 的整数数组 nums ，请你随机输出给定的目标数字 target 的索引。你可以假设给定的数字一定存在于数组中。 实现 Solution 类：  Solution(int[] nums) 用数组 nums 初始化对象。 int pick(int target) 从 nums 中选出一个满足 nums[i] &#x3D;&#x3D; target 的随机索引 i 。如果">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/git%E6%93%8D%E4%BD%9C.assets/image-20240306230358176.png">
-<meta property="article:published_time" content="2023-07-14T12:40:45.000Z">
-<meta property="article:modified_time" content="2024-03-14T13:51:34.467Z">
+<meta property="article:published_time" content="2024-05-01T09:36:02.000Z">
+<meta property="article:modified_time" content="2024-05-01T12:34:47.371Z">
 <meta property="article:author" content="Menglong">
-<meta property="article:tag" content="git">
+<meta property="article:tag" content="抽样">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/git%E6%93%8D%E4%BD%9C.assets/image-20240306230358176.png">
   
   
   
-  <title>git操作 - 追梦少年的博客</title>
+  <title>蓄水池抽样 - 追梦少年的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -223,7 +221,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="git操作"></span>
+            <span id="subtitle" data-typed-text="蓄水池抽样"></span>
           
         </div>
 
@@ -234,8 +232,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-07-14 20:40" pubdate>
-          2023年7月14日 晚上
+        <time datetime="2024-05-01 17:36" pubdate>
+          2024年5月1日 下午
         </time>
       </span>
     
@@ -246,7 +244,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.6k 字
+          1.6k 字
         
       </span>
     
@@ -257,7 +255,7 @@
         
         
         
-          22 分钟
+          14 分钟
         
       </span>
     
@@ -294,42 +292,35 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">git操作</h1>
+            <h1 id="seo-header">蓄水池抽样</h1>
             
             
               <div class="markdown-body">
                 
-                <p>git是一个版本控制的工具</p>
-<h2 id="git命令"><a href="#git命令" class="headerlink" title="git命令"></a>git命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 配置用户名</span><br>git config --global user.name <span class="hljs-string">&quot;xxx&quot;</span><br><span class="hljs-comment"># 配置邮箱</span><br>git config --global user.email <span class="hljs-string">&quot;xxx@xx.com&quot;</span><br><br><span class="hljs-comment"># 保存用户信息，不用每次都输入</span><br>git config --global credential.helper store<br><br><span class="hljs-comment"># 查看用户的配置信息</span><br>git config --global --list<br><br><span class="hljs-comment"># 创建仓库</span><br>git init   <span class="hljs-comment"># 将自己的目录变为仓库</span><br>git init name  <span class="hljs-comment"># 在当前目录下创建一个name的目录，把name初始化为仓库</span><br>git <span class="hljs-built_in">clone</span> xxx.git   <span class="hljs-comment"># 克隆一个已经存在的仓库</span><br><br><span class="hljs-comment"># 查看当前的状态</span><br>git status<br><br><span class="hljs-comment"># 保存到暂存区</span><br>git add file<br><br><span class="hljs-comment"># 保留本地区file文件，删除暂存区和仓库中的file文件</span><br>git <span class="hljs-built_in">rm</span> --cached file  <br><span class="hljs-comment"># 同时删除本地区、暂存区的file文件 后面加上 git commit 就能同时删除仓库中的file文件</span><br>git <span class="hljs-built_in">rm</span> file  <br><br><span class="hljs-comment"># 把暂存区中的所有文件提交到仓库中   -m 后面写注释</span><br>git commit -m xxx<br><br><span class="hljs-comment"># 查看仓库的提交信息</span><br>git <span class="hljs-built_in">log</span><br>git <span class="hljs-built_in">log</span> --oneline   <span class="hljs-comment"># 查看简短的提交信息</span><br><br><span class="hljs-comment"># 回退版本</span><br>git reset --soft <span class="hljs-built_in">id</span>   <span class="hljs-comment"># 回退版本，但保留工作区和暂存区的内容</span><br>git reset --hard <span class="hljs-built_in">id</span>   <span class="hljs-comment"># 回退版本，丢弃工作区和暂存区的内容</span><br>git reset --mixed <span class="hljs-built_in">id</span>  <span class="hljs-comment"># 回退版本，只保留工作区，丢弃暂存区的内容</span><br><br><span class="hljs-comment"># 查看暂存区内容</span><br>git ls-files<br><br><span class="hljs-comment"># 查看git的所有操作</span><br>git reflog<br><br><span class="hljs-comment"># 根据git的操作id，退到这个操作前</span><br>git reset --hard <span class="hljs-built_in">id</span> <br><br><span class="hljs-comment"># 查看差异</span><br>git diff   <span class="hljs-comment"># 查看工作区和暂存区相同文件的差异</span><br>git diff HEAD  <span class="hljs-comment"># 查看工作区和仓库中文件的差异</span><br>git diff --cached  <span class="hljs-comment"># 查看暂存区和仓库文件的差异</span><br><span class="hljs-comment"># 比较两个版本之间的差异  id为提交操作的id  HEAD表示最新版本的id  </span><br><span class="hljs-comment"># HEAD~ 和 HEAD^ 表示上一版本的id HEAD~n 表示最新版本的前n个版本的id</span><br>git diff id1 id2  <br>git diff id1 id2 file <span class="hljs-comment"># 查看两个版本直接file这个文件的差异</span><br>git diff branch1 branch2  <span class="hljs-comment"># 查看两个分支之间的差异</span><br></code></pre></td></tr></table></figure>
+                <p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/random-pick-index/">398. 随机数索引</a></p>
+<p>给你一个可能含有 <strong>重复元素</strong> 的整数数组 <code>nums</code> ，请你随机输出给定的目标数字 <code>target</code> 的索引。你可以假设给定的数字一定存在于数组中。</p>
+<p>实现 <code>Solution</code> 类：</p>
+<ul>
+<li><code>Solution(int[] nums)</code> 用数组 <code>nums</code> 初始化对象。</li>
+<li><code>int pick(int target)</code> 从 <code>nums</code> 中选出一个满足 <code>nums[i] == target</code> 的随机索引 <code>i</code> 。如果存在多个有效的索引，则每个索引的返回概率应当相等。</li>
+</ul>
+<p><strong>示例：</strong></p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs prolog">输入<br>[<span class="hljs-string">&quot;Solution&quot;</span>, <span class="hljs-string">&quot;pick&quot;</span>, <span class="hljs-string">&quot;pick&quot;</span>, <span class="hljs-string">&quot;pick&quot;</span>]<br>[[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>]], [<span class="hljs-number">3</span>], [<span class="hljs-number">1</span>], [<span class="hljs-number">3</span>]]<br>输出<br>[null, <span class="hljs-number">4</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>]<br>解释<br><span class="hljs-symbol">Solution</span> solution = new <span class="hljs-symbol">Solution</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>]);<br>solution.pick(<span class="hljs-number">3</span>); // 随机返回索引 <span class="hljs-number">2</span>, <span class="hljs-number">3</span> 或者 <span class="hljs-number">4</span> 之一。每个索引的返回概率应该相等。<br>solution.pick(<span class="hljs-number">1</span>); // 返回 <span class="hljs-number">0</span> 。因为只有 nums[<span class="hljs-number">0</span>] 等于 <span class="hljs-number">1</span> 。<br>solution.pick(<span class="hljs-number">3</span>); // 随机返回索引 <span class="hljs-number">2</span>, <span class="hljs-number">3</span> 或者 <span class="hljs-number">4</span> 之一。每个索引的返回概率应该相等。 <br></code></pre></td></tr></table></figure>
 
-<p>git中有三个区域，工作区、暂存区和本地仓库区。</p>
-<p>![截屏2024-03-06 23.04.21](..&#x2F;..&#x2F;..&#x2F;..&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;截屏2024-03-06 23.04.21.png)</p>
-<p>当前整个目录就是工作区，然后使用<code>git add file</code> 将文件file保存的暂存区，最后使用<code>git commit</code> 将暂存区的所有文件提交到本地仓库。</p>
-<p><img src="/git%E6%93%8D%E4%BD%9C.assets/image-20240306230358176.png" srcset="/img/loading.gif" lazyload alt="image-20240306230358176"></p>
-<p>.gitignore文件来设置对某种类型的文件不提交到仓库中，从而让仓库变得比较整洁。</p>
-<p>通常需要忽略日志文件，编译后的文件、压缩文件以及涉及身份、密码、口令等敏感文件等。</p>
-<p>文件夹的格式是以<code>/</code> 结尾</p>
-<p>.gitignore的内容可以使用通配符</p>
-<h2 id="关联远程仓库Github"><a href="#关联远程仓库Github" class="headerlink" title="关联远程仓库Github"></a>关联远程仓库Github</h2><p>如果当前的本地仓库是在远程仓库中clone的，那么当修改完本地仓库时，只需要运行<code>git push</code> 就能把本地仓库同步到远程仓库。</p>
-<p>如果当前的本地仓库是本地通过<code>git init</code>创建的，并且在本地已经执行过<code>git add</code> 和 <code>git commit</code> 命令后，那么需要以下步骤把本地仓库同步到远程仓库。</p>
-<ol>
-<li>在github上创建仓库，复制仓库的url地址：<a href="mailto:&#103;&#105;&#x74;&#64;&#103;&#x69;&#116;&#104;&#x75;&#98;&#46;&#x63;&#111;&#x6d;">&#103;&#105;&#x74;&#64;&#103;&#x69;&#116;&#104;&#x75;&#98;&#46;&#x63;&#111;&#x6d;</a>:xxx&#x2F;xxx.git</li>
-<li>然后运行<code>git remote add</code> name（自定义个name）  url</li>
-<li>然后<code>git branch -M main</code> 指定分支为main</li>
-<li>然后 <code>git push -u name main:main</code>  将本地的main分支推送到远程仓库的main分支</li>
-</ol>
-<p>当远程仓库做出修改后，可以使用<code>git pull 远程仓库名 远程分支名: 本地分支名</code> 来将远程仓库同步到本地仓库，当分支名为main时可以省略。</p>
-<p><code>git pull</code>命令会自动进行合并操作，使用<code>git fetch</code>就是只拉取内容，然后自己可以手动合并。</p>
-<h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs bsah"># 查看分支<br>git branch<br><br># 创建分支<br>git branch 分支名<br><br># 切换分支<br>git checkout 分支名  # 有歧义<br>git switch 分支名  # 常用<br><br># 合并分支<br>git merge 分支名name   # 将name分支合并到当前分支<br><br># 查看分支图<br>git log --graph --oneline --decorate --all<br><br># 合并后删除分支<br>git branch -d 分支名<br><br># 未合并删除分支<br>git branch -D 分支名<br><br># 当在两个分支中同时修改一个文件，并且要合并两个分支时，会显示合并冲突，并把冲突的结果写到了这个文件中；此时可以手动修改这个文件然后再commit<br><br># 显示冲突后想中断这次合并，此时当前分支的文件也被删除了<br>git merge --abort<br><br></code></pre></td></tr></table></figure>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= nums.length &lt;= 2 * 104</code></li>
+<li><code>-231 &lt;= nums[i] &lt;= 231 - 1</code></li>
+<li><code>target</code> 是 <code>nums</code> 中的一个整数</li>
+<li>最多调用 <code>pick</code> 函数 <code>104</code> 次</li>
+</ul>
+<h2 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">Random</span> <span class="hljs-variable">random</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Random</span>();<br>    <span class="hljs-keyword">private</span> Map&lt;Integer, List&lt;Integer&gt;&gt; map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Solution</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; nums.length; i++) &#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">num</span> <span class="hljs-operator">=</span> nums[i];<br>            List&lt;Integer&gt; list = map.getOrDefault(num, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;());<br>            list.add(i);<br>            map.put(num, list);<br>        &#125;<br>    &#125;<br>    <br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">pick</span><span class="hljs-params">(<span class="hljs-type">int</span> target)</span> &#123;<br>        List&lt;Integer&gt; list = map.get(target);<br>        <span class="hljs-keyword">return</span> list.get(random.nextInt(list.size()));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
+<h2 id="蓄水池抽样"><a href="#蓄水池抽样" class="headerlink" title="蓄水池抽样"></a>蓄水池抽样</h2><p>当数组太大时，没有足够的空间来维护一个哈希表时，就要选择用时间换空间。使用蓄水池抽样算法</p>
+<p>假如nums中值为target的有m个元素，使用蓄水池抽样选择该位置的概率与前面位置无关，之和后面位置有关（后面的元素都不选中就不会覆盖选中当前的位置）</p>
+<p>选择第k个的概率&#x3D; 1&#x2F;k * (1 - 1&#x2F;(k+1)) * (1 - 1&#x2F;(k+2)) * … * (1 - 1&#x2F;(m - 1)) * (1 - 1&#x2F;m) &#x3D; 1&#x2F;m</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">private</span> Random random = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Random</span>();<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span>[] nums;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Solu	<span class="hljs-title">tion</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.nums = nums;<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title">pick</span><span class="hljs-params">(<span class="hljs-type">int</span> target)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n = nums.length, ans = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>, cnt = <span class="hljs-number">0</span>; i &lt; nums.length; i++) &#123;<br>            <span class="hljs-keyword">if</span> (nums[i] == target)&#123;<br>                cnt++;<br>                <span class="hljs-keyword">if</span> (random.<span class="hljs-built_in">nextInt</span>(cnt) == <span class="hljs-number">0</span>) ans = i;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-
-<p>合并分支还有另外一种方式，rebase（变基）。这个操作可以在任一分支上使用。</p>
-<p>若在branch1上执行<code>git rebase branch2</code> ，那么会将交汇点到branch1当前指针直接的操作合并到branch2当前指针后面；若在branch2上执行<code>git rebase branch1</code> ，那么会将交汇点到branch2当前指针直接的操作合并到branch1当前指针后面。</p>
-<h2 id="两条合并分支命令的优缺点："><a href="#两条合并分支命令的优缺点：" class="headerlink" title="两条合并分支命令的优缺点："></a>两条合并分支命令的优缺点：</h2><h3 id="git-merge"><a href="#git-merge" class="headerlink" title="git merge"></a>git merge</h3><p>优点：不会破坏原分支的提交历史，方便回溯和查看</p>
-<p>缺点：会产生额外的提交节点，分支图比较复杂</p>
-<h3 id="git-rebase"><a href="#git-rebase" class="headerlink" title="git rebase"></a>git rebase</h3><p>优点：不会新增额外的提交记录，形成线性历史，比较干净和直观</p>
-<p>缺点：会改变提交历史，改变了当前分支branch out的节点。避免在共享分支使用</p>
 
                 
               </div>
@@ -348,7 +339,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="category-chain-item">计算机基础</a>
+  <a href="/categories/%E7%AE%97%E6%B3%95/" class="category-chain-item">算法</a>
   
   
 
@@ -363,7 +354,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/git/" class="print-no-link">#git</a>
+        <a href="/tags/%E6%8A%BD%E6%A0%B7/" class="print-no-link">#抽样</a>
       
     </div>
   
@@ -375,8 +366,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>git操作</div>
-      <div>http://example.com/2023/07/14/git操作/</div>
+      <div>蓄水池抽样</div>
+      <div>http://example.com/2024/05/01/蓄水池抽样/</div>
     </div>
     <div class="license-meta">
       
@@ -388,7 +379,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年7月14日</div>
+          <div>2024年5月1日</div>
         </div>
       
       
@@ -420,9 +411,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/07/31/redis%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/" title="redis相关知识">
+                      <a href="/2024/05/06/MybatisPlus/" title="MybatisPlus">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">redis相关知识</span>
+                        <span class="hidden-mobile">MybatisPlus</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -430,8 +421,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/07/14/%E5%9C%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E5%88%86%E9%85%8D%E7%A1%AC%E5%B8%81/" title="在二叉树中分配硬币">
-                        <span class="hidden-mobile">在二叉树中分配硬币</span>
+                      <a href="/2024/04/28/Stream%E6%B5%81%E5%92%8COptional/" title="Stream流和Optional">
+                        <span class="hidden-mobile">Stream流和Optional</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
